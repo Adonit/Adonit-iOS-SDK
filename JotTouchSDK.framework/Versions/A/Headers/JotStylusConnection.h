@@ -15,8 +15,8 @@
 +(id)sharedInstance;
 -(void)connect;
 -(void)disconnect;
-@property (readwrite) id<JotStylusConnectionDelegate> connectionDelegate;
-@property (readwrite) id<JotStylusStateDelegate> stateDelegate;
+@property (readwrite,assign) id<JotStylusConnectionDelegate> connectionDelegate;
+@property (readwrite,assign) id<JotStylusStateDelegate> stateDelegate;
 @property (readwrite) int pressureThreshold;
 @end
 

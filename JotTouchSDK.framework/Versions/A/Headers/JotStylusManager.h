@@ -68,7 +68,7 @@ typedef enum {
 @property (readwrite) JotShortcut *button1Shortcut;
 @property (readwrite) JotShortcut *button2Shortcut;
 
-@property (readwrite) id<JotPalmRejectionDelegate> palmRejectorDelegate;
+@property (readwrite,assign) id<JotPalmRejectionDelegate> palmRejectorDelegate;
 @property (readwrite) BOOL enabled;
 @property (readonly) NSString *SDKVersion;
 @property (readwrite) BOOL rejectMode;

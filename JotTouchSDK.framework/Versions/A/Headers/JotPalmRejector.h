@@ -31,5 +31,5 @@
 -(void)jotStylusReleased;
 -(void)jotStylusDisconnected;
 +(id)sharedInstance;
-@property (readwrite) id<JotPalmRejectionDelegate> delegate;
+@property (readwrite,assign) id<JotPalmRejectionDelegate> delegate;
 @end

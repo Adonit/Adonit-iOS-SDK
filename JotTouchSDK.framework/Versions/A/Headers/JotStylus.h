@@ -20,7 +20,7 @@
 @property (readonly) NSString *name;
 @property (readonly) NSString *firmwareVersion;
 @property (readonly) NSString *hardwareVersion;
-@property (readwrite) id<JotStylusDelegate> delegate;
+@property (readwrite,assign) id<JotStylusDelegate> delegate;
 @property (readwrite) uint forceThresholdPercentage;
 +(JotStylus *)fromPeripheral:(CBPeripheral *)peripheral withManager:(CBCentralManager *)manager withForceThresholdPercentage: (uint) forceThresholdPercentage;
 -(id)initWithPeripheral:(CBPeripheral *)peripheral withManager:(CBCentralManager *)manager withForceThresholdPercentage: (uint) forceThresholdPercentage;

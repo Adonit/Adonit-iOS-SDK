@@ -425,8 +425,8 @@
 		66C9A76F16E0644D0034AB37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Wulf (E3Q77AFJPJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adam Wulf (E3Q77AFJPJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Peiter Buick (YTL9EXY2YR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peiter Buick (YTL9EXY2YR)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/..\"",
@@ -439,8 +439,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "32FCB46B-1CD7-48D0-A792-2A00C1F0E31C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "32FCB46B-1CD7-48D0-A792-2A00C1F0E31C";
+				PROVISIONING_PROFILE = "58FF5430-D04D-409B-ACA1-598081417B53";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "58FF5430-D04D-409B-ACA1-598081417B53";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
