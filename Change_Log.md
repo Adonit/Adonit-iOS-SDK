@@ -1,5 +1,8 @@
 #JotTouchSDK Change Log
 
+##JotTouchSDK V1.0.3
+- Removed a leftover NSLog 
+
 ##JotTouchSDK V1.0.2
 - Added an unregisterView: method
 - Fixed a memory leak with the touch gestures
