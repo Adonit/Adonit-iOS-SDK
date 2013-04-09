@@ -1,4 +1,4 @@
-#JotTouchSDK V1.0.1
+#JotTouchSDK V1.0.2
 
 ##Overview
 The Adonit Jot Touch SDK is a free framework for iOS that provides you with the necessary tools to integrate a complete sketching experience in your apps when used with a Jot Touch. You can learn more about Jot Touches at http://adonit.net/jot/touch/ . It includes support for for the following features:

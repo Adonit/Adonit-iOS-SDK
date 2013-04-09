@@ -59,6 +59,7 @@ typedef enum {
 -(void)forgetAndTurnOffStylus;
 
 -(void)registerView:(UIView*)view;
+-(void)unregisterView:(UIView*)view;
 
 -(void)launchHelp;
 
