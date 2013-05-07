@@ -66,8 +66,8 @@ typedef enum {
 @property (readwrite) uint unconnectedPressure;
 
 @property (readonly) NSArray *shortcuts;
-@property (readwrite) JotShortcut *button1Shortcut;
-@property (readwrite) JotShortcut *button2Shortcut;
+@property (readwrite,assign) JotShortcut *button1Shortcut;
+@property (readwrite,assign) JotShortcut *button2Shortcut;
 
 @property (readwrite,assign) id<JotPalmRejectionDelegate> palmRejectorDelegate;
 @property (readwrite) BOOL enabled;

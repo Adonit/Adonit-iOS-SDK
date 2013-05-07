@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface JotShortcut : NSObject
-@property (readwrite) NSString *shortDescription;
-@property (readwrite) NSString *key;
+@property (readwrite,assign) NSString *shortDescription;
+@property (readwrite,assign) NSString *key;
 @property (readwrite) SEL selector;
 @property (readwrite,assign) id target;
 @property (readwrite) BOOL repeat;

@@ -1,5 +1,9 @@
 #JotTouchSDK Change Log
 
+##JotTouchSDK V1.0.4
+- Fixes additional compatibly issues/warnings for non ARC apps
+- JotSettingsViewController no longer shows the shortcut buttons list item if no shortcuts have been registered.
+
 ##JotTouchSDK V1.0.3
 - Removed a leftover NSLog 
 

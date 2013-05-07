@@ -10,4 +10,5 @@
 
 @interface JotSettingsViewController : UINavigationController
 -(id)initWithOnOffSwitch:(BOOL)showSwitch;
+-(id)initWithOnOffSwitch:(BOOL)showSwitch andShowPalmRejection:(BOOL)showPalmRejection;
 @end
