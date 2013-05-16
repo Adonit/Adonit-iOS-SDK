@@ -107,7 +107,7 @@
 #pragma mark - IBAction
 
 -(IBAction) showSettings:(id)sender{
-    JotSettingsViewController* settings = [[JotSettingsViewController alloc] init];
+    JotSettingsViewController* settings = [[JotSettingsViewController alloc] initWithOnOffSwitch: NO];
     if(popoverController){
         [popoverController dismissPopoverAnimated:NO];
     }
