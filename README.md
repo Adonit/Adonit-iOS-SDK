@@ -1,3 +1,7 @@
+#iOS7 Notice
+Known Issue: Submitting to the iOS App Store with the current version of the SDK results in an app store rejection. This is due to the use of Bluetooth 2.1 stack to support the first Jot Touch. A patch is in testing and will be updated here on GitHub by Wednesday.
+
+
 #JotTouchSDK V1.0.4
 
 ##Overview
