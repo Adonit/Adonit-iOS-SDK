@@ -12,9 +12,9 @@
 @interface JotQuickPickup : NSObject
 @property (readwrite) CGPoint lineStartingPoint;
 @property (readwrite) CGPoint lineEndingPoint;
-@property (readwrite) uint lineEndingTimestamp;
+@property (readwrite) NSTimeInterval lineEndingTimestamp;
 @property (readwrite) CGFloat allowedRadius;
-@property (readwrite) uint allowedTime;
--(BOOL) isEligibleForTime: (uint)timestamp;
+@property (readwrite) BOOL lineTooLong;
+-(BOOL) isEligibleForTime: (NSTimeInterval)timestamp;
 -(BOOL) isEligibleForPoint: (CGPoint)point;
 @end

@@ -2,7 +2,7 @@
 //  StylusConnection.h
 //  PalmRejectionExampleApp
 //
-//  Created by UM on 9/14/12.
+//  Created on 9/14/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 

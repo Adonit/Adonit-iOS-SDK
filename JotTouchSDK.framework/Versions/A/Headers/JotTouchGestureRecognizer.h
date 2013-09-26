@@ -2,7 +2,7 @@
 //  JotTouchGestureRecognizer.h
 //  JotTouchSDK
 //
-//  Created by Adam Wulf on 2/1/13.
+//  Created on 2/1/13.
 //  Copyright (c) 2013 Adonit. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  PalmRejector.h
 //  PalmRejectionExampleApp
 //
-//  Created by UM on 9/14/12.
+//  Created on 9/14/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
@@ -13,14 +13,13 @@
 @interface JotPalmRejector : NSObject
 
 @property (readwrite) int dataTouchDelay;
-@property (readwrite) int timeWindow;
+@property (readwrite) float timeWindow;
 @property (readwrite) CGFloat maxRadius;
 @property (readwrite) CGFloat minRadius;
 @property (readwrite) CGFloat stylusQuickFindRadius;
-@property (readwrite) uint stylusQuickFindTime;
 @property (readwrite) int rejectAngle;
 @property (readwrite) BOOL rejectMode;
-
+@property (readonly) JotPalmGestureRecognizer* palmGesture;
 @property (readwrite) uint pressure;
 
 -(void)touchesBegan:(NSSet *)touches;

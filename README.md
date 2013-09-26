@@ -1,44 +1,33 @@
-#iOS7 Notice
-Known Issue: Submitting to the iOS App Store with the current version of the SDK results in an app store rejection. This is due to the use of Bluetooth 2.1 stack to support the first Jot Touch. A patch is in testing and will be updated here on GitHub by Wednesday.
 
+#JotTouchSDK V2.0 Beta 1
 
-#JotTouchSDK V1.0.4
+##Beta 1
+This is a beta release for testing and approval process. Please provide any bugs or feedback reports to developers@adonit.net.
 
 ##Overview
 The Adonit Jot Touch SDK is a free framework for iOS that provides you with the necessary tools to integrate a complete sketching experience in your apps when used with a Jot Touch. You can learn more about Jot Touches at http://adonit.net/jot/touch/ . It includes support for for the following features:
 
-- Jot Touch 4 (BT 4.0)  and Jot Touch (BT 2.1) Styli.
-- Pressure Sensitivity
-- Shortcut Buttons
-- Palm Rejection (BT 4.0 only)
-- Battery level (BT 4.0 only)
-- Settings UI.
+- Jot Touch 4 and Jot Script Styli.
+- Pressure Sensitivity (JT4 only)
+- Shortcut Buttons (JT4 only)
+- Palm Rejection
+- Battery level
+- Settings UI
 
-In addition to the frame work, the repository contains a sample app giving you real world examples of how to integrate the framework into your application.
 
 ##How do I use it?
 Integrating with the Adonit Jot Touch SDK is as easy as adding a framework to your xcode project. Get up and running in no time by viewing the getting started guide in our GitHub Wiki at 
-http://github.com/Adonit/JotTouchSDK/wiki/Getting-Started-Guide
+http://github.com/Adonit/JotTouchSDK/wiki/v2-Getting-Started-Guide
 
 ##What is the target?
-The JotTouchSDK Targets iOS 6.0
+The JotTouchSDK Targets iOS 7.0 but continues to support iOS 6.0
 
 ##API Documentation.
 View the the documentation of all available methods and properties in the GitHub wiki here. 
-http://github.com/Adonit/JotTouchSDK/wiki/API
-
-##How can I get a development device?
-Email us at developers@adonit.net and we will send you a complimentary development device. 
-
-_Students please note, while we cannot provide you with a free stylus, we are willing to give you a signicant discount._
+http://github.com/Adonit/JotTouchSDK/wiki/v2-API
 
 ##Reporting Bugs.
-If you’ve uncovered a bug let us know by adding an issue to the project on GitHub. http://github.com/Adonit/JotTouchSDK/issues
-
-##Questions?
-Add an issue to the project on GitHub with the label “question.” http://github.com/Adonit/JotTouchSDK/issues
-
-Or, you can contact us at developers@adonit.net 
+If you’ve uncovered a bug or have any feedback let us know by sending us an email to developers@adonit.net
 
 ## Get Involved
 We're always looking for talented developers to join our team. email us at software.jobs@adonit.net if your interested in contributing or joining our team. 

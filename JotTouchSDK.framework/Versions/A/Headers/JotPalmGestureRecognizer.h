@@ -2,13 +2,12 @@
 //  JotPalmGestureRecognizer.h
 //  JotTouchSDK
 //
-//  Created by Adam Wulf on 1/29/13.
+//  Created on 1/29/13.
 //  Copyright (c) 2013 Adonit. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-#define kSecondsOfPalm 1
 #define kRadiusOfPalm 200
 
 /**
@@ -25,7 +24,7 @@
  * kRadiusOfPalm of that touch will be labelled as likelyPalmTouches.
  *
  * our stylus sync code can use this information to ignore any touches that happen
- * within kRadiusOfPalm of either the cancelled touches (if within kSecondsOfPalm) or
+ * within kRadiusOfPalm of either the cancelled touches (if within [JotStylusManager sharedInstance].palmDetectionTouchDelay) or
  * within kRadiusOfPalm of any likelyPalmTouches.
  *
  * This method has the added benefit that any touches that are recorded as likely
@@ -49,27 +48,7 @@
     // will reset after our gesture ends
     BOOL didDetectPalm;
     
-    // a set of touches that we have not labelled at all. These may
-    // or may not actually be palm, stylus, or finger touches
-    NSMutableSet* unknownTouches;
     
-    // a set of all touches that we have determined are most likely
-    // palm touches. These touches have occured within kRadiusOfPalm
-    // of a cancelled touch.
-    NSMutableSet* likelyPalmTouches;
-    
-    // this dictionary records the offset of the cancelled touch to
-    // the location of the likelyPalmTouch. This lets us begin the
-    // center of the touch rejection radius of a likely touch at the
-    // location of the cancelled touch. Then, as this touch moves, that
-    // rejection circle will move with it
-    NSMutableDictionary* offsets;
-    
-    // this is a set of all CGPoints of cancelled touches. Since the
-    // touches are cancelled and wont ever trigger new events, we only
-    // need to record their location in the window, not the UITouch
-    // itself.
-    NSMutableSet* locationsOfPalm;
 }
 
 @property (nonatomic, readonly) NSInteger numberOfActiveTouches;

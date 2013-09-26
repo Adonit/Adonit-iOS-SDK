@@ -9,18 +9,43 @@
 #import <Foundation/Foundation.h>
 
 @interface JotShortcut : NSObject
-@property (readwrite,assign) NSString *shortDescription;
-@property (readwrite,assign) NSString *key;
-@property (readwrite) SEL selector;
-@property (readwrite,assign) id target;
-@property (readwrite) BOOL repeat;
-@property (readwrite) NSTimeInterval repeatRate;
-@property (readwrite) BOOL usableWhenStylusDepressed;
--(id)initWithShortDescription:(NSString *)shortDescription key:(NSString *)key target:(id)target selector:(SEL)selector;
--(id)initWithShortDescription:(NSString *)shortDescription key:(NSString *)key target:(id)target selector:(SEL)selector repeatRate:(NSTimeInterval)repeatRate;
 
--(id)initWithShortDescription:(NSString *)shortDescription key:(NSString *)key target:(id)target selector:(SEL)selector usableWithStylusDepressed:(BOOL)usableWhenStylusDepressed;
--(id)initWithShortDescription:(NSString *)shortDescription key:(NSString *)key target:(id)target selector:(SEL)selector repeatRate:(NSTimeInterval)repeatRate usableWithStylusDepressed:(BOOL)usableWhenStylusDepressed;;
+/*! Short string representation of the shortcut.
+ */
+@property (readwrite,copy) NSString *descriptiveText;
+/*! Key to access this shortcut.
+ */
+@property (readwrite,copy) NSString *key;
+
+/*! Selector that is associated with the created shortcut.
+ */
+@property (readwrite) SEL selector;
+
+/*! Target that is associated with the created shortcut.
+ */
+@property (readwrite,assign) id target;
+
+/*! Specifies whether the shortcut should be continously repeated.
+ */
+@property (readwrite) BOOL repeat;
+
+/*! Specifies the rate at which the shortcut will be repeated.
+ */
+@property (readwrite) NSTimeInterval repeatRate;
+
+/*! Determines if shortcut is usable while the stylus is being pressed.
+ */
+@property (readwrite) BOOL usableWhenStylusDepressed;
+
+-(id)initWithDescriptiveText:(NSString *)descriptiveText key:(NSString *)key target:(id)target selector:(SEL)selector;
+-(id)initWithDescriptiveText:(NSString *)descriptiveText key:(NSString *)key target:(id)target selector:(SEL)selector repeatRate:(NSTimeInterval)repeatRate;
+-(id)initWithDescriptiveText:(NSString *)descriptiveText key:(NSString *)key target:(id)target selector:(SEL)selector usableWithStylusDepressed:(BOOL)usableWhenStylusDepressed;
+-(id)initWithDescriptiveText:(NSString *)descriptiveText key:(NSString *)key target:(id)target selector:(SEL)selector repeatRate:(NSTimeInterval)repeatRate usableWithStylusDepressed:(BOOL)usableWhenStylusDepressed;;
+
 -(void)start;
+
+/*! Stop the timer for repeating shortcuts.
+ */
 -(void)stop;
+
 @end
