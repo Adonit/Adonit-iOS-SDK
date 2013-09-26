@@ -5,7 +5,6 @@
 - Added iOS7 Support
 - Added iOS7 Look and feel to Settings UI views
 - Added CoreMotion.framework dependency
-- Added new JotStylusManagerisStylusDown property to simplify checking if stylus type is currently pressed
 - Added new JotStylusManager.palmDetectionTouchDelay for better tuning of palm rejection timeout window
 - Added new JotStylusManager.palmDetectionTouchDelayNoPressure for better tuning of palm rejection timeout window
 - Added new jotStylusManagerDidPairWithStylus notification to inform when a stylus is paired
