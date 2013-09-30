@@ -10,13 +10,13 @@
 #import "JotStylusConnectionDelegate.h"
 #import "JotPalmRejectionDelegate.h"
 #import "JotStylusStateDelegate.h"
-#import "JotPreferredStylus.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
 #import "JotShortcut.h"
 #import "JotSettingsViewController.h"
+#import "JotConstants.h"
 
-
+@class JotPreferredStylus;
 @interface JotStylusManager : NSObject<JotStylusStateDelegate,JotStylusConnectionDelegate>
 
 + (JotStylusManager*)sharedInstance;

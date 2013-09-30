@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "JotStylus.h"
 @protocol JotStylusConnection;
 
 @protocol JotStylusConnectionDelegate<NSObject>

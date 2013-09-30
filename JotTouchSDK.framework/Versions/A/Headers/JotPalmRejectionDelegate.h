@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "JotTouch.h"
-#import "JotPalmGestureRecognizer.h"
+
+@class JotPalmGestureRecognizer;
 
 @protocol JotPalmRejectionDelegate <NSObject>
 

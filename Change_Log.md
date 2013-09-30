@@ -1,6 +1,10 @@
 #JotTouchSDK Change Log
 
-# V2.0 Beta 1 Release Notes
+# V2.0.0.246 Beta 1
+- Fixed JotConstants.h compile problem.  Made Header public.
+- Cleaned up public header list to only needed headers
+
+# V2.0.0.236 Beta 1
 - Added support for new Adonit Jot Script stylus
 - Added iOS7 Support
 - Added iOS7 Look and feel to Settings UI views
