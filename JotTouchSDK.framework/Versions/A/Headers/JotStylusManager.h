@@ -142,4 +142,13 @@
 @property (readonly) JotPreferredStylus *preferredStylus;
 
 
+/*! NSString representing the firmware version for the connected pen
+ */
+@property (readonly) NSString *firmwareVersion;
+
+/*! NSString representing the hardware version for the connected pen
+ */
+@property (readonly) NSString *hardwareVersion;
+
+
 @end

@@ -1,5 +1,11 @@
 #JotTouchSDK Change Log
 
+# V2.0.0.248 Beta 1
+- Added public firmwareVersion property on JotStylusManager
+- Added public hardwareVersion property on JotStylusManager
+- Removed issue that caused the  "<CBCentralManager: 0x14dc25c0> is disabling duplicate filtering, but is using the default queue (main thread) for delegate events" warning.
+- Fixed delay in pen connection status notification
+
 # V2.0.0.246 Beta 1
 - Fixed JotConstants.h compile problem.  Made Header public.
 - Cleaned up public header list to only needed headers
