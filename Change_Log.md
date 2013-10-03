@@ -1,5 +1,9 @@
 #JotTouchSDK Change Log
 
+# V2.0.0.251 Beta 1
+- Fixed issue with stylus connection coming out from app being backgrounded
+- Added PreferredJotModel to JotStylusManager
+
 # V2.0.0.248 Beta 1
 - Added public firmwareVersion property on JotStylusManager
 - Added public hardwareVersion property on JotStylusManager

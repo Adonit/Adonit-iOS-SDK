@@ -57,7 +57,7 @@
 -(uint)totalNumberOfStylusesConnected;
 
 
-/*! Removes the current connected stylus and stop receiving data from it. 
+/*! Removes the current connected stylus and stop receiving data from it.
  */
 -(void)forgetAndTurnOffStylus;
 
@@ -121,7 +121,7 @@
 
 /*! An enum specifying the current selected palm rejection orientation (left vs. right)
  * Deprecated in v2.0, moving forward please use palmRejectionOrientation
-*/
+ */
 @property (readwrite) JotPalmRejectionOrientation palmRejectionOrientation;
 
 /*! An enum specifying the current writing style and prefered writing hand. Default to JotWritingStyleRightDown
@@ -134,8 +134,12 @@
 
 /*! An enum specifying the type of the preferred stylus.
  * Deprecated in v2.0
-*/
+ */
 @property (readonly) JotPreferredStylusType preferredStylusType;
+
+/*! An enum specifying the model of the preferred and connected stylus.
+ */
+@property (readonly) JotModel preferredStylusModel;
 
 /*! An enum specifying the preferred stylus.
  */
