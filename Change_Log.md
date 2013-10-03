@@ -1,5 +1,8 @@
 #JotTouchSDK Change Log
 
+# V2.0.0.256 Beta 1
+- Moved JotTouch reporting to async
+
 # V2.0.0.251 Beta 1
 - Fixed issue with stylus connection coming out from app being backgrounded
 - Added PreferredJotModel to JotStylusManager
