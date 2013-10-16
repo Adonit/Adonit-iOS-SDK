@@ -13,7 +13,8 @@
 @interface JotTouch : NSObject
 
 +(JotTouch *)jotTouchFor:(UITouch *)touch;
-
++(void)cleanJotTouchFor:(UITouch *)touch;
++(void)cleanJotTouches:(NSSet *)jotTouches;
 /*! Returns a offset correct point location in input view
  * \param touch A UITouch object that is used to init JotTouch object.
  */

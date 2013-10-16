@@ -29,6 +29,8 @@
  */
 -(void)jotStylusBatteryUpdate:(uint)batteryLevel;
 
-
+/*! Sent when the device does not support bluetooth 4
+ */
+- (void)jotStylusUnsupported;
 @end
 

@@ -1,5 +1,12 @@
 #JotTouchSDK Change Log
 
+# V2.0.0.315 GM
+- Fixed palm rejection to be more reliable in all writing styles
+- Slowed down offset change with Jot Script when writing quickly
+- Fixed connection bug on second stylus connection registering initial pressure
+- Fixed duplicate jotTouchMoved events
+- Fixed probem where battery status was not updating
+
 # V2.0.0.251 Beta 1
 - Fixed issue with stylus connection coming out from app being backgrounded
 - Added PreferredJotModel to JotStylusManager
