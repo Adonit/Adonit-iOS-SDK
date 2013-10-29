@@ -1,6 +1,9 @@
 #JotTouchSDK Change Log
+# V2.0.0.334 RC2
+- Fixed Palm rejection fixes to handle corner cases
+- Fixed bug with disabling the SDK followed by forgetAndTurnOffStylus causing the SDK to be in a bad state
 
-# V2.0.0.315 GM
+# V2.0.0.315 RC1
 - Fixed palm rejection to be more reliable in all writing styles
 - Slowed down offset change with Jot Script when writing quickly
 - Fixed connection bug on second stylus connection registering initial pressure
