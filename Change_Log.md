@@ -1,4 +1,7 @@
 #JotTouchSDK Change Log
+# V2.0.0.342 GM
+- Fixed pen button notifications that were showing up on a background thread.  They are now dispatched on the main thread.
+
 # V2.0.0.334 RC2
 - Fixed Palm rejection fixes to handle corner cases
 - Fixed bug with disabling the SDK followed by forgetAndTurnOffStylus causing the SDK to be in a bad state
