@@ -7,7 +7,6 @@ Can
 - Warranty 
 
 Cannot
-- Use Trademark
 - Hold Liable 
 
 Must
