@@ -1,4 +1,9 @@
 #JotTouchSDK Change Log
+
+# V2.0.2.410 GM
+- 64bit support in framework
+- Unconnected Pressure now properly set in touch events for Jot Script
+
 # V2.0.0.342 GM
 - Fixed pen button notifications that were showing up on a background thread.  They are now dispatched on the main thread.
 

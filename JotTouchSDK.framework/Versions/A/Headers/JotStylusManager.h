@@ -44,7 +44,7 @@
 /*! Obtains pressure data of the stylus currently connected.
  * \returns If connected, returns positive integer value of connected pressure data. If not connected, returns the unconnected pressure data.
  */
--(uint)getPressure;
+-(NSUInteger)getPressure;
 
 /*! Determines if a stylus is currently connected.
  * \returns A boolean specifying if a stylus is connected
@@ -52,9 +52,9 @@
 -(BOOL)isStylusConnected;
 
 /*! Number of stylus connected to BT, including those still pairing
- * \returns A uint with the total count of stylus connected and/or pairing
+ * \returns A NSUInteger with the total count of stylus connected and/or pairing
  */
--(uint)totalNumberOfStylusesConnected;
+-(NSUInteger)totalNumberOfStylusesConnected;
 
 
 /*! Removes the current connected stylus and stop receiving data from it.
@@ -83,7 +83,7 @@
  */
 @property (readwrite) CGFloat palmDetectionTouchDelay;
 @property (nonatomic) CGFloat palmDetectionTouchDelayNoPressure;
-@property (readwrite) uint unconnectedPressure;
+@property (readwrite) NSUInteger unconnectedPressure;
 
 /*! Array of JotShortcuts utilized in the settings interface.
  */
@@ -117,7 +117,7 @@
 
 /*! A positive integer specifying the amount of battery remaining.
  */
-@property (readonly) uint batteryLevel;
+@property (readonly) NSUInteger batteryLevel;
 
 /*! An enum specifying the current selected palm rejection orientation (left vs. right)
  * Deprecated in v2.0, moving forward please use palmRejectionOrientation

@@ -35,7 +35,7 @@
 /*! Syncs pressure value to specific JotTouch object.
  * \param pressure The current pressure value while the touch is being captured
  */
--(void)syncToTouchWithPressure:(uint)pressure;
+-(void)syncToTouchWithPressure:(NSUInteger)pressure;
 
 /*! The touch associated with this object.
  */
@@ -43,7 +43,7 @@
 
 /*! The pressure associated with the touch.
  */
-@property (readwrite) uint pressure;
+@property (readwrite) NSUInteger pressure;
 
 /*! The point of the touch within the window.
  */

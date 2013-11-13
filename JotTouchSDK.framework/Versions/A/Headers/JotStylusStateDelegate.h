@@ -36,10 +36,10 @@
 
 /*! Messaged that the jot stylus pressure is updated.
  */
--(void)jotStylusPressureUpdate:(uint)pressure;
+-(void)jotStylusPressureUpdate:(NSUInteger)pressure;
 
 /*! Messaged that the jot stylus battery level is updated.
  */
--(void)jotStylusBatteryUpdate:(uint)battery;
+-(void)jotStylusBatteryUpdate:(NSUInteger)battery;
 
 @end

@@ -33,51 +33,53 @@
 #define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE_JotWritingStyleLeftDown 135
 
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, JotModel) {
     JotModelUndefined = 0,
     JotModelJT2 = 1,
     JotModelJT4 = 2,
     JotModelJS = 3,
-    JotModelJTD = 4,
-} JotModel;
+    JotModelJTPP = 4,
+    JotModelMighty = 5,
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, JotStylusTipStatus) {
     JotStylusTipStatusOffScreen = 0,
     JotStylusTipStatusOnScreen = 1
     
-} JotStylusTipStatus;
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, JotPalmRejectionOrientation) {
     JotPalmRejectionLeftHanded,
     JotPalmRejectionRightHanded
-} JotPalmRejectionOrientation;
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, JotWritingStyle) {
     JotWritingStyleRightUp,
     JotWritingStyleRightMiddle,
     JotWritingStyleRightDown,
     JotWritingStyleLeftUp,
     JotWritingStyleLeftMiddle,
     JotWritingStyleLeftDown,
-} JotWritingStyle;
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, JotConnectionStatus) {
     JotConnectionStatusOff,
     JotConnectionStatusScanning,
     JotConnectionStatusPairing,
     JotConnectionStatusConnected,
     JotConnectionStatusDisconnected
-} JotConnectionStatus;
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, JotPreferredStylusType) {
     JotPreferredStylusBT21,
     JotPreferredStylusBT40,
     JotNoPreferredStylus,
-} JotPreferredStylusType;
+};
 
 extern NSString * const Connection_BT21;
 extern NSString * const Connection_BT40;
 extern NSString * const Model_JT2;
 extern NSString * const Model_JT4;
 extern NSString * const Model_JS;
-extern NSString * const Model_JTD;
+extern NSString * const Model_JTPP;
+extern NSString * const Model_Mighty;

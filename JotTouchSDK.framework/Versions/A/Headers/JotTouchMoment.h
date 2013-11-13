@@ -12,10 +12,10 @@
 @interface JotTouchMoment : NSObject
 @property (readwrite) CGPoint point;
 @property (readwrite) NSTimeInterval timestamp;
-@property (readwrite) uint pressure;
+@property (readwrite) NSUInteger pressure;
 @property (readwrite) BOOL isTouchEnd;
 @property (readwrite) UITouch *touch;
--(id) initWithTouch:(UITouch *) touch withPoint:(CGPoint)point withPressure:(uint)pressure withTimestamp:(NSTimeInterval)timestamp;
+-(id) initWithTouch:(UITouch *) touch withPoint:(CGPoint)point withPressure:(NSUInteger)pressure withTimestamp:(NSTimeInterval)timestamp;
 +(JotTouchMoment *)touchEnd;
 
 @end
