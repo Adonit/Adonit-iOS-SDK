@@ -8,26 +8,28 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+
+@class JotStylus;
 @protocol JotStylusConnection;
 
-@protocol JotStylusConnectionDelegate<NSObject>
+@protocol JotStylusConnectionDelegate <NSObject>
 
 /*! Sent to update the status of stylus to pairing.
  */
--(void)jotStylusPairing;
+-(void)jotStylusPairing:(JotStylus *)stylus;
 
 /*! Sent to update the status of stylus to connected.
  */
--(void)jotStylusConnected;
+-(void)jotStylusConnected:(JotStylus *)stylus;
 
 /*! Sent to update the status of stylus to disconnected.
  */
--(void)jotStylusDisconnected;
+-(void)jotStylusDisconnected:(JotStylus *)stylus;
 
 /*! Sent to update the level of battery remaining.
  * \param batteryLevel Positive integer specifying the remaining battery of connected device
  */
--(void)jotStylusBatteryUpdate:(uint)batteryLevel;
+-(void)jotStylus:(JotStylus *)stylus batteryLevelUpdate:(NSUInteger)batteryLevel;
 
 /*! Sent when the device does not support bluetooth 4
  */

@@ -17,7 +17,7 @@
 #import "JotConstants.h"
 
 @class JotPreferredStylus;
-@interface JotStylusManager : NSObject<JotStylusStateDelegate,JotStylusConnectionDelegate>
+@interface JotStylusManager : NSObject <JotStylusStateDelegate, JotStylusConnectionDelegate>
 
 + (JotStylusManager*)sharedInstance;
 
