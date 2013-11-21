@@ -40,6 +40,6 @@
 
 /*! Messaged that the jot stylus battery level is updated.
  */
--(void)jotStylusBatteryUpdate:(NSUInteger)battery;
+-(void)jotStylus:(JotStylus*)stylus batteryLevelUpdate:(NSUInteger)battery;
 
 @end
