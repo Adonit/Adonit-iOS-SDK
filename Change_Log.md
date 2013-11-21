@@ -1,11 +1,11 @@
 #JotTouchSDK Change Log
 
-# V2.0.3.438 GM
+# V2.0.3.438
 - improvements to palm rejection code, especially when using light pressure
 - improvements to multi-device connection when there are multiple Jots and iPads in the same vicinity
 - misc bug fixes
 
-# V2.0.2.410 GM
+# V2.0.2.410
 - 64bit support in framework
 - Unconnected Pressure now properly set in touch events for Jot Script
 
