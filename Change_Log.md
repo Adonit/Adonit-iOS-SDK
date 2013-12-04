@@ -1,5 +1,8 @@
 #JotTouchSDK Change Log
 
+# V2.0.4.467
+- fix issue disconnecting and disabling stylus manager causing scanning
+
 # V2.0.3.438
 - improvements to palm rejection code, especially when using light pressure
 - improvements to multi-device connection when there are multiple Jots and iPads in the same vicinity
