@@ -1,6 +1,6 @@
 #JotTouchSDK Change Log
 
-# V2.0.4.467
+# V2.0.4.469
 - fix issue disconnecting and disabling stylus manager causing scanning
 
 # V2.0.3.438
