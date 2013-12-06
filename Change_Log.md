@@ -1,5 +1,8 @@
 #JotTouchSDK Change Log
 
+# V2.0.5.472
+- fix possible bluetooth issue when app goes to background
+
 # V2.0.4.469
 - fix issue disconnecting and disabling stylus manager causing scanning
 
