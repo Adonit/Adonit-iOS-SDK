@@ -33,6 +33,8 @@
     // Hook up the jotManager
     _jotManager = [JotStylusManager sharedInstance];
     
+    NSLog(@"Version: %@.%@", _jotManager.SDKVersion, _jotManager.SDKBuildVersion);
+    
     [_jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
                                     initWithDescriptiveText:@"Undo"
                                     key:@"undo"

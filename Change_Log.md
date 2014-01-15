@@ -1,5 +1,8 @@
 #JotTouchSDK Change Log
 
+# V2.0.6.497
+- fix issue where enabling the SDK can cause disconnects from pens
+
 # V2.0.5.472
 - fix possible bluetooth issue when app goes to background
 
