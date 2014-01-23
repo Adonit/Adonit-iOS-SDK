@@ -101,7 +101,7 @@
  */
 @property (readwrite,assign) id<JotPalmRejectionDelegate> palmRejectorDelegate;
 
-@property (readwrite) BOOL enabled;
+@property (nonatomic) BOOL enabled;
 
 /*! A string representation of the current version of the SDK being used.
  */
