@@ -7,7 +7,8 @@ Can
 - Warranty 
 
 Cannot
-- Hold Liable 
+- Hold Liable
+- Repackage
 
 Must
 - Include Copyright Notice
@@ -45,7 +46,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
 ### 2. Grant of Copyright License.
 
-Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, publicly display, publicly perform, sublicense, and distribute the Work in Runtime form.  You may not reverse engineer, decompile, or disassemble the Work.
+Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, publicly display, publicly perform, sublicense, and distribute the Work in Runtime form.  You may not reverse engineer, decompile, rebundle, or disassemble the Work.
 
 ### 3. Grant of Patent License.
 
