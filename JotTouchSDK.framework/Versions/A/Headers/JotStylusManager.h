@@ -1,6 +1,5 @@
 //
 //  JotStylusManager.h
-//  PalmRejectionExampleApp
 //
 //  Created on 8/20/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
@@ -10,16 +9,31 @@
 #import "JotStylusConnectionDelegate.h"
 #import "JotPalmRejectionDelegate.h"
 #import "JotStylusStateDelegate.h"
-#import <CoreGraphics/CoreGraphics.h>
-#import <UIKit/UIKit.h>
 #import "JotShortcut.h"
-#import "JotSettingsViewController.h"
 #import "JotConstants.h"
 
+@class JotStylusMotionManager;
 @class JotPreferredStylus;
+
+typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
+
 @interface JotStylusManager : NSObject <JotStylusStateDelegate, JotStylusConnectionDelegate>
 
 + (JotStylusManager*)sharedInstance;
+
+/**
+ causes the SDK to go into a scanning state, looking for jot stylus's
+ 
+ @param completionBlock a completion block that is called when a stylus is connected.
+ */
+- (void)startDiscoveryWithCompletionBlock:(JotStylusDiscoveryCompletionBlock)completionBlock;
+
+/**
+ if the SDK is in discovery mode, this call will stop the discovery process. The
+ completion block associated with the discovery process will not be called
+ */
+- (void)stopDiscovery;
+
 
 -(void)touchesBegan:(NSSet *)touches;
 -(void)touchesMoved:(NSSet *)touches;
@@ -32,7 +46,7 @@
 -(void)addShortcutOption:(JotShortcut *)shortcut;
 
 /*! Sets the default option state for the first shortcut that will used when initially loading the interface.
- * \param shortcut The default option of the second stylus button shortcut to be added to the settings interface
+ * \param shortcut The default option of the first stylus button shortcut to be added to the settings interface
  */
 -(void)addShortcutOptionButton1Default:(JotShortcut *)shortcut;
 
@@ -61,6 +75,11 @@
  */
 -(void)forgetAndTurnOffStylus;
 
+/*! Removes the current connected stylus and stop receiving data from it.
+ */
+-(void)disconnectStylus;
+
+
 /*! Sets a view to receive touch events from Jot styluses.
  * \param view A view that will be supplied touch events from Jot styluses
  */
@@ -78,6 +97,27 @@
 -(void)setOptionValue:(id)value forKey:(NSString *)key;
 
 #pragma mark - properties
+
+/**
+ * property to indicate what style of connection to use. The legacy style is
+ * the tap-to-connect, where the SDK is scanning for stylii, and you indicate
+ * which one you want to connect by tapping it. This is the JotStylusConnectionTypeTap
+ *
+ * The new connection style used by the built-in settings pane requires the
+ * user to press and hold the stylus on the screen, which turns on scanning. 
+ * Once the SDK detects pressure for long enough from a stylus, it completes
+ * the connection. JotStylusConnectionTypePressAndHold.
+ *
+ * This property defaults to the new JotStylusConnectionTypePressAndHold. If you
+ * would like to continue using the legacy tap style, set this property to
+ * JotStylusConnectionTypeTap before setting enabled=YES;
+ */
+@property (readwrite, nonatomic) JotStylusConnectionType connectionType;
+
+/**
+ * property used to turn on the sdk
+ */
+@property (readwrite, nonatomic) BOOL enabled;
 
 /*! Delays used to tune re-enabling gestures when a stylus is lifted from the screen.
  */
@@ -101,8 +141,6 @@
  */
 @property (readwrite,assign) id<JotPalmRejectionDelegate> palmRejectorDelegate;
 
-@property (nonatomic) BOOL enabled;
-
 /*! A string representation of the current version of the SDK being used.
  */
 @property (readonly) NSString *SDKVersion;
@@ -124,7 +162,7 @@
  */
 @property (readwrite) JotPalmRejectionOrientation palmRejectionOrientation;
 
-/*! An enum specifying the current writing style and prefered writing hand. Default to JotWritingStyleRightDown
+/*! An enum specifying the current writing style and prefered writing hand. Default to JotWritingStyleRightAverage
  */
 @property (readwrite) JotWritingStyle writingStyle;
 
@@ -154,5 +192,10 @@
  */
 @property (readonly) NSString *hardwareVersion;
 
+@property (readonly) NSString *serialNumber;
+
+@property NSMutableSet *currentTouchesSet;
+
+@property (readonly) JotStylusMotionManager *jotStylusMotionManager;
 
 @end

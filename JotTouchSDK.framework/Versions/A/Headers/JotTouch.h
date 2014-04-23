@@ -11,6 +11,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 @interface JotTouch : NSObject
++(void)cleanAllJotTouches;
 
 +(JotTouch *)jotTouchFor:(UITouch *)touch;
 +(void)cleanJotTouchFor:(UITouch *)touch;
