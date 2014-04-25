@@ -1,5 +1,14 @@
 #JotTouchSDK Change Log
 
+# V2.1.0.823 Alpha 2
+- update for new JTPP and Adobe Ink models
+- new writing style enums
+- switch to standard #import <JotTouchSDK/JotTouchSDK.h> header style
+- new press-and-hold connection style support
+- new JotPalmGestureRecognizer interaction model to avoid spurious gestures
+- many bugfixes and improvements
+
+
 # V2.0.6.497
 - fix issue where enabling the SDK can cause disconnects from pens
 
