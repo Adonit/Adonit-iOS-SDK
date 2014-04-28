@@ -188,7 +188,7 @@
  * the jot sdk is not enabled.
  */
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    if(![JotStylusManager sharedInstance].enabled){
+    if(![JotStylusManager sharedInstance].preferredStylus){
         for (UITouch *touch in touches) {
             [self addLineToAndRenderStroke:[self getStrokeForTouchHash:touch.hash]
                                    toPoint:[touch locationInView:self]
@@ -200,7 +200,7 @@
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    if(![JotStylusManager sharedInstance].enabled){
+    if(![JotStylusManager sharedInstance].preferredStylus){
         for (UITouch *touch in touches) {
         // check for other brands of stylus,
         // or process non-Jot touches
@@ -217,7 +217,7 @@
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    if(![JotStylusManager sharedInstance].enabled){
+    if(![JotStylusManager sharedInstance].preferredStylus){
         for(UITouch* touch in touches){
             SmoothStroke* currentStroke = [self getStrokeForTouchHash:touch.hash];
             
@@ -237,7 +237,7 @@
 }
 
 -(void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    if(![JotStylusManager sharedInstance].enabled){
+    if(![JotStylusManager sharedInstance].preferredStylus){
         for(UITouch* touch in touches){
             // If appropriate, add code necessary to save the state of the application.
             // This application is not saving state.
