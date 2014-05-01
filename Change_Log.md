@@ -1,5 +1,9 @@
 #JotTouchSDK Change Log
 
+# V2.1.0.827 Alpha 3
+- fix connection issue with tap style when BT is not initialized
+- fix example app to use legacy connection style
+
 # V2.1.0.823 Alpha 2
 - update for new JTPP and Adobe Ink models
 - new writing style enums
