@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <JotTouchSDK/JotStylusManager.h>
+#import <JotTouchSDK/JotTouchSDK.h>
 #import "CanvasView.h"
 #import "StylusSettingsButton.h"
 #import "JotTouchStatusHUD.h"

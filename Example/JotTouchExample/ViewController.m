@@ -56,6 +56,7 @@
     
     _jotManager.unconnectedPressure = 256;
     _jotManager.palmRejectorDelegate = self.canvasView;
+    _jotManager.connectionType = JotStylusConnectionTypeTap;
     _jotManager.enabled = YES;
     
     // Register for jotStylus notifications
