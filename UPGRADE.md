@@ -84,6 +84,20 @@ and then implement those methods as follows:
 
 You need to make sure that you call the `stopDiscovery` method when you no longer want the SDK to scan for styli. When a stylus has been discovered, the callback will be invoked. If there is a problem with the discovery process, you may receive an error. For example, if you attempt to start discovery when the SDK is disabled.
 
+## New Settings View Controller
+
+Along with the new default press-and-hold connection style, the SDK has a new settings view controller you can use in your own application. Unlike previous versions, the new `JotSettingsViewController` is not in a `UINavigationController`. This allows you to embed the view controller in your own settings menu more easily. If you are using the `JotSettingsViewController` on its own, you will need to put it in a `UINavigationController` before showing it. For example:
+
+    JotSettingsViewController *settings = [JotSettingsViewController settingsViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
+    popoverController = [[UIPopoverController alloc] initWithContentViewController:navController];
+    [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+
+In addition to the available `init...` methods, you can use the `settingsViewController` class method to create a new view controller, and set the on/off switch and palm rejection options using their respective properties on on `JotSettingsViewController`
+
+    @property BOOL showOnOffSwitch;
+    @property BOOL showPalmRejectionSwitch;
+
 ## JotPalmGestureRecognizer Integration [EXPERIMENTAL]
 
 Previous versions of the SDK used the `JotPalmRejectionDelegate` in order to send updates to your application about when it was safe to allow gesture recognition. While we still send those notifications, in addition, we now support the Apple-supplied methods for chaining gesture recognizers together. The internal `JotPalmGestureRecognizer` will now attempt to disable other gesture recognizers if it detects a palm or stylus on the screen. It does this using the method:
@@ -98,6 +112,10 @@ You should not have to make any changes in your application. However, we have ex
     - (BOOL)canPreventGestureRecognizer:(UIGestureRecognizer *)preventedGestureRecognizer;
 
 Please let us know if you run into any issues with app-level gesture recognizers and this new interaction model.
+
+## JotShortcut
+
+The `JotShortcut` repeatRate has been changed to use the standard NSTimeInterval period of seconds. Previous versions used milliseconds. There is also a new property called `shortText` for storing a shortcut name appropriate for smaller labels.
 
 ## Accelerometer Data
 

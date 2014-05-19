@@ -1,5 +1,11 @@
 #JotTouchSDK Change Log
 
+# V2.1.0.832 Alpha 4
+- fix to forgetAndTurnOffStylus
+- new press-and-hold connection settings view controller.
+- JotShortcut now has a shortText property
+- renamed the gesture enable delay property to suggestToEnableGestureDelay
+
 # V2.1.0.827 Alpha 3
 - fix connection issue with tap style when BT is not initialized
 - fix example app to use legacy connection style

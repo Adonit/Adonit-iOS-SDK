@@ -119,15 +119,22 @@ typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
  */
 @property (readwrite, nonatomic) BOOL enabled;
 
-/*! Delays used to tune re-enabling gestures when a stylus is lifted from the screen.
+/**
+ * The amount of time (in seconds) between the stylus being lifted from the screen
+ * and the notification that gestures should be enabled. Defaults to 1 second.
  */
-@property (readwrite) CGFloat palmDetectionTouchDelay;
-@property (nonatomic) CGFloat palmDetectionTouchDelayNoPressure;
+@property (nonatomic) NSTimeInterval suggestionToEnableGesturesDelay;
+
 @property (readwrite) NSUInteger unconnectedPressure;
 
 /*! Array of JotShortcuts utilized in the settings interface.
  */
 @property (readonly) NSArray *shortcuts;
+
+/** 
+ * Disable and enable shortcut notifications
+ */
+@property BOOL shortcutsEnabled;
 
 /*! The current button 1 shortcut of the preferred stylus.
  */
