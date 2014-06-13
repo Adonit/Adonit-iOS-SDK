@@ -10,6 +10,30 @@ The 2.1.0 JotTouchSDK includes some cleanup to the header files, and introduces 
     
 If you see any compilation warnings about unknown class types, you may need to include this import in your files.
 
+## Enabling and Disabling the SDK
+
+The 2.1.0 JotTouchSDK no longer uses a property to enable or disable itself. Instead of using
+
+    @property (nonatomic) BOOL enabled;
+
+use the new methods
+
+    - (void)enable;
+    - (void)disable;
+
+There is also a new method which enables or disables the JotStylusManager based on whether it was enabled or disabled when the application was last run.
+
+    - (void)enableOrDisableBasedOnLastKnownState;
+
+In addition, the SDK also lets you control whether or not the Bluetooth Power On Alert is shown by iOS when the SDK is enabled, but Bluetooth is turned off on the device.
+
+    - (void)enableWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
+    - (void)enableOrDisableBasedOnLastKnownStateWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
+
+## No More Preferred Stylus
+
+Previous versions of the SDK had a `preferredStylus` that has been removed. The SDK will now automatically reconnect to the last stylus, unless it has been told to forget it with either `disconnectStylus` or `forgetAndTurnOff`. You can access information about the currently connected stylus directly through new properties on the `JotStylusManager`.
+
 ## Writing Style NS_ENUM
 
 Our JotWritingStyles have been renamed to be more descriptive. The integer values and how they work internally to our SDK have not changed, but the names better represent the relative stylus position.

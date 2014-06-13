@@ -1,5 +1,15 @@
 #JotTouchSDK Change Log
 
+# V2.1.0.844 Beta 1
+- see UPDATE.md for a rundown of API changes in this release
+- better offset calculations based on writing style and stylus angle
+- improved behavior of JotTouch events when other gestures cancel touches
+- only enable JotTouches when stylus connected
+- add gesture recognizers to view instead of window
+- allow user to control whether BT warning dialog appears
+- misc bug fixes and cleanup
+
+
 # V2.1.0.832 Alpha 4
 - fix to forgetAndTurnOffStylus
 - new press-and-hold connection settings view controller.

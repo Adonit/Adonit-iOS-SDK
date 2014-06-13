@@ -17,6 +17,12 @@
 
 typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
 
+/**
+ * This notification is sent whenever a discovery attempt is started, but Bluetooth
+ * on the device is not powered on
+ */
+extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotification;
+
 @interface JotStylusManager : NSObject <JotStylusStateDelegate, JotStylusConnectionDelegate>
 
 + (JotStylusManager*)sharedInstance;
@@ -71,11 +77,17 @@ typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
 -(NSUInteger)totalNumberOfStylusesConnected;
 
 
-/*! Removes the current connected stylus and stop receiving data from it.
+/** 
+ * Disconnects from the current stylus and instructs it to power down. This will also
+ * cause the SDK to no longer automatically reconnect to this stylus. The user will
+ * need to manually power on the stylus before it can be connected to a device.
  */
 -(void)forgetAndTurnOffStylus;
 
-/*! Removes the current connected stylus and stop receiving data from it.
+/**
+ * Disconnects from the current stylus and causes the SDK to no longer auto-reconnect
+ * when it next sees it, but leaves the stylus powered on so the user can quickly
+ * connect the stylus to a different device.
  */
 -(void)disconnectStylus;
 
@@ -96,7 +108,55 @@ typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
 
 -(void)setOptionValue:(id)value forKey:(NSString *)key;
 
+/**
+ * Enables the manager and optionally shows an alert if the Bluetooth stack is not
+ * powered on
+ *
+ * @param powerOnAlert YES to show the alert, otherwise NO. Note that this 
+ *                     parameter will only take effect on iOS 7 or greater
+ */
+- (void)enableWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
+
+/**
+ * Enables the manager
+ *
+ * This is equivalent to calling enableWithBluetoothPowerOnAlert: using the last
+ * value passed in for powerOnAlert, or YES if no power on alert preference was
+ * ever explicitly set
+ */
+- (void)enable;
+
+/**
+ * Disables the manager
+ */
+- (void)disable;
+
+/**
+ * Enables/disables the manager based on whether it was enabled/disabled the last time
+ * that it was used. Optionally shows an alert if the Bluetooth stack is not
+ * powered on
+ *
+ * @param powerOnAlert YES to show the alert, otherwise NO. Note that this
+ *                     parameter will only take effect on iOS 7 or greater
+ */
+- (void)enableOrDisableBasedOnLastKnownStateWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
+
+/**
+ * Enables/disables the manager based on whether it was enabled/disabled the last time
+ * that it was used. 
+ *
+ * This is equivalent to calling enableOrDisableBasedOnLastKnownStateWithBluetoothPowerOnAlert: 
+ * using the last value passed in for powerOnAlert, or YES if no power on alert preference was
+ * ever explicitly set
+ */
+- (void)enableOrDisableBasedOnLastKnownState;
+
 #pragma mark - properties
+
+/**
+ * YES if the manager is enabled, otherwise NO
+ */
+@property (nonatomic, readonly) BOOL enabled;
 
 /**
  * property to indicate what style of connection to use. The legacy style is
@@ -115,11 +175,6 @@ typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
 @property (readwrite, nonatomic) JotStylusConnectionType connectionType;
 
 /**
- * property used to turn on the sdk
- */
-@property (readwrite, nonatomic) BOOL enabled;
-
-/**
  * The amount of time (in seconds) between the stylus being lifted from the screen
  * and the notification that gestures should be enabled. Defaults to 1 second.
  */
@@ -131,16 +186,16 @@ typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
  */
 @property (readonly) NSArray *shortcuts;
 
-/** 
+/**
  * Disable and enable shortcut notifications
  */
 @property BOOL shortcutsEnabled;
 
-/*! The current button 1 shortcut of the preferred stylus.
+/*! The current button 1 shortcut of the connected stylus.
  */
 @property (readwrite,assign) JotShortcut *button1Shortcut;
 
-/*! The current button 2 shortcut of the preferred stylus.
+/*! The current button 2 shortcut of the connected stylus.
  */
 @property (readwrite,assign) JotShortcut *button2Shortcut;
 
@@ -177,19 +232,14 @@ typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
  */
 @property (readonly) JotConnectionStatus connectionStatus;
 
-/*! An enum specifying the type of the preferred stylus.
- * Deprecated in v2.0
+/*! An enum specifying the model of the connected stylus.
  */
-@property (readonly) JotPreferredStylusType preferredStylusType;
+@property (readonly) JotModel stylusModel;
 
-/*! An enum specifying the model of the preferred and connected stylus.
+/**
+ * The friendly name of the stylus model. For example: "Jot Script"
  */
-@property (readonly) JotModel preferredStylusModel;
-
-/*! An enum specifying the preferred stylus.
- */
-@property (readonly) JotPreferredStylus *preferredStylus;
-
+@property (readonly) NSString *stylusModelFriendlyName;
 
 /*! NSString representing the firmware version for the connected pen
  */
@@ -200,6 +250,7 @@ typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
 @property (readonly) NSString *hardwareVersion;
 
 @property (readonly) NSString *serialNumber;
+
 
 @property NSMutableSet *currentTouchesSet;
 
