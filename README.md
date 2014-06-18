@@ -1,5 +1,7 @@
 #JotTouchSDK V2.0
 
+NOTICE: A new version of the Jot Touch SDK is shipping soon. To be notified please email us at developers@adonit.net. This new release will include support for the recently announced Jot Touch Pixelpoint.
+
 ##V2.0
 Please provide any bugs or feedback reports to developers@adonit.net.
 
