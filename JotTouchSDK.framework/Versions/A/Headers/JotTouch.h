@@ -10,32 +10,85 @@
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+/**
+ * A pressure and timestamped touch
+ */
 @interface JotTouch : NSObject
 
-+(JotTouch *)jotTouchFor:(UITouch *)touch;
-+(void)cleanJotTouchFor:(UITouch *)touch;
-+(void)cleanJotTouches:(NSSet *)jotTouches;
-/*! Returns a offset correct point location in input view
- * \param touch A UITouch object that is used to init JotTouch object.
+/**
+ * Looks up a JotTouch that is associated with a UITouch. If
+ * no JotTouch exists, one is created and added to the lookup
+ * table
+ *
+ * @param touch The UIToch
+ * @return A JotTouch 
+ *
+ * @see cleanAllJotTouches
+ * @see cleanJotTouchFor:
+ * @see cleanJotTouches:
  */
--(id)initWithTouch:(UITouch *)touch;
++ (JotTouch *)jotTouchFor:(UITouch *)touch;
 
-/*! Returns point location in input view.
- * \param view The view from which the touch occurs
- * \return The point of the touch within the input view
+/**
+ * Clears the entire lookup table of JotTouches
+ *
+ * @see jotTouchFor:
+ * @see cleanJotTouchFor:
+ * @see cleanJotTouches:
  */
--(CGPoint)locationInView:(UIView *)view;
++ (void)cleanAllJotTouches;
 
-/*! Returns previous point location in input view.
- * \param view The view from which the touch occurs
- * \return The point of the previous touch within the input view
+/**
+ * Clears any entries in the lookup table for the specified touch
+ *
+ * @param touch The UITouch to remove lookup entries for
+ *
+ * @see jotTouchFor:
+ * @see cleanAllJotTouches
+ * @see cleanJotTouches:
  */
--(CGPoint)previousLocationInView:(UIView *)view;
++ (void)cleanJotTouchFor:(UITouch *)touch;
 
-/*! Syncs pressure value to specific JotTouch object.
- * \param pressure The current pressure value while the touch is being captured
+/**
+ * Clears any entries in the lookup table for the specified set
+ * of JotTouches
+ *
+ * @param jotTouches    A set of JotTouches
+ *
+ * @see jotTouchFor:
+ * @see cleanAllJotTouches
+ * @see cleanJotTouches:
  */
--(void)syncToTouchWithPressure:(NSUInteger)pressure;
++ (void)cleanJotTouches:(NSSet *)jotTouches;
+
+/**
+ * Returns a offset correct point location in input view
+ *
+ * @param touch A UITouch
+ * @return A new JotTouch that is associated with the UITouch
+ */
+- (id)initWithTouch:(UITouch *)touch;
+
+/**
+ * Returns point location in input view.
+ *
+ * @param view The view from which the touch occurs
+ * @return The point of the touch within the input view
+ */
+- (CGPoint)locationInView:(UIView *)view;
+
+/** Returns previous point location in input view.
+ *
+ * @param view The view from which the touch occurs
+ * @return The point of the previous touch within the input view
+ */
+- (CGPoint)previousLocationInView:(UIView *)view;
+
+/**
+ * Syncs pressure value to specific JotTouch object.
+ * @param pressure The current pressure value while the touch is being captured
+ */
+- (void)syncToTouchWithPressure:(NSUInteger)pressure;
 
 /*! The touch associated with this object.
  */
@@ -57,8 +110,8 @@
  */
 @property (readwrite) NSTimeInterval timestamp;
 
-
 #pragma mark - Debug
+
 @property (readwrite) BOOL fromQueue;
 @property (readwrite) BOOL fromQuickPickup;
 

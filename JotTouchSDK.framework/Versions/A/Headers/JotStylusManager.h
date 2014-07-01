@@ -1,6 +1,5 @@
 //
 //  JotStylusManager.h
-//  PalmRejectionExampleApp
 //
 //  Created on 8/20/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
@@ -10,16 +9,37 @@
 #import "JotStylusConnectionDelegate.h"
 #import "JotPalmRejectionDelegate.h"
 #import "JotStylusStateDelegate.h"
-#import <CoreGraphics/CoreGraphics.h>
-#import <UIKit/UIKit.h>
 #import "JotShortcut.h"
-#import "JotSettingsViewController.h"
 #import "JotConstants.h"
 
+@class JotStylusMotionManager;
 @class JotPreferredStylus;
+
+typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
+
+/**
+ * This notification is sent whenever a discovery attempt is started, but Bluetooth
+ * on the device is not powered on
+ */
+extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotification;
+
 @interface JotStylusManager : NSObject <JotStylusStateDelegate, JotStylusConnectionDelegate>
 
 + (JotStylusManager*)sharedInstance;
+
+/**
+ causes the SDK to go into a scanning state, looking for jot stylus's
+ 
+ @param completionBlock a completion block that is called when a stylus is connected.
+ */
+- (void)startDiscoveryWithCompletionBlock:(JotStylusDiscoveryCompletionBlock)completionBlock;
+
+/**
+ if the SDK is in discovery mode, this call will stop the discovery process. The
+ completion block associated with the discovery process will not be called
+ */
+- (void)stopDiscovery;
+
 
 -(void)touchesBegan:(NSSet *)touches;
 -(void)touchesMoved:(NSSet *)touches;
@@ -32,7 +52,7 @@
 -(void)addShortcutOption:(JotShortcut *)shortcut;
 
 /*! Sets the default option state for the first shortcut that will used when initially loading the interface.
- * \param shortcut The default option of the second stylus button shortcut to be added to the settings interface
+ * \param shortcut The default option of the first stylus button shortcut to be added to the settings interface
  */
 -(void)addShortcutOptionButton1Default:(JotShortcut *)shortcut;
 
@@ -57,9 +77,20 @@
 -(NSUInteger)totalNumberOfStylusesConnected;
 
 
-/*! Removes the current connected stylus and stop receiving data from it.
+/** 
+ * Disconnects from the current stylus and instructs it to power down. This will also
+ * cause the SDK to no longer automatically reconnect to this stylus. The user will
+ * need to manually power on the stylus before it can be connected to a device.
  */
 -(void)forgetAndTurnOffStylus;
+
+/**
+ * Disconnects from the current stylus and causes the SDK to no longer auto-reconnect
+ * when it next sees it, but leaves the stylus powered on so the user can quickly
+ * connect the stylus to a different device.
+ */
+-(void)disconnectStylus;
+
 
 /*! Sets a view to receive touch events from Jot styluses.
  * \param view A view that will be supplied touch events from Jot styluses
@@ -77,31 +108,100 @@
 
 -(void)setOptionValue:(id)value forKey:(NSString *)key;
 
+/**
+ * Enables the manager and optionally shows an alert if the Bluetooth stack is not
+ * powered on
+ *
+ * @param powerOnAlert YES to show the alert, otherwise NO. Note that this 
+ *                     parameter will only take effect on iOS 7 or greater
+ */
+- (void)enableWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
+
+/**
+ * Enables the manager
+ *
+ * This is equivalent to calling enableWithBluetoothPowerOnAlert: using the last
+ * value passed in for powerOnAlert, or YES if no power on alert preference was
+ * ever explicitly set
+ */
+- (void)enable;
+
+/**
+ * Disables the manager
+ */
+- (void)disable;
+
+/**
+ * Enables/disables the manager based on whether it was enabled/disabled the last time
+ * that it was used. Optionally shows an alert if the Bluetooth stack is not
+ * powered on
+ *
+ * @param powerOnAlert YES to show the alert, otherwise NO. Note that this
+ *                     parameter will only take effect on iOS 7 or greater
+ */
+- (void)enableOrDisableBasedOnLastKnownStateWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
+
+/**
+ * Enables/disables the manager based on whether it was enabled/disabled the last time
+ * that it was used. 
+ *
+ * This is equivalent to calling enableOrDisableBasedOnLastKnownStateWithBluetoothPowerOnAlert: 
+ * using the last value passed in for powerOnAlert, or YES if no power on alert preference was
+ * ever explicitly set
+ */
+- (void)enableOrDisableBasedOnLastKnownState;
+
 #pragma mark - properties
 
-/*! Delays used to tune re-enabling gestures when a stylus is lifted from the screen.
+/**
+ * YES if the manager is enabled, otherwise NO
  */
-@property (readwrite) CGFloat palmDetectionTouchDelay;
-@property (nonatomic) CGFloat palmDetectionTouchDelayNoPressure;
+@property (nonatomic, readonly) BOOL enabled;
+
+/**
+ * property to indicate what style of connection to use. The legacy style is
+ * the tap-to-connect, where the SDK is scanning for stylii, and you indicate
+ * which one you want to connect by tapping it. This is the JotStylusConnectionTypeTap
+ *
+ * The new connection style used by the built-in settings pane requires the
+ * user to press and hold the stylus on the screen, which turns on scanning. 
+ * Once the SDK detects pressure for long enough from a stylus, it completes
+ * the connection. JotStylusConnectionTypePressAndHold.
+ *
+ * This property defaults to the new JotStylusConnectionTypePressAndHold. If you
+ * would like to continue using the legacy tap style, set this property to
+ * JotStylusConnectionTypeTap before setting enabled=YES;
+ */
+@property (readwrite, nonatomic) JotStylusConnectionType connectionType;
+
+/**
+ * The amount of time (in seconds) between the stylus being lifted from the screen
+ * and the notification that gestures should be enabled. Defaults to 1 second.
+ */
+@property (nonatomic) NSTimeInterval suggestionToEnableGesturesDelay;
+
 @property (readwrite) NSUInteger unconnectedPressure;
 
 /*! Array of JotShortcuts utilized in the settings interface.
  */
 @property (readonly) NSArray *shortcuts;
 
-/*! The current button 1 shortcut of the preferred stylus.
+/**
+ * Disable and enable shortcut notifications
+ */
+@property BOOL shortcutsEnabled;
+
+/*! The current button 1 shortcut of the connected stylus.
  */
 @property (readwrite,assign) JotShortcut *button1Shortcut;
 
-/*! The current button 2 shortcut of the preferred stylus.
+/*! The current button 2 shortcut of the connected stylus.
  */
 @property (readwrite,assign) JotShortcut *button2Shortcut;
 
 /*! Palm rejection delegate capturing touch events for palm rejection.
  */
 @property (readwrite,assign) id<JotPalmRejectionDelegate> palmRejectorDelegate;
-
-@property (nonatomic) BOOL enabled;
 
 /*! A string representation of the current version of the SDK being used.
  */
@@ -124,7 +224,7 @@
  */
 @property (readwrite) JotPalmRejectionOrientation palmRejectionOrientation;
 
-/*! An enum specifying the current writing style and prefered writing hand. Default to JotWritingStyleRightDown
+/*! An enum specifying the current writing style and prefered writing hand. Default to JotWritingStyleRightAverage
  */
 @property (readwrite) JotWritingStyle writingStyle;
 
@@ -132,19 +232,14 @@
  */
 @property (readonly) JotConnectionStatus connectionStatus;
 
-/*! An enum specifying the type of the preferred stylus.
- * Deprecated in v2.0
+/*! An enum specifying the model of the connected stylus.
  */
-@property (readonly) JotPreferredStylusType preferredStylusType;
+@property (readonly) JotModel stylusModel;
 
-/*! An enum specifying the model of the preferred and connected stylus.
+/**
+ * The friendly name of the stylus model. For example: "Jot Script"
  */
-@property (readonly) JotModel preferredStylusModel;
-
-/*! An enum specifying the preferred stylus.
- */
-@property (readonly) JotPreferredStylus *preferredStylus;
-
+@property (readonly) NSString *stylusModelFriendlyName;
 
 /*! NSString representing the firmware version for the connected pen
  */
@@ -154,5 +249,11 @@
  */
 @property (readonly) NSString *hardwareVersion;
 
+@property (readonly) NSString *serialNumber;
+
+
+@property NSMutableSet *currentTouchesSet;
+
+@property (readonly) JotStylusMotionManager *jotStylusMotionManager;
 
 @end

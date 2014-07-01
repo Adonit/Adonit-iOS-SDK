@@ -59,7 +59,7 @@
  * we need to take to draw this curve with vertex points
  */
 -(NSInteger) numberOfSteps{
-    return MAX(floorf([self lengthOfElement] / kBrushStepSize), 1);
+    return MAX(floor([self lengthOfElement] / kBrushStepSize), 1);
 }
 
 
@@ -87,7 +87,7 @@
     scaleOfVertexBuffer = scale;
     
     // find out how many steps we can put inside this segment length
-	int numberOfSteps = [self numberOfSteps];
+	NSInteger numberOfSteps = [self numberOfSteps];
     
     // since kBrushStepSize doesn't exactly divide into our segment length,
     // let's find a step size that /does/ exactly divide into our segment length

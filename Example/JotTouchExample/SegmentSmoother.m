@@ -74,11 +74,11 @@
         
         // Resulting control points. Here smooth_value is mentioned
         // above coefficient K whose value should be in range [0...1].
-        float ctrl1_x = xm1 + (xc2 - xm1) * smooth_value + x1 - xm1;
-        float ctrl1_y = ym1 + (yc2 - ym1) * smooth_value + y1 - ym1;
+        CGFloat ctrl1_x = xm1 + (xc2 - xm1) * smooth_value + x1 - xm1;
+        CGFloat ctrl1_y = ym1 + (yc2 - ym1) * smooth_value + y1 - ym1;
         
-        float ctrl2_x = xm2 + (xc2 - xm2) * smooth_value + x2 - xm2;
-        float ctrl2_y = ym2 + (yc2 - ym2) * smooth_value + y2 - ym2;
+        CGFloat ctrl2_x = xm2 + (xc2 - xm2) * smooth_value + x2 - xm2;
+        CGFloat ctrl2_y = ym2 + (yc2 - ym2) * smooth_value + y2 - ym2;
         
         if(isnan(ctrl1_x) || isnan(ctrl1_y)){
             ctrl1_x = point1.x;

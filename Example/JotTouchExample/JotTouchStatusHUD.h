@@ -14,7 +14,7 @@
 @property BOOL monoChromeAlert;
 @property BOOL textOnly;
 
-@property float displayDuration; // in Seconds. Default is 2
+@property CGFloat displayDuration; // in Seconds. Default is 2
 
 + (void) ShowJotHUDInView: (UIView *) viewToDisplayIn isConnected: (BOOL) isConnected;
 

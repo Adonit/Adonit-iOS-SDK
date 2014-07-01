@@ -36,7 +36,7 @@
  * this line to render it with vertex points
  */
 -(NSInteger) numberOfSteps{
-    return MAX(floorf([self lengthOfElement] / kBrushStepSize), 1);
+    return MAX(floor([self lengthOfElement] / kBrushStepSize), 1);
 }
 
 /**
@@ -63,7 +63,7 @@
     
     // Convert locations from Points to Pixels
 	// Add points to the buffer so there are drawing points every X pixels
-	int numberOfSteps = [self numberOfSteps];
+	NSInteger numberOfSteps = [self numberOfSteps];
     
     // now lets calculate the steps we need to adjust width
     CGFloat prevWidth = [self widthOfPreviousElement:previousElement];
@@ -83,7 +83,7 @@
     
     // generate a single point vertex for each step
     // so that the stroke is essentially a series of dots
-	for(int step = 0; step < numberOfSteps; step++) {
+	for(NSInteger step = 0; step < numberOfSteps; step++) {
         // 0 <= t < 1
         CGFloat t = (CGFloat)step / (CGFloat)numberOfSteps;
         

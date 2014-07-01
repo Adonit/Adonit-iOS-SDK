@@ -7,88 +7,101 @@
 //
 
 #import "ViewController.h"
+#import "Constants.h"
 
-@interface ViewController(){
-    UIPinchGestureRecognizer* pinchGesture;
-    UIPopoverController* popoverController;
-}
+@interface ViewController()
 
 @property (nonatomic, strong) JotStylusManager *jotManager;
+@property (nonatomic ,strong) UIPopoverController *settingsPopoverController;
+@property (nonatomic) BOOL gesturesEnabled;
 
 @end
-
 
 @implementation ViewController
 
 #pragma mark - UIViewController
 
-- (void) viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.gesturesEnabled = YES;
+    self.gesturesSwitch.on = YES;
+    self.customScrollView.panGestureRecognizer.enabled = YES;
+    self.customScrollView.pinchGestureRecognizer.enabled = YES;
     
     // Set initial state of Jot Status Indicators to be off
     [self showJotStatusIndicators:NO WithAnimation:NO];
 
+    self.canvasView.viewController = self;
+    self.customScrollView.delegate = self;
+    self.customScrollView.dataSource = self;
+    self.customScrollView.contentSize = self.canvasView.bounds.size;
+    
     //
     // Hook up the jotManager
     _jotManager = [JotStylusManager sharedInstance];
     
-    NSLog(@"Version: %@.%@", _jotManager.SDKVersion, _jotManager.SDKBuildVersion);
-    
     [_jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
                                     initWithDescriptiveText:@"Undo"
                                     key:@"undo"
-                                    target:self selector:@selector(undoShortCut) repeatRate:200
+                                    target:self selector:@selector(undoShortCut) repeatRate:0.20
                                     ]];
     
     [_jotManager addShortcutOptionButton2Default: [[JotShortcut alloc]
                                     initWithDescriptiveText:@"Redo"
                                     key:@"redo"
-                                    target:self selector:@selector(redoShortCut) repeatRate:200
+                                    target:self selector:@selector(redoShortCut) repeatRate:0.20
                                     ]];
     
     [_jotManager addShortcutOption: [[JotShortcut alloc]
                                     initWithDescriptiveText:@"No Action"
                                     key:@"noaction"
-                                    target:nil selector:@selector(noActionShortCut) repeatRate:200
+                                    target:nil selector:@selector(noActionShortCut) repeatRate:0.20
                                     ]];
     
     
     _jotManager.unconnectedPressure = 256;
     _jotManager.palmRejectorDelegate = self.canvasView;
-    _jotManager.enabled = YES;
+    [_jotManager enable];
+    
     
     // Register for jotStylus notifications
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(connectionChange:)
                                                  name: JotStylusManagerDidChangeConnectionStatus
                                                object:nil];
+
     
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(startTrackingPen:)
+                                                 name: JotStylusTrackingPressureForConnectionNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(startTrackingPenFailed:)
+                                                 name: JotStylusTrackingPressureForConnectionFailedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(startTrackingPenSuccessful:)
+                                                 name: JotStylusTrackingPressureForConnectionSuccessfulNotification
+                                               object:nil];
+
     
     //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableConsoleLogging"];
     //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheBTThings"];
     //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheTouchThings"];
     //[[JotStylusManager sharedInstance] setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableCustomScreenOrientation"];
     //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait] forKey:@"net.adonit.customScreenOrientation"];
-    //
-    // This gesture tests to see how the Jot SDK handles
-    // gestures that are added to the drawing view
-    //
-    // We'll test a pinch gesture, which could be used for
-    // pinch to zoom
-    
-    pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
-    [self.canvasView addGestureRecognizer:pinchGesture];
     
     //
     // Conditional setup for iOS 7 and above
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
     {
         //NSLog(@"iOS7 !!!");
-        int verticleOffset = 20;
+        CGFloat verticleOffset = 20.0;
         
         // Add Black rectangle behind iOS7 ToolBar
-        UIView *blackStatusBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, verticleOffset +1)];
+        UIView *blackStatusBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1024, verticleOffset + 1)];
         blackStatusBar.backgroundColor = [UIColor blackColor];
         [self.view addSubview:blackStatusBar];
         
@@ -97,21 +110,74 @@
             // Set Statusbar to have light text
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         #endif
-        
-        // Lower UI Elements to compensate for black statusbar
-        self.adonitLogo.frame = [self lowerRect:self.adonitLogo.frame byYValue:verticleOffset];
-        
-        self.jotSatusIndicatorContainerView.frame = [self lowerRect:self.jotSatusIndicatorContainerView.frame byYValue:verticleOffset];
-        
-        self.interfaceContainerView.frame = [self lowerRect:self.interfaceContainerView.frame byYValue:verticleOffset];
     }
+    
+    [self.adonitLogo addTarget:self
+                        action:@selector(adonitDown:)
+              forControlEvents:UIControlEventTouchDown];
 
+    [self.adonitLogo addTarget:self
+                        action:@selector(adonitUp:)
+              forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)startTrackingPen:(NSNotification *)notification
+{
+    NSLog(@"we've started tracking %@", notification.userInfo[@"name"]);
+}
+
+- (void)startTrackingPenFailed:(NSNotification *)notification
+{
+    NSLog(@"we've stopped tracking %@", notification.userInfo[@"name"]);
+}
+
+- (void)startTrackingPenSuccessful:(NSNotification *)notification
+{
+    NSLog(@"we've successfuly tracked %@", notification.userInfo[@"name"]);
+}
+
+- (void)adonitDown:(id)selector
+{
+    [_jotManager startDiscoveryWithCompletionBlock:^(BOOL success, NSError *error) {
+        NSLog(@"Stylus Connected");
+    }];
+}
+
+- (void)adonitUp:(id)selector
+{
+    [_jotManager stopDiscovery];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setScrollViewMinScale];
+    self.customScrollView.maximumZoomScale = SCROLLVIEW_MAX_ZOOM_SCALE;
+    self.customScrollView.zoomScale = 0.97;
+    
+    [self.customScrollView centerView];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self setScrollViewMinScale];
+    
+    [self.customScrollView centerView];
+}
+
+- (void)setScrollViewMinScale
+{
+    // Calculate minimumZoomScale
+    CGFloat xScale = self.customScrollView.bounds.size.width / self.canvasView.bounds.size.width;
+    CGFloat yScale =  self.customScrollView.bounds.size.height / self.canvasView.bounds.size.height;
+    CGFloat minScale = MIN(xScale, yScale);
+    
+    self.customScrollView.minimumZoomScale = minScale * SCROLLVIEW_MIN_ZOOM_SCALE;
 }
 
 /**
  * Helper method to return a rect lowered by an offset amount.
  */
-- (CGRect) lowerRect: (CGRect) theRect byYValue: (CGFloat) yValue
+- (CGRect)lowerRect:(CGRect)theRect byYValue:(CGFloat)yValue
 {
     return CGRectMake(theRect.origin.x, theRect.origin.y + yValue, theRect.size.width, theRect.size.height);
 }
@@ -122,7 +188,7 @@
  * Method that handles different Stylus connection
  * notifications sent from the jotManager.
  */
--(void) connectionChange:(NSNotification *) note
+- (void)connectionChange:(NSNotification *)note
 {
     switch(_jotManager.connectionStatus)
     {
@@ -175,7 +241,45 @@
     }
 }
 
--(IBAction) undoShortCut
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - IBAction
+
+- (IBAction)showSettings:(id)sender
+{
+    JotSettingsViewController *settings = [JotSettingsViewController settingsViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        [navController setModalPresentationStyle:UIModalPresentationFullScreen];
+        [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [[[UIApplication sharedApplication] delegate].window.rootViewController presentViewController:navController animated:YES completion:nil];
+    } else {
+        if(self.settingsPopoverController){
+            [self.settingsPopoverController dismissPopoverAnimated:NO];
+        }
+        
+        self.settingsPopoverController = [[UIPopoverController alloc] initWithContentViewController:navController];
+        [self.settingsPopoverController presentPopoverFromRect:[sender frame] inView:self.interfaceContainerView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+       
+        if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
+             navController.navigationBar.tintColor = [UIColor redColor];
+        }
+
+        [self.settingsPopoverController setPopoverContentSize:CGSizeMake(320, 460) animated:NO];
+    }
+}
+
+- (IBAction)noActionShortCut
+{
+    
+}
+
+- (IBAction)undoShortCut
 {
     [self.canvasView undo];
     
@@ -185,12 +289,12 @@
     double delayInSeconds = 0.25;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){ 
        self.aButtonLabel.text = @"A";
     });
 }
 
--(IBAction)redoShortCut
+- (IBAction)redoShortCut
 {
     [self.canvasView redo];
     
@@ -205,27 +309,16 @@
     });
 }
 
--(IBAction) noActionShortCut
-{
-    
-}
-
-#pragma mark - Interface Buttons
-
--(IBAction) showSettings:(id)sender{
-    JotSettingsViewController* settings = [[JotSettingsViewController alloc] initWithOnOffSwitch: YES];
-    if(popoverController){
-        [popoverController dismissPopoverAnimated:NO];
-    }
-    
-    popoverController = [[UIPopoverController alloc] initWithContentViewController:settings];
-    [popoverController presentPopoverFromRect:[sender frame] inView:self.interfaceContainerView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    [popoverController setPopoverContentSize:CGSizeMake(300, 450) animated:NO];
-}
-
--(IBAction) clear{
-    
+- (IBAction)clear
+{    
     [self.canvasView clear];
+}
+
+- (IBAction)gestureSwitchValueChanged
+{
+    self.gesturesEnabled = self.gesturesSwitch.isOn;
+    self.customScrollView.panGestureRecognizer.enabled = self.gesturesSwitch.isOn;
+    self.customScrollView.pinchGestureRecognizer.enabled = self.gesturesSwitch.isOn;
 }
 
 #pragma mark - Jot Status Indicators
@@ -240,10 +333,10 @@
  * but might be helpful to get a feel for how the 
  * stylus hardware works.
  */
-- (void) showJotStatusIndicators:(BOOL) show WithAnimation: (BOOL) animate
+- (void)showJotStatusIndicators:(BOOL)show WithAnimation:(BOOL)animate
 {
-    float opacity =  0.0;
-    float duration = 0.0;
+    CGFloat opacity =  0.0;
+    CGFloat duration = 0.0;
     
     if (show) opacity = 1.0;
     if (animate) duration = 0.5;
@@ -261,40 +354,53 @@
 
 #pragma mark - Gesture Logs
 
--(void) jotSuggestsToDisableGestures{
+- (void)jotSuggestsToDisableGestures
+{
     // disable any other gestures, like a pinch to zoom
     self.gestureSuggestionLabel.text = @"Suggestion: DISABLE gestures";
 
-    pinchGesture.enabled = NO;
+    self.customScrollView.pinchGestureRecognizer.enabled = NO;
+    self.customScrollView.panGestureRecognizer.enabled = NO;
 }
 
--(void) jotSuggestsToEnableGestures{
+- (void)jotSuggestsToEnableGestures
+{
     // enable any other gestures, like a pinch to zoom
-    
     self.gestureSuggestionLabel.text = @"Suggestion: ENABLE gestures";
-
-    pinchGesture.enabled = YES;
-}
-
--(void) pinch:(UIPinchGestureRecognizer*)_pinchGesture{
-    if(pinchGesture.state == UIGestureRecognizerStateBegan){
-        
-        self.gestureSuggestionLabel.text = @"Pinch Gesture: BEGAN";
     
-    }else if(pinchGesture.state == UIGestureRecognizerStateEnded){
-    
-        self.gestureSuggestionLabel.text = @"Pinch Gesture: ENDED";
-    
-    }else if(pinchGesture.state == UIGestureRecognizerStateCancelled){
-        
-        self.gestureSuggestionLabel.text = @"Pinch Gesture: ENDED";
-    }
+    self.customScrollView.pinchGestureRecognizer.enabled = self.gesturesEnabled;
+    self.customScrollView.panGestureRecognizer.enabled = self.gesturesEnabled;
 }
 
 #pragma mark - UIPopoverControllerDelegate
 
--(void) popoverControllerDidDismissPopover:(UIPopoverController *) dismissedPopoverController{
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)dismissedPopoverController
+{
     dismissedPopoverController = nil;
+}
+
+#pragma mark - CustomScrollviewDatasource
+
+- (CGRect)viewFrameForCustomScrollView:(CustomScrollView *)sender
+{
+    return  self.canvasView.frame;
+}
+
+#pragma mark - UIScrollviewDelegate
+
+-(void)scrollViewDidZoom:(UIScrollView *)scrollView
+{
+    self.gestureSuggestionLabel.text = @"Pinch Gesture: BEGAN";
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
+{
+    self.gestureSuggestionLabel.text = @"Pinch Gesture: ENDED";
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.canvasView;
 }
 
 @end
