@@ -1,5 +1,9 @@
 #JotTouchSDK Change Log
 
+# V2.5.1
+- update the shortcut screen in settings UI to include JTPP
+- fix alignment issue when selecting shortcut button
+
 # V2.5 Public Release
 - see UPDATE.md for a rundown of API changes in this release
 - fixed numerous bugs when running on legacy iOS 6 devices
