@@ -12,35 +12,38 @@
 
 @class JotPalmGestureRecognizer;
 
+/** The JotPalmRejectionDelegate receives important events related to touch events
+ * caused by the stylus
+ */
 @protocol JotPalmRejectionDelegate <NSObject>
 
-/*! Sets the initial touches of a jot stylus.
- * \param touches Sets of initial touches where stylus begins touching
+/** Called when the stylus begins a touch event
+ * @param touches Set of initial touches where the stylus began touching
  */
--(void)jotStylusTouchBegan:(NSSet *) touches;
+- (void)jotStylusTouchBegan:(NSSet *)touches;
 
-/*! Sets the movement of touches of a jot stylus.
- * \param touches Sets of touches where stylus is moving
+/** Called when the jot stylus moves across the screen
+ * @param touches Set of touches where stylus is moving
  */
--(void)jotStylusTouchMoved:(NSSet *) touches;
+- (void)jotStylusTouchMoved:(NSSet *)touches;
 
-/*! Sets the end touches of a jot stylus.
- * \param touches Sets of touches where stylus ends
+/** Called when the jot stylus is lifted from the screen
+ * @param touches Set of touches where stylus ends
  */
--(void)jotStylusTouchEnded:(NSSet *) touches;
+- (void)jotStylusTouchEnded:(NSSet *)touches;
 
-/*! Sets cancelled touches of a jot stylus.
- * \param touches Sets of touches where stylus cancels
+/** Called when touches by the jot stylus are cancelled
+ * @param touches Sets of touches where stylus cancels
  */
--(void)jotStylusTouchCancelled:(NSSet *) touches;
+- (void)jotStylusTouchCancelled:(NSSet *)touches;
 
-/*! Suggest to disable gestures when the pen is down to prevent conflict.
+/** Suggest to disable gestures when the pen is down to prevent conflict
  */
--(void)jotSuggestsToDisableGestures;
+- (void)jotSuggestsToDisableGestures;
 
-/*! Suggest to enable gestures when the pen is not down as there are no potential conflicts.
+/** Suggest to enable gestures when the pen is not down as there are no potential conflicts
  */
--(void)jotSuggestsToEnableGestures;
+- (void)jotSuggestsToEnableGestures;
 
 @end
 

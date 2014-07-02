@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.h
+//  JotTapToConnectSettingsViewController.h
 //  JotTouchSDK
 //
 //  Created  on 3/3/13.
@@ -8,6 +8,7 @@
 
 #import "JotSettingsViewController.h"
 
+/** The legacy style settings interface for jot styluses */
 @interface JotTapToConnectSettingsViewController : UINavigationController
 
 /** Initialization of settings view controller with or without adonit jot family toggle.

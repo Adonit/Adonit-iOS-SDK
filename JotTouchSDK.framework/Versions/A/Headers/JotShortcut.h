@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+/** An action that can be tied to one of the physical buttons on the stylus */
 @interface JotShortcut : NSObject
 
 /**
@@ -16,22 +17,22 @@
 @property (copy) NSString *key;
 
 /**
- * a short string
+ * A short string
  */
 @property (copy) NSString *shortText;
 
 /**
- * a description of what the shortcut does
+ * A description of what the shortcut does
  */
 @property (copy) NSString *descriptiveText;
 
 /**
- * Selector that is associated with the created shortcut.
+ * Selector that is associated with the shortcut
  */
 @property SEL selector;
 
 /**
- * Target that is associated with the created shortcut.
+ * Target that is associated with the shortcut
  */
 @property (assign) id target;
 
@@ -68,7 +69,7 @@
  * @param key and `NSString` used to reference this shortcut
  * @param target The target which will receive the shortcut message
  * @param selector The message that will be sent to the target. The selector should not take or return any parameters `- (void)selector`
- * @param repeatRate how often the selector should be called while the button on the stylus is still depressed
+ * @param seconds How often the selector should be called (in seconds) while the button on the stylus is still depressed
  * @return an instance of a `JotShortcut`
  */
 - (instancetype)initWithDescriptiveText:(NSString *)descriptiveText key:(NSString *)key target:(id)target selector:(SEL)selector repeatRate:(NSTimeInterval)seconds;
@@ -92,7 +93,7 @@
  * @param key and `NSString` used to reference this shortcut
  * @param target The target which will receive the shortcut message
  * @param selector The message that will be sent to the target. The selector should not take or return any parameters `- (void)selector`
- * @param repeatRate how often the selector should be called while the button on the stylus is still depressed
+ * @param seconds How often the selector should be called (in seconds) while the button on the stylus is still depressed
  * @param usableWhenStylusDepressed indicates whether the shortcut should fire if the pen tip is on the screen
  * @return an instance of a `JotShortcut`
  */
@@ -106,7 +107,8 @@
  * @param key and `NSString` used to reference this shortcut
  * @param target The target which will receive the shortcut message
  * @param selector The message that will be sent to the target. The selector should not take or return any parameters `- (void)selector`
- * @param repeatRate how often the selector should be called while the button on the stylus is still depressed
+ * @param repeat YES if the selector should continue to be called while the button on the stylus is depressed
+ * @param seconds How often the selector should be called (in seconds) while the button on the stylus is still depressed
  * @param usableWhenStylusDepressed indicates whether the shortcut should fire if the pen tip is on the screen
  * @return an instance of a `JotShortcut`
  */

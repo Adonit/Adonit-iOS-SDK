@@ -1,5 +1,9 @@
 #JotTouchSDK Change Log
 
+# V2.5.2
+- Press-and-Hold Settings View controller now works on iOS 6
+- Fixed an issue where palm rejection setting switch was not working for script
+
 # V2.5.1
 - update the shortcut screen in settings UI to include JTPP
 - fix alignment issue when selecting shortcut button

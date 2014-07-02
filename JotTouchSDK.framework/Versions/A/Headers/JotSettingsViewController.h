@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+/** This view controller allows the user to connect and configure their stylus */
 @interface JotSettingsViewController : UITableViewController
 
 /**
@@ -28,15 +29,15 @@
 + (instancetype)settingsViewController;
 
 /**
- * Initialization of settings view controller with or without adonit jot family toggle.
- * @param showSwitch A boolean that determines whether to show jot family toggle.
+ * Initialization of settings view controller with or without adonit jot family toggle
+ * @param showOnOffSwitch A boolean that determines whether to show jot family toggle
  */
 - (instancetype)initWithOnOffSwitch:(BOOL)showOnOffSwitch;
 
 /**
- * Initialization of settings view controller with or without adonit jot family toggle and palm rejection toggle.
- * @param showSwitch A boolean that determines whether to show jot family toggle
- * @param showPalmRejection A boolean that determines whether to show palm rejection toggle
+ * Initialization of settings view controller with or without adonit jot family toggle and palm rejection toggle
+ * @param showOnOffSwitch A boolean that determines whether to show jot family toggle
+ * @param showPalmRejectionSwitch A boolean that determines whether to show palm rejection toggle
  */
 - (instancetype)initWithOnOffSwitch:(BOOL)showOnOffSwitch palmRejectionSwitch:(BOOL)showPalmRejectionSwitch;
 

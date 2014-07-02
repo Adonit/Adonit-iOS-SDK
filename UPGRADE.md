@@ -119,7 +119,7 @@ In addition to the available `init...` methods, you can use the `settingsViewCon
     @property BOOL showOnOffSwitch;
     @property BOOL showPalmRejectionSwitch;
     
-The new Press-and-hold style settings controller is only available for iOS 7 currently. If you are still supporting iOS 6, you will need to use the `JotStylusConnectionTypeTap` style. You can get a legacy settings view controller by using the `JotTapToConnectSettingsViewController`.
+You can get a legacy settings view controller by using the `JotTapToConnectSettingsViewController`.
 
 ## JotPalmGestureRecognizer Integration [EXPERIMENTAL]
 

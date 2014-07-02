@@ -1,45 +1,51 @@
 //
-//  StylusStateDelegate.h
-//  PalmRejectionExampleApp
+//  JotStylusStateDelegate.h
+//  JotTouchSDK
 //
-//  Created  on 10/14/12.
-//
+//  Created on 10/14/12.
+//  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@protocol JotStylusStateDelegate<NSObject>
-
-/*! Message that the jot has been pressed.
+/** The JotStylusStateDelegate is notified of important events as the user
+ * interacts with the stylus
  */
--(void)jotStylusPressed;
+@protocol JotStylusStateDelegate <NSObject>
 
-/*! Message that the jot has been released after press.
+/** Called when the stylus has been pressed
  */
--(void)jotStylusReleased;
+- (void)jotStylusPressed;
 
-/*! Message that the button 1 is pressed.
+/** Called when the stylus has been released after a press
  */
--(void)jotStylusButton1Pressed;
+- (void)jotStylusReleased;
 
-/*! Message that the button 1 is released after press.
+/** Called when button 1 is pressed on the stylus
  */
--(void)jotStylusButton1Released;
+- (void)jotStylusButton1Pressed;
 
-/*! Message that the button 2 is pressed.
+/** Called when button 1 is released on the stylus
  */
--(void)jotStylusButton2Pressed;
+- (void)jotStylusButton1Released;
 
-/*! Message that the button 2 is released after press.
+/** Called when button 2 is pressed on the stylus
  */
--(void)jotStylusButton2Released;
+- (void)jotStylusButton2Pressed;
 
-/*! Messaged that the jot stylus pressure is updated.
+/** Called when button 2 is released on the stylus
  */
--(void)jotStylusPressureUpdate:(NSUInteger)pressure;
+- (void)jotStylusButton2Released;
 
-/*! Messaged that the jot stylus battery level is updated.
+/** Called when the pressure of the stylus changes
+ * @param pressure The updated pressure value
  */
--(void)jotStylus:(JotStylus*)stylus batteryLevelUpdate:(NSUInteger)battery;
+- (void)jotStylusPressureUpdate:(NSUInteger)pressure;
+
+/** Called when the battery level of the stylus changes
+ * @param stylus The stylus that this battery level pertains to
+ * @param battery The new battery level
+ */
+- (void)jotStylus:(JotStylus*)stylus batteryLevelUpdate:(NSUInteger)battery;
 
 @end

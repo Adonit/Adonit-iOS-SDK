@@ -14,19 +14,13 @@ extern NSString * const JotStylusManagerDidPairWithStylus;
 extern NSString * const JotStylusManagerDidChangeBatteryLevel;
 extern NSString * const JotStylusManagerDidDiscoverServices;
 
-/**
- * Notification sent when the battery changes state to normal. Normal is 20-100%
- */
+// Notification sent when the battery changes state to normal. Normal is 20-100%
 extern NSString * const JotStylusNotificationBatteryLevelNormal;
 
-/**
- * Notification sent when the battery changes state to low. Low is 10-20%
- */
+// Notification sent when the battery changes state to low. Low is 10-20%
 extern NSString * const JotStylusNotificationBatteryLevelLow;
 
-/**
- * Notification sent when the battery changes state to critical. Critical is 0-10%
- */
+// Notification sent when the battery changes state to critical. Critical is 0-10%
 extern NSString * const JotStylusNotificationBatteryLevelCritical;
 
 extern NSString * const JotStylusButton1Down;
