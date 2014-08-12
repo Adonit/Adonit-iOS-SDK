@@ -42,5 +42,12 @@
  */
 - (void)jotStylusUnsupported;
 
+@optional
+
+/** Sent when a stylus is about to be disconnected
+ * @param stylus The stylus that will be disconnected
+ */
+- (void)jotStylusWillDisconnect:(JotStylus *)stylus;
+
 @end
 

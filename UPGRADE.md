@@ -1,3 +1,10 @@
+# JotTouchSDK 2.6 Upgrade Notes
+
+Upgrading from any 2.5.x release should require no code changes on your part. However, there are two new pieces of API to be aware of:
+
+- A new option on JotStylusManager called reportDiagnosticData. Turning this option on will help us to create better solutions based
+    on how customers use our products.
+
 # JotTouchSDK 2.5 Upgrade Notes
 
 The 2.5 JotTouchSDK includes a few updates that will require changes to your code when moving to this release.
@@ -104,6 +111,18 @@ and then implement those methods as follows:
     }
 
 You need to make sure that you call the `stopDiscovery` method when you no longer want the SDK to scan for styli. When a stylus has been discovered, the callback will be invoked. If there is a problem with the discovery process, you may receive an error. For example, if you attempt to start discovery when the SDK is disabled.
+
+## Smoothing Options
+
+The `JotStylusManager` now has two optional settings to control whether the SDK does any line smoothing to correct for distorted points when using certain stylus and iOS device combinations. By default, the SDK will try to smooth points to correct for this distortion. You can disable this smoothing by using the following property on `JotStylusManager`:
+
+    @property (nonatomic) BOOL lineSmoothingEnabled;
+
+You can also control how much smoothing is applied using the property:
+
+@property (nonatomic) double lineSmoothingStrength;
+
+This takes a value from 0.0 to 1.0 and indicates how strongly the engine should try and smooth the lines. Higher values result in smoother lines, at the expense of detail when making sharp curves.
 
 ## New Settings View Controller
 

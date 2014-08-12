@@ -20,7 +20,7 @@
  * no JotTouch exists, one is created and added to the lookup
  * table
  *
- * @param touch The UIToch
+ * @param touch The UITouch
  * @return A JotTouch 
  *
  * @see cleanAllJotTouches
@@ -28,6 +28,21 @@
  * @see cleanJotTouches:
  */
 + (JotTouch *)jotTouchFor:(UITouch *)touch;
+
+/**
+ * Looks up a JotTouch that is associated with a UITouch. If
+ * no JotTouch exists, one is created and added to the lookup
+ * table
+ *
+ * @param touch                 The UITouch
+ * @param lineSmoothingEnabled  YES to apply line smoothing to this touch, otherwise NO
+ * @return A JotTouch
+ *
+ * @see cleanAllJotTouches
+ * @see cleanJotTouchFor:
+ * @see cleanJotTouches:
+ */
++ (JotTouch *)jotTouchFor:(UITouch *)touch lineSmoothingEnabled:(BOOL)lineSmoothingEnabled;
 
 /**
  * Clears the entire lookup table of JotTouches
@@ -68,6 +83,15 @@
  * @return A new JotTouch that is associated with the UITouch
  */
 - (id)initWithTouch:(UITouch *)touch;
+
+/**
+ * Returns a offset correct point location in input view
+ *
+ * @param touch A UITouch
+ * @param lineSmoothingEnabled  YES to apply line smoothing to this touch, otherwise NO
+ * @return A new JotTouch that is associated with the UITouch
+ */
+- (id)initWithTouch:(UITouch *)touch lineSmoothingEnabled:(BOOL)lineSmoothingEnabled;
 
 /**
  * Returns point location in input view.

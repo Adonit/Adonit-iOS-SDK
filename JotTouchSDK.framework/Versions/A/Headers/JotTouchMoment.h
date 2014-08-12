@@ -9,13 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
+
 @interface JotTouchMoment : NSObject
-@property (readwrite) CGPoint point;
-@property (readwrite) NSTimeInterval timestamp;
-@property (readwrite) NSUInteger pressure;
-@property (readwrite) BOOL isTouchEnd;
-@property (readwrite) UITouch *touch;
--(id) initWithTouch:(UITouch *) touch withPoint:(CGPoint)point withPressure:(NSUInteger)pressure withTimestamp:(NSTimeInterval)timestamp;
+
+@property CGPoint point;
+@property NSTimeInterval timestamp;
+@property NSUInteger pressure;
+@property BOOL isTouchEnd;
+@property UITouch *touch;
+
+- (instancetype)initWithTouch:(UITouch *)touch withPoint:(CGPoint)point withPressure:(NSUInteger)pressure withTimestamp:(NSTimeInterval)timestamp;
 +(JotTouchMoment *)touchEnd;
 
 @end
