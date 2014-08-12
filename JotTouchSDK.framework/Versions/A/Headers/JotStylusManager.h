@@ -3,6 +3,7 @@
 //
 //  Created on 8/20/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
+// this is a NOOP change
 //
 
 #import <Foundation/Foundation.h>
@@ -67,13 +68,6 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * @return If connected, returns positive integer value of connected pressure data. If not connected, returns the unconnected pressure data.
  */
 - (NSUInteger)getPressure;
-
-/**
- * Determines if a stylus is currently connected
- * 
- * @return YES if a stylus is connected, otherwise NO
- */
-- (BOOL)isStylusConnected;
 
 /**
  * Number of styluses connected to BT, including those still pairing
@@ -165,6 +159,24 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  */
 @property (nonatomic, readonly) BOOL enabled;
 
+
+/**
+ * Determines if a stylus is currently connected
+ *
+ * @return YES if a stylus is connected, otherwise NO
+ */
+@property (nonatomic, readonly, getter = isStylusConnected) BOOL stylusConnected;
+
+
+/**
+ * Enabling this property allows information about your device and stylus to be reported to Adonit.
+ * This information is used to create a better user experience for everyone. For more information, please
+ * see our Terms and Conditions at http://www.adonit.net/termsandconditions/
+ *
+ * The default value is NO.
+ */
+@property (nonatomic) BOOL reportDiagnosticData;
+
 /**
  * Indicates what style of connection to use
  *
@@ -238,15 +250,17 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  */
 @property (readonly) NSUInteger batteryLevel;
 
-/*! An enum specifying the current selected palm rejection orientation (left vs. right)
- * Deprecated in v2.0, moving forward please use palmRejectionOrientation
- */
-@property (readwrite) JotPalmRejectionOrientation palmRejectionOrientation;
-
 /**
  * An enum specifying the current writing style and prefered writing hand. Default to JotWritingStyleRightAverage
  */
 @property (readwrite) JotWritingStyle writingStyle;
+
+/**
+ * This property determines whether or not any smoothing will be applied to JotTouches.
+ * Line smoothing eliminates inaccuracies (waves) caused by the interaction of the stylus
+ * and the device's screen. The default value is YES.
+ */
+@property (nonatomic) BOOL lineSmoothingEnabled;
 
 /**
  * The current status of pairing styluses

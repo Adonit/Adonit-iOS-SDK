@@ -10,6 +10,8 @@ extern NSUInteger const JOT_MIN_PRESSURE;
 extern NSUInteger const JOT_MAX_PRESSURE;
 
 extern NSString * const JotStylusManagerDidChangeConnectionStatus;
+extern NSString * const JotStylusManagerDidChangeConnectionStatusStatusKey;
+
 extern NSString * const JotStylusManagerDidPairWithStylus;
 extern NSString * const JotStylusManagerDidChangeBatteryLevel;
 extern NSString * const JotStylusManagerDidDiscoverServices;
@@ -34,11 +36,11 @@ extern NSString * const JotStylusTrackingPressureForConnectionSuccessfulNotifica
 
 typedef NS_ENUM(NSUInteger, JotModel) {
     JotModelUndefined = 0,
-    JotModelJT2 = 1,
     JotModelJT4 = 2,
     JotModelJS = 3,
     JotModelJTPP = 4,
     JotModelMighty = 5,
+    JotModelJSPP = 6
 };
 
 typedef NS_ENUM(NSUInteger, JotStylusTipStatus) {
@@ -50,11 +52,6 @@ typedef NS_ENUM(NSUInteger, JotStylusTipStatus) {
 typedef NS_ENUM(NSUInteger, JotStylusConnectionType) {
     JotStylusConnectionTypeTap = 0,
     JotStylusConnectionTypePressAndHold
-};
-
-typedef NS_ENUM(NSUInteger, JotPalmRejectionOrientation) {
-    JotPalmRejectionLeftHanded,
-    JotPalmRejectionRightHanded
 };
 
 typedef NS_ENUM(NSUInteger, JotWritingStyle) {
@@ -73,12 +70,6 @@ typedef NS_ENUM(NSUInteger, JotConnectionStatus) {
     JotConnectionStatusPairing,
     JotConnectionStatusConnected,
     JotConnectionStatusDisconnected
-};
-
-typedef NS_ENUM(NSUInteger, JotPreferredStylusType) {
-    JotPreferredStylusBT21,
-    JotPreferredStylusBT40,
-    JotNoPreferredStylus,
 };
 
 typedef NS_ENUM(NSUInteger, JotBatteryLevelStatus) {

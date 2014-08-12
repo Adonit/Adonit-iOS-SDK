@@ -1,5 +1,14 @@
 #JotTouchSDK Change Log
 
+# V2.6
+- Added the ability to report diagnostic and usage data
+- Fixed pressure curve issues with some Jot Touch Pixel Points
+- Allow suggestionToEnableGestureDelay to be zero
+- Miscellaneous bug fixes and improvements
+
+# V2.5.3
+- Added the ability to turn line smoothing on or off
+
 # V2.5.2
 - Press-and-Hold Settings View controller now works on iOS 6
 - Fixed an issue where palm rejection setting switch was not working for script
