@@ -1,5 +1,10 @@
 #JotTouchSDK Change Log
 
+# V2.6.1
+- fix a possible conflict with popular UIColor category that added red/green/blue methods
+- fix caching issue with pen commands
+- fix a tableview inconsistency crash when showing the settings detail view and switching apps
+
 # V2.6
 - Added the ability to report diagnostic and usage data
 - Fixed pressure curve issues with some Jot Touch Pixel Points
