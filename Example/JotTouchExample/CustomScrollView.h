@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "T1PogoManager.h"
 
 @class CustomScrollView;
 
@@ -15,12 +14,10 @@
 - (CGRect) viewFrameForCustomScrollView: (CustomScrollView *) sender;
 @end
 
-@interface CustomScrollView : UIScrollView //<T1PogoDelegate>
+@interface CustomScrollView : UIScrollView
 
 @property (nonatomic, weak) IBOutlet id <CustomScrollViewDataSource> dataSource;
-//@property (nonatomic, weak) T1PogoManager *pogoManagerPointer;
 
--(void) layoutSubviews;
 - (void) centerView;
 
 @end

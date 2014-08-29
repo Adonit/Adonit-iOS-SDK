@@ -102,8 +102,7 @@
                                toColor:[self colorForPressure:touch.pressure]];
         
         //Set JotTouchStatusIndicator labels
-        [self.viewController.numberLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)touch.pressure]];
-        [self.viewController.numberLabel setNeedsDisplay];
+        [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)touch.pressure]];
     }
 }
 
@@ -118,8 +117,7 @@
                                toColor:[self colorForPressure:touch.pressure]];
         
         //Set JotTouchStatusIndicator labels
-        [self.viewController.numberLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)touch.pressure]];
-        [self.viewController.numberLabel setNeedsDisplay];
+        [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)touch.pressure]];
     }
 }
 
@@ -137,9 +135,7 @@
                                toColor:[self colorForPressure:touch.pressure]];
         
         //Set JotTouchStatusIndicator labels
-        [self.viewController.numberLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)touch.pressure]];
-        [self.viewController.numberLabel setNeedsDisplay];
-
+        [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)touch.pressure]];
         
         // this stroke is now finished, so add it to our completed strokes stack
         // and remove it from the current strokes, and reset our undo state if any
@@ -150,8 +146,7 @@
     }
     
     //Set JotTouchStatusIndicator labels back to default
-    [self.viewController.numberLabel setText:@"none"];
-    [self.viewController.numberLabel setNeedsDisplay];
+    [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:@"none"];
 }
 
 /**
@@ -774,6 +769,8 @@
  */
 - (void) dealloc
 {
+    [[JotStylusManager sharedInstance] unregisterView:self];
+    
     [self destroyFramebuffer];
     
 	if (brushTexture){

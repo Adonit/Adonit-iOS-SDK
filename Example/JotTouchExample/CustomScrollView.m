@@ -60,69 +60,30 @@
     }
     
     self.contentOffset = newOffset;
+    
+    [self layoutSubviews];
 }
 
 - (void)layoutSubviews
 {
-        CGSize frameSize = [self.dataSource viewFrameForCustomScrollView:self].size;
+    CGSize frameSize = [self.dataSource viewFrameForCustomScrollView:self].size;
 
-            CGFloat topInset;
-            CGFloat bottomInset;
-            CGFloat leftInset;
-            CGFloat rightInset;
-            
-            // Vertical Inset Calc
-            if (frameSize.height <= self.bounds.size.height)
-            {
-                 CGFloat heightInsetAdjustment = self.frame.size.height - frameSize.height;
-                topInset = heightInsetAdjustment - SCROLLVIEW_INSET_BOTTOM;
-                bottomInset = heightInsetAdjustment - SCROLLVIEW_INSET_TOP;
-            }
-            else
-            {
-                topInset = SCROLLVIEW_INSET_TOP;
-                bottomInset = SCROLLVIEW_INSET_BOTTOM;
-            }
+    CGFloat topInset;
+    CGFloat bottomInset;
+    CGFloat leftInset;
+    CGFloat rightInset;
     
-            // Horizontal Inset Calc
-            if (frameSize.width <= self.frame.size.width)
-            {
-                CGFloat widthInsetAdjustment = self.bounds.size.width - frameSize.width;
-                leftInset = widthInsetAdjustment - SCROLLVIEW_INSET_RIGHT;
-                rightInset = widthInsetAdjustment - SCROLLVIEW_INSET_LEFT;
-            }
-            else
-            {
-                leftInset = SCROLLVIEW_INSET_LEFT;
-                rightInset = SCROLLVIEW_INSET_RIGHT;
-            }
-    
+    // Vertical Inset Calc
+    CGFloat heightInsetAdjustment = self.frame.size.height - frameSize.height;
+    topInset = MAX(heightInsetAdjustment - SCROLLVIEW_INSET_BOTTOM, SCROLLVIEW_INSET_TOP);
+    bottomInset = MAX(heightInsetAdjustment - SCROLLVIEW_INSET_TOP, SCROLLVIEW_INSET_BOTTOM);
 
-            [self setContentInset:UIEdgeInsetsMake(topInset, leftInset, bottomInset , rightInset)];
+    // Horizontal Inset Calc
+    CGFloat widthInsetAdjustment = self.bounds.size.width - frameSize.width;
+    leftInset = MAX(widthInsetAdjustment - SCROLLVIEW_INSET_RIGHT, SCROLLVIEW_INSET_LEFT);
+    rightInset = MAX(widthInsetAdjustment - SCROLLVIEW_INSET_LEFT, SCROLLVIEW_INSET_RIGHT);
     
+    [self setContentInset:UIEdgeInsetsMake(topInset, leftInset, bottomInset , rightInset)];
 }
-
-//-(void) pogoManagerDidSuggestDisablingGesturesForRegisteredViews:(T1PogoManager *)manager
-//{
-//    NSLog(@"Pogo DISABLE Gestures in Scrollview");
-//    self.pinchGestureRecognizer.enabled = NO;
-//    self.panGestureRecognizer.enabled = NO;
-//}
-//
-//-(void) pogoManagerDidSuggestEnablingGesturesForRegisteredViews:(T1PogoManager *)manager
-//{
-//    NSLog(@"Pogo ENABLE Gestures in Scrollview");
-//    self.pinchGestureRecognizer.enabled = YES;
-//    self.panGestureRecognizer.enabled = YES;
-//}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

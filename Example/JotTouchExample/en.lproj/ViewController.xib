@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -7,18 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
             <connections>
-                <outlet property="aButtonLabel" destination="mTX-4n-Fob" id="VAh-Zy-0dA"/>
                 <outlet property="adonitLogo" destination="30" id="64"/>
-                <outlet property="bButtonLabel" destination="edX-L6-ETf" id="6MK-5V-PKg"/>
                 <outlet property="canvasView" destination="We3-WZ-ME0" id="Gfk-aq-JKS"/>
                 <outlet property="customScrollView" destination="SAO-rv-dGv" id="8Iw-xH-5Bb"/>
-                <outlet property="friendlyNameLabel" destination="LK0-42-DWk" id="nrm-m1-vGY"/>
-                <outlet property="gestureSuggestionLabel" destination="62" id="63"/>
                 <outlet property="gesturesSwitch" destination="LdP-af-cRd" id="voJ-G5-P7Z"/>
                 <outlet property="interfaceContainerView" destination="57" id="58"/>
-                <outlet property="jotSatusIndicatorContainerView" destination="52" id="60"/>
-                <outlet property="numberLabel" destination="46" id="51"/>
-                <outlet property="pressureLabel" destination="43" id="50"/>
+                <outlet property="jotSatusIndicatorContainerView" destination="52" id="Pe5-aW-AaN"/>
                 <outlet property="resetCanvasButton" destination="28" id="59"/>
                 <outlet property="settingsButton" destination="40" id="42"/>
                 <outlet property="view" destination="2" id="3"/>
@@ -67,7 +61,7 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <view contentMode="scaleToFill" id="52" userLabel="JotStatusIndicator ContainerView">
+                <view contentMode="scaleToFill" id="52" userLabel="JotStatusIndicator ContainerView" customClass="JotStatusIndicatorView">
                     <rect key="frame" x="20" y="78" width="231" height="85"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -96,20 +90,20 @@
                             <size key="shadowOffset" width="1" height="1"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mTX-4n-Fob">
-                            <rect key="frame" x="0.0" y="44" width="64" height="15"/>
+                            <rect key="frame" x="0.0" y="44" width="80" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="edX-L6-ETf">
-                            <rect key="frame" x="72" y="44" width="70" height="15"/>
+                            <rect key="frame" x="92" y="44" width="80" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stylus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LK0-42-DWk">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Stylus Connected" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LK0-42-DWk">
                             <rect key="frame" x="0.0" y="0.0" width="209" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -118,6 +112,13 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="aButtonLabel" destination="mTX-4n-Fob" id="x5Z-xe-otx"/>
+                        <outlet property="bButtonLabel" destination="edX-L6-ETf" id="acH-eH-I91"/>
+                        <outlet property="friendlyNameLabel" destination="LK0-42-DWk" id="63C-Ad-ZXP"/>
+                        <outlet property="jotActivityLabel" destination="62" id="GpL-9A-LAA"/>
+                        <outlet property="pressureLabel" destination="46" id="F6X-5Q-oQX"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" id="57" userLabel="Interface Container View">
                     <rect key="frame" x="624" y="20" width="124" height="59"/>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0D6D121993D91800470BA0 /* JotStatusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0D6D111993D91800470BA0 /* JotStatusIndicatorView.m */; };
 		3C2F28F5180F341F005F336C /* button-gear-ruby.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28E9180F341F005F336C /* button-gear-ruby.png */; };
 		3C2F28F6180F341F005F336C /* button-gear-ruby@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28EA180F341F005F336C /* button-gear-ruby@2x.png */; };
 		3C2F28F7180F341F005F336C /* button-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28EB180F341F005F336C /* button-gear.png */; };
@@ -55,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C0D6D101993D91800470BA0 /* JotStatusIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JotStatusIndicatorView.h; sourceTree = "<group>"; };
+		3C0D6D111993D91800470BA0 /* JotStatusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JotStatusIndicatorView.m; sourceTree = "<group>"; };
 		3C2F28E9180F341F005F336C /* button-gear-ruby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gear-ruby.png"; sourceTree = "<group>"; };
 		3C2F28EA180F341F005F336C /* button-gear-ruby@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gear-ruby@2x.png"; sourceTree = "<group>"; };
 		3C2F28EB180F341F005F336C /* button-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gear.png"; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 		66C9A75416E0644C0034AB37 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3C0D6D101993D91800470BA0 /* JotStatusIndicatorView.h */,
+				3C0D6D111993D91800470BA0 /* JotStatusIndicatorView.m */,
 				3C82355918B40BCD009B82C3 /* Constants.h */,
 				3C6F5B9A17B9587500595435 /* Jot Status Alert HUD */,
 				3CDFB5D117B596740077F6F5 /* StylusSettingButton */,
@@ -368,6 +373,7 @@
 			files = (
 				66C9A75A16E0644C0034AB37 /* main.m in Sources */,
 				66C9A75E16E0644D0034AB37 /* AppDelegate.m in Sources */,
+				3C0D6D121993D91800470BA0 /* JotStatusIndicatorView.m in Sources */,
 				3C82355818B40B19009B82C3 /* CustomScrollView.m in Sources */,
 				66C9A76716E0644D0034AB37 /* ViewController.m in Sources */,
 				66C9A79016E068720034AB37 /* UIColor+Components.m in Sources */,

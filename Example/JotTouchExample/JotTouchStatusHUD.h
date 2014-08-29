@@ -16,6 +16,6 @@
 
 @property CGFloat displayDuration; // in Seconds. Default is 2
 
-+ (void) ShowJotHUDInView: (UIView *) viewToDisplayIn isConnected: (BOOL) isConnected;
++ (void) ShowJotHUDInView: (UIView *) viewToDisplayIn isConnected: (BOOL) isConnected modelName: (NSString *) modelName;
 
 @end

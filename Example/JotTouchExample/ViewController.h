@@ -12,6 +12,7 @@
 #import "StylusSettingsButton.h"
 #import "JotTouchStatusHUD.h"
 #import "CustomScrollView.h"
+#import "JotStatusIndicatorView.h"
 
 @interface ViewController : UIViewController <UIPopoverControllerDelegate, UIScrollViewDelegate, CustomScrollViewDataSource>
 
@@ -27,16 +28,10 @@
 @property (weak, nonatomic) IBOutlet UISwitch *gesturesSwitch;
 
 // JotStatusIndicators Properties & Methods
-@property (nonatomic, weak) IBOutlet UIView* jotSatusIndicatorContainerView;
-@property (nonatomic, weak) IBOutlet UILabel* pressureLabel;
-@property (nonatomic, weak) IBOutlet UILabel* numberLabel;
-@property (nonatomic, weak) IBOutlet UILabel* gestureSuggestionLabel;
-@property (nonatomic, weak) IBOutlet UILabel* aButtonLabel;
-@property (nonatomic, weak) IBOutlet UILabel* bButtonLabel;
-@property (nonatomic, weak) IBOutlet UILabel* friendlyNameLabel;
+@property (nonatomic, weak) IBOutlet JotStatusIndicatorView* jotSatusIndicatorContainerView;
 
-- (IBAction) showSettings:(id)sender;
-- (IBAction) clear;
+- (IBAction)showSettings:(id)sender;
+- (IBAction)clear;
 - (IBAction)gestureSwitchValueChanged;
 
 - (void)jotSuggestsToEnableGestures;
