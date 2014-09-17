@@ -1,3 +1,6 @@
+## Xcode 6 & iOS 8 Warning
+The current 2.6.1 version of the JotTouchSDK has known issues when compiled with Xcode 6 and running under iOS 8 due to changes in how rotation is handled. This can result in poor offset, line-smoothing and palm rejection. We will be releasing an update soon that addresses these issues.
+
 #JotTouchSDK V2.6
 Please provide any bugs or feedback reports to developers@adonit.net.
 
