@@ -3,7 +3,7 @@
 Upgrading from any 2.5.x release should require no code changes on your part. However, there are two new pieces of API to be aware of:
 
 - A new option on JotStylusManager called reportDiagnosticData. Turning this option on will help us to create better solutions based
-    on how customers use our products.
+    on how customers use our products. To learn more about what data is collected and how its used, please visit http://www.adonit.net/privacy-policy/#sdk.
 
 # JotTouchSDK 2.5 Upgrade Notes
 
