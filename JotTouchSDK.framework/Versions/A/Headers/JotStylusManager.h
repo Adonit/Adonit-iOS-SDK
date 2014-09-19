@@ -299,8 +299,6 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 
 //INTERNAL USE ONLY
 
-@property NSMutableSet *currentTouchesSet;
-
 -(void)touchesBegan:(NSSet *)touches;
 -(void)touchesMoved:(NSSet *)touches;
 -(void)touchesEnded:(NSSet *)touches;
