@@ -1,7 +1,4 @@
-## Xcode 6 & iOS 8 Warning
-The current 2.6.1 version of the JotTouchSDK has known issues when compiled with Xcode 6 and running under iOS 8 due to changes in how rotation is handled. This can result in poor offset, line-smoothing and palm rejection. We will be releasing an update soon that addresses these issues.
-
-#JotTouchSDK V2.6
+#JotTouchSDK V2.6.2
 Please provide any bugs or feedback reports to developers@adonit.net.
 
 ##Overview
@@ -20,7 +17,7 @@ Integrating with the Adonit Jot Touch SDK is as easy as adding a framework to yo
 http://github.com/Adonit/JotTouchSDK/wiki/Getting-Started-Guide
 
 ##What is the target?
-The JotTouchSDK Targets iOS 7.0 but continues to support iOS 6.0
+The JotTouchSDK Targets iOS 7.0 and 8.0. iOS 6 support is considered deprecated, and will be going away in an upcoming SDK release.
 
 ##API Documentation.
 View the the documentation of all available methods and properties in the GitHub wiki here. 

@@ -1,5 +1,14 @@
 #JotTouchSDK Change Log
 
+# V2.6.2
+- fixes offset and palm rejection issues when compiled against iOS 8 SDK with Xcode 6
+- fixes issues around registering/unregistering views that could cause a leak
+- fixes a crash when switching between different Jot stylii
+- fixes issues where JotTouch events could arrive out of order or multiple times
+- fixes issues where stylii could disconnect unexpectedly
+- fixes issues where palm rejection could interfere with gesture recognizers
+- other miscellaneous bug fixes and improvements
+
 # V2.6.1
 - fix a possible conflict with popular UIColor category that added red/green/blue methods
 - fix caching issue with pen commands

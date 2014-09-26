@@ -3,7 +3,6 @@
 //
 //  Created on 8/20/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
-// this is a NOOP change
 //
 
 #import <Foundation/Foundation.h>
@@ -103,6 +102,13 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * @param view A view that will no longer receiver touch events from Jot styluses
  */
 - (void)unregisterView:(UIView *)view;
+
+/**
+ * Returns YES if the view is registered with the stylus manager, otherwise NO.
+ *
+ * @param view The view whose registration status is in question
+ */
+- (BOOL)isViewRegistered:(UIView *)view;
 
 /**
  * Opens the appropriate help site for the currently connected stylus
@@ -228,7 +234,7 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 /**
  * Palm rejection delegate capturing touch events for palm rejection
  */
-@property (readwrite,assign) id<JotPalmRejectionDelegate> palmRejectorDelegate;
+@property (nonatomic, weak) id<JotPalmRejectionDelegate> palmRejectorDelegate;
 
 /**
  * The version of the SDK
@@ -299,12 +305,6 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 
 //INTERNAL USE ONLY
 
-@property NSMutableSet *currentTouchesSet;
-
--(void)touchesBegan:(NSSet *)touches;
--(void)touchesMoved:(NSSet *)touches;
--(void)touchesEnded:(NSSet *)touches;
--(void)touchesCancelled:(NSSet *)touches;
 -(void)setOptionValue:(id)value forKey:(NSString *)key;
 
 @end
