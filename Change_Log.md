@@ -1,5 +1,9 @@
 #JotTouchSDK Change Log
 
+# V2.6.3
+- fixes issue where SDK might disconnect from a stylus that goes off screen
+- fixes issue with sending commands to already disconnected stylii during connection process
+
 # V2.6.2
 - fixes offset and palm rejection issues when compiled against iOS 8 SDK with Xcode 6
 - fixes issues around registering/unregistering views that could cause a leak

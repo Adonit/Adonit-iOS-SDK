@@ -1,4 +1,4 @@
-#JotTouchSDK V2.6.2
+#JotTouchSDK V2.6.3
 Please provide any bugs or feedback reports to developers@adonit.net.
 
 ##Overview
