@@ -1,5 +1,16 @@
 #JotTouchSDK Change Log
 
+# V2.6.4
+- NOTE: JotTouchSDK now requires SytemConfiguration.framework to be added to apps
+- SDK uses reachability to detect when it can download updated configuration file
+- fixes issues with iPad Air 2 and wavy-lines
+- fixes issues with iPad mini 3 and wavy-lines
+- improved wavy-line correction for older iPads
+- fixes excessive failed battery check logging
+- fixes crash when app goes into the background
+- other miscellaneous bug fixes and improvements
+
+
 # V2.6.3
 - fixes issue where SDK might disconnect from a stylus that goes off screen
 - fixes issue with sending commands to already disconnected stylii during connection process

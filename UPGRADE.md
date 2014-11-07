@@ -1,3 +1,7 @@
+# JotTouchSDK 2.6.4 Upgrade Notes
+
+JotTouchSDK version 2.6.4 requires an additional system framework to be linked against your app. This new framework is the SystemConfiguration.framework, and is used by the SDK to detect when it can download updated configuration data for new iPad, iPhone and stylus hardware.
+
 # JotTouchSDK 2.6 Upgrade Notes
 
 Upgrading from any 2.5.x release should require no code changes on your part.

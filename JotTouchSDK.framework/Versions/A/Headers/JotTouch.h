@@ -42,7 +42,7 @@
  * @see cleanJotTouchFor:
  * @see cleanJotTouches:
  */
-+ (JotTouch *)jotTouchFor:(UITouch *)touch lineSmoothingEnabled:(BOOL)lineSmoothingEnabled;
++ (JotTouch *)jotTouchFor:(UITouch *)touch lineSmoothingEnabled:(BOOL)lineSmoothingEnabled lineSmoothingAmount:(CGFloat)lineSmoothingAmount;
 
 /**
  * Clears the entire lookup table of JotTouches
@@ -91,7 +91,7 @@
  * @param lineSmoothingEnabled  YES to apply line smoothing to this touch, otherwise NO
  * @return A new JotTouch that is associated with the UITouch
  */
-- (id)initWithTouch:(UITouch *)touch lineSmoothingEnabled:(BOOL)lineSmoothingEnabled;
+- (id)initWithTouch:(UITouch *)touch lineSmoothingEnabled:(BOOL)lineSmoothingEnabled lineSmoothingAmount:(CGFloat)lineSmoothingAmount;
 
 /**
  * Returns point location in input view.

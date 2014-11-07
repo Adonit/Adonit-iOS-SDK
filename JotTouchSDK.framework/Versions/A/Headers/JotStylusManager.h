@@ -269,6 +269,13 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (nonatomic) BOOL lineSmoothingEnabled;
 
 /**
+ * This property determines the amount of final smoothing applied to our dewiggle alogorithms on our Pixelpoint Pens.
+ * This smoothing is to remove noise in our dewiggle alogorithm and should not be lowered or modified unless it is
+ * being replaced by your apps own smoothing method.  The default value is 0.80, and accepts any value between 0.0 and 1.0.
+ */
+@property (nonatomic) CGFloat lineSmoothingAmount;
+
+/**
  * The current status of pairing styluses
  */
 @property (readonly) JotConnectionStatus connectionStatus;
@@ -305,6 +312,7 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 
 //INTERNAL USE ONLY
 
--(void)setOptionValue:(id)value forKey:(NSString *)key;
+- (BOOL)setOptionValue:(id)value forKey:(NSString *)key;
+- (id)optionValueForKey:(NSString *)key;
 
 @end
