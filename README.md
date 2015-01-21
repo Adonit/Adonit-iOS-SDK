@@ -1,7 +1,4 @@
-#JotTouchSDK V2.6.4
-
-## NOTE ##
-JotTouchSDK v2.6.4 now requires apps to add the SystemConfiguration.framework to their Frameworks build settings if they do not already do so.
+#JotTouchSDK V2.6.5
 
 Please provide any bugs or feedback reports to developers@adonit.net.
 

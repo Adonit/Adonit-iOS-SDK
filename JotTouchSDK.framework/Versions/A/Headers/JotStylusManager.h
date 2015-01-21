@@ -197,8 +197,10 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * This property defaults to the new JotStylusConnectionTypePressAndHold. If you
  * would like to continue using the legacy tap style, set this property to
  * JotStylusConnectionTypeTap before setting enabled=YES;
+ *
+ * Future versions of the SDK will exclusively use the PressAndHold connection type.
  */
-@property (readwrite, nonatomic) JotStylusConnectionType connectionType;
+@property (readwrite, nonatomic) JotStylusConnectionType connectionType DEPRECATED_ATTRIBUTE;
 
 /**
  * The amount of time (in seconds) between the stylus being lifted from the screen
@@ -209,7 +211,7 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 /**
  * The pressure value to assume when the stylus is not pressed down
  */
-@property (readwrite) NSUInteger unconnectedPressure;
+@property (nonatomic, readwrite) NSUInteger unconnectedPressure;
 
 /**
  * Array of JotShortcuts utilized in the settings interface
@@ -262,15 +264,15 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (readwrite) JotWritingStyle writingStyle;
 
 /**
- * This property determines whether or not any smoothing will be applied to JotTouches.
+ * This property determines whether or not any smoothing will be applied to the Jot stylii.
  * Line smoothing eliminates inaccuracies (waves) caused by the interaction of the stylus
  * and the device's screen. The default value is YES.
  */
 @property (nonatomic) BOOL lineSmoothingEnabled;
 
 /**
- * This property determines the amount of final smoothing applied to our dewiggle alogorithms on our Pixelpoint Pens.
- * This smoothing is to remove noise in our dewiggle alogorithm and should not be lowered or modified unless it is
+ * This property determines the amount of final smoothing applied to our dewiggle algorithms on our Pixelpoint Pens.
+ * This smoothing is to remove noise in our dewiggle algorithm and should not be lowered or modified unless it is
  * being replaced by your apps own smoothing method.  The default value is 0.80, and accepts any value between 0.0 and 1.0.
  */
 @property (nonatomic) CGFloat lineSmoothingAmount;

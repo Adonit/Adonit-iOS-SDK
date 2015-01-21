@@ -70,7 +70,7 @@
         
         double xm2 = xc2 + (xc3 - xc2) * k2;
         double ym2 = yc2 + (yc3 - yc2) * k2;
-        double smooth_value = 0.8;
+        double smooth_value = 0.75;
         
         // Resulting control points. Here smooth_value is mentioned
         // above coefficient K whose value should be in range [0...1].

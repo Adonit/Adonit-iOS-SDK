@@ -14,7 +14,8 @@
 {    
     self.panGestureRecognizer.minimumNumberOfTouches = 2;
     self.panGestureRecognizer.maximumNumberOfTouches = 2;
-    self.backgroundColor = [UIColor lightGrayColor];
+    self.scrollsToTop = NO;
+    self.backgroundColor = [[UIColor lightGrayColor]colorWithAlphaComponent:0.25];
         
     if (!BOUNCE_SCROLLVIEW_ZOOM)
     {

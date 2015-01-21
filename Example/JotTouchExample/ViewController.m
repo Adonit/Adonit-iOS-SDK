@@ -12,6 +12,7 @@
 @interface ViewController()
 
 @property (nonatomic, strong) JotStylusManager *jotManager;
+@property (nonatomic, strong) JotSettingsViewController *jotSettingsViewController;
 @property (nonatomic ,strong) UIPopoverController *settingsPopoverController;
 @property (nonatomic, strong) NSString *lastConnectedStylusModelName;
 @property (nonatomic) BOOL gesturesEnabled;
@@ -40,23 +41,6 @@
     self.customScrollView.contentSize = self.canvasView.bounds.size;
     
     [self setupJotSDK];
-    
-    // Conditional setup for iOS 7 and above
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending)
-    {
-        CGFloat verticleOffset = 20.0;
-        
-        // Add Black rectangle behind iOS7 ToolBar
-        UIView *blackStatusBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1024, verticleOffset + 1)];
-        blackStatusBar.backgroundColor = [UIColor blackColor];
-        [self.view addSubview:blackStatusBar];
-        
-        //#ifdef to prevent xcode errors.
-        #ifdef __IPHONE_7_0
-            // Set Statusbar to have light text
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        #endif
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -87,26 +71,18 @@
     self.customScrollView.minimumZoomScale = minScale * SCROLLVIEW_MIN_ZOOM_SCALE;
 }
 
-/**
- * Helper method to return a rect lowered by an offset amount.
- */
-- (CGRect)lowerRect:(CGRect)theRect byYValue:(CGFloat)yValue
-{
-    return CGRectMake(theRect.origin.x, theRect.origin.y + yValue, theRect.size.width, theRect.size.height);
-}
-
 #pragma mark - Jot SDK Setup
 
-- (void) setupJotSDK
+- (void)setupJotSDK
 {
     //
     // Hook up the jotManager
-    _jotManager = [JotStylusManager sharedInstance];
-    _jotManager.unconnectedPressure = 256;
-    _jotManager.palmRejectorDelegate = self.canvasView;
-    [_jotManager enable];
+    self.jotManager = [JotStylusManager sharedInstance];
+    self.jotManager.unconnectedPressure = 256;
+    self.jotManager.palmRejectorDelegate = self.canvasView;
+    [self.jotManager enable];
 
-    [_jotManager setReportDiagnosticData:YES];
+    [self.jotManager setReportDiagnosticData:YES];
     
     //
     // Hook up "press and hold" interface for stylus connection instead of or alongside Adonit's Settings UI
@@ -120,19 +96,19 @@
     
     //
     // Setup shortcut buttons
-    [_jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
+    [self.jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
                                                    initWithDescriptiveText:@"Undo"
                                                    key:@"undo"
                                                    target:self selector:@selector(undoShortCut)
                                                    ]];
     
-    [_jotManager addShortcutOptionButton2Default: [[JotShortcut alloc]
+    [self.jotManager addShortcutOptionButton2Default: [[JotShortcut alloc]
                                                    initWithDescriptiveText:@"Redo"
                                                    key:@"redo"
                                                    target:self selector:@selector(redoShortCut)
                                                    ]];
     
-    [_jotManager addShortcutOption: [[JotShortcut alloc]
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
                                      initWithDescriptiveText:@"No Action"
                                      key:@"noaction"
                                      target:self selector:@selector(noActionShortCut)
@@ -150,18 +126,18 @@
     //
     // setup advanced settings or debug options.
     [self setupJotSDKAdvancedAndDebug];
-  }
+}
 
 - (void)adonitDown:(id)selector
 {
-    [_jotManager startDiscoveryWithCompletionBlock:^(BOOL success, NSError *error) {
+    [self.jotManager startDiscoveryWithCompletionBlock:^(BOOL success, NSError *error) {
         NSLog(@"Stylus Connected");
     }];
 }
 
 - (void)adonitUp:(id)selector
 {
-    [_jotManager stopDiscovery];
+    [self.jotManager stopDiscovery];
 }
 
 /**
@@ -236,13 +212,20 @@
 
 - (IBAction)showSettings:(id)sender
 {
-    JotSettingsViewController *settings = [JotSettingsViewController settingsViewController];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settings];
+    self.jotSettingsViewController = [JotSettingsViewController settingsViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.jotSettingsViewController];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         [navController setModalPresentationStyle:UIModalPresentationFullScreen];
         [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         [[[UIApplication sharedApplication] delegate].window.rootViewController presentViewController:navController animated:YES completion:nil];
+        
+        self.jotSettingsViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"  style:UIBarButtonItemStyleDone target:self  action:@selector(dismissJotSettings:)];
+        
+        if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) {
+            navController.navigationBar.tintColor = [UIColor redColor];
+        }
+        
     } else {
         if(self.settingsPopoverController){
             [self.settingsPopoverController dismissPopoverAnimated:NO];
@@ -257,6 +240,13 @@
 
         [self.settingsPopoverController setPopoverContentSize:CGSizeMake(320, 460) animated:NO];
     }
+}
+
+- (IBAction)dismissJotSettings:(id)sender
+{
+    [self.jotSettingsViewController dismissViewControllerAnimated:YES completion:^{
+        self.jotSettingsViewController = nil;
+    }];
 }
 
 - (IBAction)noActionShortCut
@@ -290,7 +280,7 @@
 
 #pragma mark - Jot Status / Advanced Setup / DEBUG
 
-- (void) setupJotSDKAdvancedAndDebug
+- (void)setupJotSDKAdvancedAndDebug
 {
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(startTrackingPen:)
@@ -304,7 +294,6 @@
                                              selector:@selector(startTrackingPenSuccessful:)
                                                  name: JotStylusTrackingPressureForConnectionSuccessfulNotification
                                                object:nil];
-    
     
     //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableConsoleLogging"];
     //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheBTThings"];
@@ -362,6 +351,11 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)dismissedPopoverController
 {
     dismissedPopoverController = nil;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return (UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortraitUpsideDown);
 }
 
 #pragma mark - CustomScrollviewDatasource

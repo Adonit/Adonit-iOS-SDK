@@ -1,3 +1,9 @@
+# JotTouchSDK 2.6.5 Upgrade Notes
+
+For applications that were previously turning off our wavy-line correction by setting the lineSmoothingEnabled property to NO, please consider trying this correction method again. We've made substantial improvements to writing and drawing clarity with the wavy-line correction on.
+
+Also note that the Tap To Connect connection style will be removed in future versions of the SDK. Please transition to the Press To Connect connection style.
+
 # JotTouchSDK 2.6.4 Upgrade Notes
 
 JotTouchSDK version 2.6.4 requires an additional system framework to be linked against your app. This new framework is the SystemConfiguration.framework, and is used by the SDK to detect when it can download updated configuration data for new iPad, iPhone and stylus hardware.

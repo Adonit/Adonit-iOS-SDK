@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, JotTouchIdentificationType) {
+    JotTouchIdentificationTypeUnknown,
+    JotTouchIdentificationTypeStylus,
+    JotTouchIdentificationTypeNotStylus
+};
+
 @interface UITouch (JotStylus)
-@property (assign, nonatomic) BOOL isJotStylus;
+
+/**
+ * Experimental property identifying whether or not SDK thinks touch belongs to a stylus.
+ */
+@property (assign, nonatomic) JotTouchIdentificationType jotTouchIdentification;
 @end

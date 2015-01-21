@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 #import "JotTouch.h"
 
-@class JotPalmGestureRecognizer;
 
 /** The JotPalmRejectionDelegate receives important events related to touch events
  * caused by the stylus

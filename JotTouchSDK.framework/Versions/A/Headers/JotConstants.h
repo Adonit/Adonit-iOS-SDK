@@ -16,6 +16,16 @@ extern NSString * const JotStylusManagerDidPairWithStylus;
 extern NSString * const JotStylusManagerDidChangeBatteryLevel;
 extern NSString * const JotStylusManagerDidDiscoverServices;
 
+/*
+ * Notification sent when one JotTouch has been associated with a new UITouch.
+ * Notification will only be sent when palm rejection is on and a stylus is
+ * connected. Use the keys below on the notifications userInfo dictionary to 
+ * get the UITouches which are embedded as nonRetained NSValue objects.
+ */
+extern NSString * const JotStylusManagerRecommendsBridgingUITouchEventsNotification;
+extern NSString * const JotStylusManagerPreviousTouchToBridgeFromKey;
+extern NSString * const JotStylusManagerNewTouchToBridgeToKey;
+
 // Notification sent when the battery changes state to normal. Normal is 20-100%
 extern NSString * const JotStylusNotificationBatteryLevelNormal;
 
@@ -49,6 +59,8 @@ typedef NS_ENUM(NSUInteger, JotStylusTipStatus) {
     
 };
 
+//Future versions of the SDK will exclusively use the PressAndHold connection type.
+DEPRECATED_ATTRIBUTE
 typedef NS_ENUM(NSUInteger, JotStylusConnectionType) {
     JotStylusConnectionTypeTap = 0,
     JotStylusConnectionTypePressAndHold
