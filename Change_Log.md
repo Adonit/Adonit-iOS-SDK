@@ -1,5 +1,14 @@
 #JotTouchSDK Change Log
 
+# V2.6.5
+- fixes issues with dropped strokes
+- improved rejection of palm touches
+- improved palm rejection performance (less latency)
+- increased small detail and writing clarity in correction of wavy-line
+- improved stylus support for iPad Air 2
+- deprecated the tap to connect connection style
+- other miscellaneous bug fixes and improvements
+
 # V2.6.4
 - NOTE: JotTouchSDK now requires SytemConfiguration.framework to be added to apps
 - SDK uses reachability to detect when it can download updated configuration file
@@ -9,7 +18,6 @@
 - fixes excessive failed battery check logging
 - fixes crash when app goes into the background
 - other miscellaneous bug fixes and improvements
-
 
 # V2.6.3
 - fixes issue where SDK might disconnect from a stylus that goes off screen
@@ -63,7 +71,6 @@
 - allow user to control whether BT warning dialog appears
 - misc bug fixes and cleanup
 
-
 # V2.1.0.832 Alpha 4
 - fix to forgetAndTurnOffStylus
 - new press-and-hold connection settings view controller.
@@ -81,7 +88,6 @@
 - new press-and-hold connection style support
 - new JotPalmGestureRecognizer interaction model to avoid spurious gestures
 - many bugfixes and improvements
-
 
 # V2.0.6.497
 - fix issue where enabling the SDK can cause disconnects from pens
@@ -162,13 +168,10 @@
 - Added an unregisterView: method
 - Fixed a memory leak with the touch gestures
 
-
 ##JotTouchSDK V1.0.1
 - Fixes compatibly issues/warnings for non ARC apps.
 - Fixes compatibly issues with apps that do not use "shortVersion" entry in the application plist.
 - JotSettingsViewController disabled when run on iOS5.0, no longer crashing because of the missing NSLayoutConstraint
 
-
 ##JotTouchSDK V1.0.0
 - Initial release
-
