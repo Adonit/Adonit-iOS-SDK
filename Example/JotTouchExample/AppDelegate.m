@@ -7,8 +7,14 @@
 //
 
 #import "AppDelegate.h"
-
 #import "ViewController.h"
+#import <JotTouchSDK/JotTOuchSDK.h>
+
+@interface AppDelegate ()
+
+@property (nonatomic, weak) UIAlertView *bluetoothAlertView;
+
+@end
 
 @implementation AppDelegate
 
@@ -20,6 +26,12 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:JotStylusManagerDiscoveryAttemptedButBluetoothOffNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        UIAlertView *bluetoothAlert = [[UIAlertView alloc] initWithTitle:@"Bluetooth Off" message:@"Visit Settings and turn on Bluetooth before attempting to use this stylus" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [bluetoothAlert show];
+        self.bluetoothAlertView = bluetoothAlert;
+    }];
+    
     return YES;
 }
 
@@ -27,6 +39,7 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [self.bluetoothAlertView dismissWithClickedButtonIndex:0 animated:NO];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -48,6 +61,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

@@ -6,78 +6,119 @@
 //  Copyright (c) 2013 Adonit. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+extern NSUInteger const JOT_MIN_PRESSURE;
+extern NSUInteger const JOT_MAX_PRESSURE;
 
-#define JOT_MIN_PRESSURE 0
-#define JOT_MAX_PRESSURE 2047
+extern NSString * const JotStylusManagerDidChangeConnectionStatus;
+extern NSString * const JotStylusManagerDidChangeConnectionStatusStatusKey;
 
-#define DistanceOfTransmitterFromTipInInches  0.2893168033
+extern NSString * const JotStylusManagerDidPairWithStylus;
+extern NSString * const JotStylusManagerDidChangeBatteryLevel;
+extern NSString * const JotStylusManagerDidDiscoverServices;
 
-#define JotStylusManagerDidChangeConnectionStatus @"jotStylusManagerDidChangeConnectionStatus"
-#define JotStylusManagerDidPairWithStylus @"jotStylusManagerDidPairWithStylus"
-#define JotStylusManagerDidChangeBatteryLevel @"jotStylusManagerDidChangeBatteryLevel"
+/*
+ * Notification sent when one JotTouch has been associated with a new UITouch.
+ * Notification will only be sent when palm rejection is on and a stylus is
+ * connected. Use the keys below on the notifications userInfo dictionary to 
+ * get the UITouches which are embedded as nonRetained NSValue objects.
+ */
+extern NSString * const JotStylusManagerRecommendsBridgingUITouchEventsNotification;
+extern NSString * const JotStylusManagerPreviousTouchToBridgeFromKey;
+extern NSString * const JotStylusManagerNewTouchToBridgeToKey;
 
-#define JotStylusButton1Down @"jotStylusButton1Down"
-#define JotStylusButton1Up @"jotStylusButton1Up"
-#define JotStylusButton2Down @"jotStylusButton2Down"
-#define JotStylusButton2Up @"jotStylusButton2Up"
+// Notification sent when the battery changes state to normal. Normal is 20-100%
+extern NSString * const JotStylusNotificationBatteryLevelNormal;
 
-#define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE 45
-#define JOT_STYLUS_LEFTHANDED_REJECTION_ANGLE 135
+// Notification sent when the battery changes state to low. Low is 10-20%
+extern NSString * const JotStylusNotificationBatteryLevelLow;
 
-#define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE_JotWritingStyleRightUp 45
-#define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE_JotWritingStyleRightMiddle 0
-#define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE_JotWritingStyleRightDown -45
-#define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE_JotWritingStyleLeftUp 225
-#define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE_JotWritingStyleLeftMiddle 180
-#define JOT_STYLUS_RIGHTHANDED_REJECTION_ANGLE_JotWritingStyleLeftDown 135
+// Notification sent when the battery changes state to critical. Critical is 0-10%
+extern NSString * const JotStylusNotificationBatteryLevelCritical;
 
+extern NSString * const JotStylusButton1Down;
+extern NSString * const JotStylusButton1Up;
+extern NSString * const JotStylusButton2Down;
+extern NSString * const JotStylusButton2Up;
 
-typedef enum {
+extern NSString * const JotStylusTrackingPressureForConnectionNotification;
+extern NSString * const JotStylusTrackingPressureForConnectionFailedNotification;
+extern NSString * const JotStylusTrackingPressureForConnectionSuccessfulNotification;
+
+typedef NS_ENUM(NSUInteger, JotModel) {
     JotModelUndefined = 0,
-    JotModelJT2 = 1,
     JotModelJT4 = 2,
     JotModelJS = 3,
-    JotModelJTD = 4,
-} JotModel;
+    JotModelJTPP = 4,
+    JotModelMighty = 5,
+    JotModelJSPP = 6
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, JotStylusTipStatus) {
     JotStylusTipStatusOffScreen = 0,
     JotStylusTipStatusOnScreen = 1
     
-} JotStylusTipStatus;
+};
 
-typedef enum {
-    JotPalmRejectionLeftHanded,
-    JotPalmRejectionRightHanded
-} JotPalmRejectionOrientation;
+//Future versions of the SDK will exclusively use the PressAndHold connection type.
+DEPRECATED_ATTRIBUTE
+typedef NS_ENUM(NSUInteger, JotStylusConnectionType) {
+    JotStylusConnectionTypeTap = 0,
+    JotStylusConnectionTypePressAndHold
+};
 
-typedef enum {
-    JotWritingStyleRightUp,
-    JotWritingStyleRightMiddle,
-    JotWritingStyleRightDown,
-    JotWritingStyleLeftUp,
-    JotWritingStyleLeftMiddle,
-    JotWritingStyleLeftDown,
-} JotWritingStyle;
+typedef NS_ENUM(NSUInteger, JotWritingStyle) {
+    JotWritingStyleRightHorizontal = 2,
+    JotWritingStyleRightAverage = 1,
+    JotWritingStyleRightVertical = 0,
+    JotWritingStyleLeftHorizontal = 5,
+    JotWritingStyleLeftAverage = 4,
+    JotWritingStyleLeftVertical = 3,
 
-typedef enum {
+};
+
+typedef NS_ENUM(NSUInteger, JotConnectionStatus) {
     JotConnectionStatusOff,
     JotConnectionStatusScanning,
     JotConnectionStatusPairing,
     JotConnectionStatusConnected,
     JotConnectionStatusDisconnected
-} JotConnectionStatus;
+};
 
-typedef enum {
-    JotPreferredStylusBT21,
-    JotPreferredStylusBT40,
-    JotNoPreferredStylus,
-} JotPreferredStylusType;
+typedef NS_ENUM(NSUInteger, JotBatteryLevelStatus) {
+    JotBatteryLevelStatusUnknown,
+    JotBatteryLevelStatusNormal,
+    JotBatteryLevelStatusLow,
+    JotBatteryLevelStatusCritical
+};
 
-extern NSString * const Connection_BT21;
-extern NSString * const Connection_BT40;
-extern NSString * const Model_JT2;
-extern NSString * const Model_JT4;
-extern NSString * const Model_JS;
-extern NSString * const Model_JTD;
+// storage
+extern NSUInteger const JotStylusStorageFriendlyNameMaxLength;
+extern NSUInteger const JotStylusStorageOwnerLinkMaxLength;
+extern NSUInteger const JotStylusStoragePreferenceDataMaxLength;
+extern NSUInteger const JotStylusStorageURLStringMaxLength;
+
+// NSError Defines
+
+extern NSString * const JotTouchSDKErrorDomain;
+
+typedef NS_ENUM(NSInteger, JotTouchSDKErrorType) {
+    JotTouchSDKErrorTypeUnknown = 0,
+    JotTouchSDKErrorSDKNotEnabled = 99,
+    JotTouchSDKErrorNoMainStylusAssigned = 100,
+    JotTouchSDKErrorFunctionalityNotSupportedOnDevice = 101,
+    JotTouchSDKErrorTimeout = 102,
+    JotTouchSDKErrorResetFailure = 103,
+    JotTouchSDKErrorStylusNotConnected = 104,
+    JotTouchSDKErrorStorageIndexOutOfBounds = 301,
+    JotTouchSDKErrorStorageRangeOutOfBounds = 302,
+    JotTouchSDKErrorStorageWriteDataInconsistentWithTargetRange = 303,
+    JotTouchSDKErrorStorageReadUnknown = 304,
+    JotTouchSDKErrorStorageWriteInvalidCommand = 305,
+    JotTouchSDKErrorStorageWriteChecksumError = 306,
+    JotTouchSDKErrorStorageWriteUnknown = 307,
+    JotTouchSDKErrorStorageNotReady = 308,
+    JotTouchSDKErrorTypeFriendlyNameTooLong = 401,
+    JotTouchSDKErrorTypeURLStringTooLong = 402,
+    JotTouchSDKErrorTypeOwnerLinkTooLong = 403,
+    JotTouchSDKErrorTypePreferenceDataTooLong = 404
+};

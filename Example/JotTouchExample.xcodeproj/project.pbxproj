@@ -7,31 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C2F28F5180F341F005F336C /* button-gear-ruby.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28E9180F341F005F336C /* button-gear-ruby.png */; };
-		3C2F28F6180F341F005F336C /* button-gear-ruby@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28EA180F341F005F336C /* button-gear-ruby@2x.png */; };
-		3C2F28F7180F341F005F336C /* button-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28EB180F341F005F336C /* button-gear.png */; };
-		3C2F28F8180F341F005F336C /* button-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28EC180F341F005F336C /* button-gear@2x.png */; };
-		3C2F28F9180F341F005F336C /* button-StylusConnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28ED180F341F005F336C /* button-StylusConnected.png */; };
-		3C2F28FA180F341F005F336C /* button-StylusConnected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28EE180F341F005F336C /* button-StylusConnected@2x.png */; };
-		3C2F28FB180F341F005F336C /* button-StylusDisconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28EF180F341F005F336C /* button-StylusDisconnected.png */; };
-		3C2F28FC180F341F005F336C /* button-StylusDisconnected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F28F0180F341F005F336C /* button-StylusDisconnected@2x.png */; };
-		3C2F2905180F3AA8005F336C /* button-reset-ruby@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F2901180F3AA8005F336C /* button-reset-ruby@2x.png */; };
-		3C2F2906180F3AA8005F336C /* button-reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F2902180F3AA8005F336C /* button-reset@2x.png */; };
-		3C2F2907180F3AA8005F336C /* button-reset-ruby.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F2903180F3AA8005F336C /* button-reset-ruby.png */; };
-		3C2F2908180F3AA8005F336C /* button-reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C2F2904180F3AA8005F336C /* button-reset.png */; };
+		3C0D6D121993D91800470BA0 /* JotStatusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0D6D111993D91800470BA0 /* JotStatusIndicatorView.m */; };
 		3C44744117B92B3C009C8AD2 /* JotTouchStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C44744017B92B3C009C8AD2 /* JotTouchStatusHUD.m */; };
 		3C4B070217B3F655001D5C7B /* JotTouchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C4B070117B3F655001D5C7B /* JotTouchSDK.framework */; };
-		3CACC63417BAA8D40066801D /* Adonit_Header.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CACC63217BAA8D40066801D /* Adonit_Header.png */; };
-		3CACC63517BAA8D40066801D /* Adonit_Header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CACC63317BAA8D40066801D /* Adonit_Header@2x.png */; };
+		3C74BFE81A166C2000269E2A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C74BFE71A166C2000269E2A /* Media.xcassets */; };
+		3C74BFEB1A1675AF00269E2A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C74BFE91A1675AF00269E2A /* LaunchScreen.xib */; };
+		3C82355818B40B19009B82C3 /* CustomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C82355618B40B19009B82C3 /* CustomScrollView.m */; };
 		3CDFB5C417B596150077F6F5 /* StylusSettingsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDFB5C317B596150077F6F5 /* StylusSettingsButton.m */; };
 		66C9A74E16E0644C0034AB37 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C9A74D16E0644C0034AB37 /* UIKit.framework */; };
 		66C9A75016E0644C0034AB37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C9A74F16E0644C0034AB37 /* Foundation.framework */; };
 		66C9A75816E0644C0034AB37 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 66C9A75616E0644C0034AB37 /* InfoPlist.strings */; };
 		66C9A75A16E0644C0034AB37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C9A75916E0644C0034AB37 /* main.m */; };
 		66C9A75E16E0644D0034AB37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C9A75D16E0644D0034AB37 /* AppDelegate.m */; };
-		66C9A76016E0644D0034AB37 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 66C9A75F16E0644D0034AB37 /* Default.png */; };
-		66C9A76216E0644D0034AB37 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66C9A76116E0644D0034AB37 /* Default@2x.png */; };
-		66C9A76416E0644D0034AB37 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66C9A76316E0644D0034AB37 /* Default-568h@2x.png */; };
 		66C9A76716E0644D0034AB37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C9A76616E0644D0034AB37 /* ViewController.m */; };
 		66C9A76A16E0644D0034AB37 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66C9A76816E0644D0034AB37 /* ViewController.xib */; };
 		66C9A77416E064FF0034AB37 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C9A77316E064FF0034AB37 /* CanvasView.m */; };
@@ -46,29 +33,21 @@
 		66C9A79616E0687F0034AB37 /* SegmentSmoother.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C9A77E16E0668E0034AB37 /* SegmentSmoother.m */; };
 		66C9A79816E068A40034AB37 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C9A79716E068A40034AB37 /* QuartzCore.framework */; };
 		66C9A79916E068AE0034AB37 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C9A75116E0644C0034AB37 /* CoreGraphics.framework */; };
-		66C9A79B16E06A6F0034AB37 /* Icon-Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 66C9A79A16E06A6F0034AB37 /* Icon-Gradient.png */; };
-		66C9A79D16E06A730034AB37 /* Icon-Gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 66C9A79C16E06A730034AB37 /* Icon-Gradient@2x.png */; };
+		A2E5B35D1A02754E004413DC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2E5B35C1A02754E004413DC /* SystemConfiguration.framework */; };
 		D257A3EB17F5EA8100BF17F9 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D257A3EA17F5EA8100BF17F9 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3C2F28E9180F341F005F336C /* button-gear-ruby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gear-ruby.png"; sourceTree = "<group>"; };
-		3C2F28EA180F341F005F336C /* button-gear-ruby@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gear-ruby@2x.png"; sourceTree = "<group>"; };
-		3C2F28EB180F341F005F336C /* button-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gear.png"; sourceTree = "<group>"; };
-		3C2F28EC180F341F005F336C /* button-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-gear@2x.png"; sourceTree = "<group>"; };
-		3C2F28ED180F341F005F336C /* button-StylusConnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-StylusConnected.png"; sourceTree = "<group>"; };
-		3C2F28EE180F341F005F336C /* button-StylusConnected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-StylusConnected@2x.png"; sourceTree = "<group>"; };
-		3C2F28EF180F341F005F336C /* button-StylusDisconnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-StylusDisconnected.png"; sourceTree = "<group>"; };
-		3C2F28F0180F341F005F336C /* button-StylusDisconnected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-StylusDisconnected@2x.png"; sourceTree = "<group>"; };
-		3C2F2901180F3AA8005F336C /* button-reset-ruby@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-reset-ruby@2x.png"; sourceTree = "<group>"; };
-		3C2F2902180F3AA8005F336C /* button-reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-reset@2x.png"; sourceTree = "<group>"; };
-		3C2F2903180F3AA8005F336C /* button-reset-ruby.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-reset-ruby.png"; sourceTree = "<group>"; };
-		3C2F2904180F3AA8005F336C /* button-reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-reset.png"; sourceTree = "<group>"; };
+		3C0D6D101993D91800470BA0 /* JotStatusIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JotStatusIndicatorView.h; sourceTree = "<group>"; };
+		3C0D6D111993D91800470BA0 /* JotStatusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JotStatusIndicatorView.m; sourceTree = "<group>"; };
 		3C44743F17B92B3C009C8AD2 /* JotTouchStatusHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JotTouchStatusHUD.h; sourceTree = "<group>"; };
 		3C44744017B92B3C009C8AD2 /* JotTouchStatusHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JotTouchStatusHUD.m; sourceTree = "<group>"; };
-		3C4B070117B3F655001D5C7B /* JotTouchSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JotTouchSDK.framework; path = ../JotTouchSDK.framework; sourceTree = "<group>"; };
-		3CACC63217BAA8D40066801D /* Adonit_Header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Adonit_Header.png; sourceTree = "<group>"; };
-		3CACC63317BAA8D40066801D /* Adonit_Header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Adonit_Header@2x.png"; sourceTree = "<group>"; };
+		3C4B070117B3F655001D5C7B /* JotTouchSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JotTouchSDK.framework; sourceTree = "<group>"; };
+		3C74BFE71A166C2000269E2A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		3C74BFEA1A1675AF00269E2A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		3C82355618B40B19009B82C3 /* CustomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomScrollView.m; sourceTree = "<group>"; };
+		3C82355718B40B19009B82C3 /* CustomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomScrollView.h; sourceTree = "<group>"; };
+		3C82355918B40BCD009B82C3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3CDFB5C217B596150077F6F5 /* StylusSettingsButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylusSettingsButton.h; sourceTree = "<group>"; };
 		3CDFB5C317B596150077F6F5 /* StylusSettingsButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylusSettingsButton.m; sourceTree = "<group>"; };
 		66C9A74A16E0644C0034AB37 /* JotTouchExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotTouchExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,14 +60,11 @@
 		66C9A75B16E0644C0034AB37 /* JotTouchExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JotTouchExample-Prefix.pch"; sourceTree = "<group>"; };
 		66C9A75C16E0644D0034AB37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		66C9A75D16E0644D0034AB37 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		66C9A75F16E0644D0034AB37 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		66C9A76116E0644D0034AB37 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		66C9A76316E0644D0034AB37 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		66C9A76516E0644D0034AB37 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		66C9A76616E0644D0034AB37 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		66C9A76616E0644D0034AB37 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66C9A76916E0644D0034AB37 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		66C9A77216E064FF0034AB37 /* CanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasView.h; sourceTree = "<group>"; };
-		66C9A77316E064FF0034AB37 /* CanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasView.m; sourceTree = "<group>"; };
+		66C9A77316E064FF0034AB37 /* CanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CanvasView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66C9A77516E0668E0034AB37 /* AbstractBezierPathElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractBezierPathElement.h; sourceTree = "<group>"; };
 		66C9A77616E0668E0034AB37 /* AbstractBezierPathElement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AbstractBezierPathElement.m; sourceTree = "<group>"; };
 		66C9A77716E0668E0034AB37 /* MoveToPathElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoveToPathElement.h; sourceTree = "<group>"; };
@@ -107,8 +83,7 @@
 		66C9A78B16E0683D0034AB37 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		66C9A78D16E068500034AB37 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		66C9A79716E068A40034AB37 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		66C9A79A16E06A6F0034AB37 /* Icon-Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Gradient.png"; path = "../Icon-Gradient.png"; sourceTree = "<group>"; };
-		66C9A79C16E06A730034AB37 /* Icon-Gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Gradient@2x.png"; path = "../Icon-Gradient@2x.png"; sourceTree = "<group>"; };
+		A2E5B35C1A02754E004413DC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D257A3EA17F5EA8100BF17F9 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -117,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2E5B35D1A02754E004413DC /* SystemConfiguration.framework in Frameworks */,
 				D257A3EB17F5EA8100BF17F9 /* CoreMotion.framework in Frameworks */,
 				66C9A79916E068AE0034AB37 /* CoreGraphics.framework in Frameworks */,
 				66C9A79816E068A40034AB37 /* QuartzCore.framework in Frameworks */,
@@ -143,36 +119,10 @@
 		3CDFB5D117B596740077F6F5 /* StylusSettingButton */ = {
 			isa = PBXGroup;
 			children = (
-				3C2F28E9180F341F005F336C /* button-gear-ruby.png */,
-				3C2F28EA180F341F005F336C /* button-gear-ruby@2x.png */,
-				3C2F28EB180F341F005F336C /* button-gear.png */,
-				3C2F28EC180F341F005F336C /* button-gear@2x.png */,
-				3C2F28ED180F341F005F336C /* button-StylusConnected.png */,
-				3C2F28EE180F341F005F336C /* button-StylusConnected@2x.png */,
-				3C2F28EF180F341F005F336C /* button-StylusDisconnected.png */,
-				3C2F28F0180F341F005F336C /* button-StylusDisconnected@2x.png */,
 				3CDFB5C217B596150077F6F5 /* StylusSettingsButton.h */,
 				3CDFB5C317B596150077F6F5 /* StylusSettingsButton.m */,
 			);
 			name = StylusSettingButton;
-			sourceTree = "<group>";
-		};
-		660A0C4F16E134B900E035B6 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				3C2F2901180F3AA8005F336C /* button-reset-ruby@2x.png */,
-				3C2F2902180F3AA8005F336C /* button-reset@2x.png */,
-				3C2F2903180F3AA8005F336C /* button-reset-ruby.png */,
-				3C2F2904180F3AA8005F336C /* button-reset.png */,
-				3CACC63217BAA8D40066801D /* Adonit_Header.png */,
-				3CACC63317BAA8D40066801D /* Adonit_Header@2x.png */,
-				66C9A79C16E06A730034AB37 /* Icon-Gradient@2x.png */,
-				66C9A79A16E06A6F0034AB37 /* Icon-Gradient.png */,
-				66C9A75F16E0644D0034AB37 /* Default.png */,
-				66C9A76116E0644D0034AB37 /* Default@2x.png */,
-				66C9A76316E0644D0034AB37 /* Default-568h@2x.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		66C9A74116E0644C0034AB37 = {
@@ -197,6 +147,7 @@
 		66C9A74C16E0644C0034AB37 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A2E5B35C1A02754E004413DC /* SystemConfiguration.framework */,
 				D257A3EA17F5EA8100BF17F9 /* CoreMotion.framework */,
 				3C4B070117B3F655001D5C7B /* JotTouchSDK.framework */,
 				66C9A79716E068A40034AB37 /* QuartzCore.framework */,
@@ -224,6 +175,9 @@
 				66C9A76516E0644D0034AB37 /* ViewController.h */,
 				66C9A76616E0644D0034AB37 /* ViewController.m */,
 				66C9A76816E0644D0034AB37 /* ViewController.xib */,
+				3C74BFE91A1675AF00269E2A /* LaunchScreen.xib */,
+				3C82355618B40B19009B82C3 /* CustomScrollView.m */,
+				3C82355718B40B19009B82C3 /* CustomScrollView.h */,
 				66C9A75416E0644C0034AB37 /* Supporting Files */,
 			);
 			path = JotTouchExample;
@@ -232,13 +186,16 @@
 		66C9A75416E0644C0034AB37 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3C0D6D101993D91800470BA0 /* JotStatusIndicatorView.h */,
+				3C0D6D111993D91800470BA0 /* JotStatusIndicatorView.m */,
+				3C82355918B40BCD009B82C3 /* Constants.h */,
 				3C6F5B9A17B9587500595435 /* Jot Status Alert HUD */,
 				3CDFB5D117B596740077F6F5 /* StylusSettingButton */,
-				660A0C4F16E134B900E035B6 /* Images */,
 				66C9A75516E0644C0034AB37 /* JotTouchExample-Info.plist */,
 				66C9A75616E0644C0034AB37 /* InfoPlist.strings */,
 				66C9A75916E0644C0034AB37 /* main.m */,
 				66C9A75B16E0644C0034AB37 /* JotTouchExample-Prefix.pch */,
+				3C74BFE71A166C2000269E2A /* Media.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -295,8 +252,13 @@
 		66C9A74216E0644C0034AB37 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Adonit, LLC";
+				TargetAttributes = {
+					66C9A74916E0644C0034AB37 = {
+						DevelopmentTeam = WUZSKULPD2;
+					};
+				};
 			};
 			buildConfigurationList = 66C9A74516E0644C0034AB37 /* Build configuration list for PBXProject "JotTouchExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -321,26 +283,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				66C9A75816E0644C0034AB37 /* InfoPlist.strings in Resources */,
-				66C9A76016E0644D0034AB37 /* Default.png in Resources */,
-				3C2F2907180F3AA8005F336C /* button-reset-ruby.png in Resources */,
-				3C2F28F7180F341F005F336C /* button-gear.png in Resources */,
-				3C2F28FA180F341F005F336C /* button-StylusConnected@2x.png in Resources */,
-				66C9A76216E0644D0034AB37 /* Default@2x.png in Resources */,
-				66C9A76416E0644D0034AB37 /* Default-568h@2x.png in Resources */,
-				3C2F2906180F3AA8005F336C /* button-reset@2x.png in Resources */,
 				66C9A76A16E0644D0034AB37 /* ViewController.xib in Resources */,
-				3C2F28F8180F341F005F336C /* button-gear@2x.png in Resources */,
-				66C9A79B16E06A6F0034AB37 /* Icon-Gradient.png in Resources */,
-				3C2F2908180F3AA8005F336C /* button-reset.png in Resources */,
-				66C9A79D16E06A730034AB37 /* Icon-Gradient@2x.png in Resources */,
-				3C2F28F5180F341F005F336C /* button-gear-ruby.png in Resources */,
-				3C2F28FB180F341F005F336C /* button-StylusDisconnected.png in Resources */,
-				3C2F28F6180F341F005F336C /* button-gear-ruby@2x.png in Resources */,
-				3C2F28FC180F341F005F336C /* button-StylusDisconnected@2x.png in Resources */,
-				3C2F2905180F3AA8005F336C /* button-reset-ruby@2x.png in Resources */,
-				3CACC63417BAA8D40066801D /* Adonit_Header.png in Resources */,
-				3CACC63517BAA8D40066801D /* Adonit_Header@2x.png in Resources */,
-				3C2F28F9180F341F005F336C /* button-StylusConnected.png in Resources */,
+				3C74BFEB1A1675AF00269E2A /* LaunchScreen.xib in Resources */,
+				3C74BFE81A166C2000269E2A /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +298,8 @@
 			files = (
 				66C9A75A16E0644C0034AB37 /* main.m in Sources */,
 				66C9A75E16E0644D0034AB37 /* AppDelegate.m in Sources */,
+				3C0D6D121993D91800470BA0 /* JotStatusIndicatorView.m in Sources */,
+				3C82355818B40B19009B82C3 /* CustomScrollView.m in Sources */,
 				66C9A76716E0644D0034AB37 /* ViewController.m in Sources */,
 				66C9A79016E068720034AB37 /* UIColor+Components.m in Sources */,
 				66C9A78F16E0686E0034AB37 /* SmoothStroke.m in Sources */,
@@ -370,6 +317,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3C74BFE91A1675AF00269E2A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C74BFEA1A1675AF00269E2A /* en */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
 		66C9A75616E0644C0034AB37 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -406,6 +361,8 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -456,6 +413,8 @@
 		66C9A76E16E0644D0034AB37 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -466,6 +425,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JotTouchExample/JotTouchExample-Prefix.pch";
 				INFOPLIST_FILE = "JotTouchExample/JotTouchExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -473,6 +433,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -480,6 +442,8 @@
 		66C9A76F16E0644D0034AB37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -490,6 +454,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JotTouchExample/JotTouchExample-Prefix.pch";
 				INFOPLIST_FILE = "JotTouchExample/JotTouchExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -497,6 +462,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
