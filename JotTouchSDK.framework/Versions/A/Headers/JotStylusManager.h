@@ -16,6 +16,7 @@
 @class JotPreferredStylus;
 
 typedef void (^JotStylusDiscoveryCompletionBlock)(BOOL success, NSError *error);
+typedef void (^JotStylusDiscoveryBlock)(NSString *name, JotModel model);
 
 extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotification;
 
@@ -35,6 +36,15 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * @param completionBlock A completion block that is called when a stylus is connected
  */
 - (void)startDiscoveryWithCompletionBlock:(JotStylusDiscoveryCompletionBlock)completionBlock;
+
+/**
+ * Causes the SDK to go into a scanning state, looking for jot styluses
+ *
+ * @param immediatelyConnect    YES to attempt a connection upon discovery, NO to discover without connecting
+ * @param discoveryBlock        A block that is called whenever a stylus is discovered
+ * @param completionBlock       A completion block that is called when a stylus is connected
+ */
+- (void)startDiscoveryAndImmediatelyConnect:(BOOL)immediatelyConnect withDiscoveryBlock:(JotStylusDiscoveryBlock)discoveryBlock completionBlock:(JotStylusDiscoveryCompletionBlock)completionBlock;
 
 /**
  * If the SDK is discovering styluses, this call will stop the discovery process. The
@@ -62,11 +72,13 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  */
 - (void)addShortcutOptionButton2Default:(JotShortcut *)shortcut;
 
-/** Obtains pressure data of the currently connected stylus
+/*!
+ * Obtains pressure data of the currently connected stylus.
  *
  * @return If connected, returns positive integer value of connected pressure data. If not connected, returns the unconnected pressure data.
+ * @deprecated Use pressure property on JotTouch to get the current pressure of a stylus
  */
-- (NSUInteger)getPressure;
+- (NSUInteger)getPressure __deprecated_msg("Use pressure property on JotTouch to get the current pressure of a stylus");
 
 /**
  * Number of styluses connected to BT, including those still pairing
@@ -112,15 +124,18 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 
 /**
  * Opens the appropriate help site for the currently connected stylus
+ *
+ * @param showAlertOnError YES to show an alert when help cannot be accessed, otherwise NO
+ * 
+ * @return Any error that was encountered while launching help, otherwise nil
  */
-- (void)launchHelp;
+- (NSError *)launchHelpAndShowAlertOnError:(BOOL)showAlertOnError;
 
 /**
  * Enables the manager and optionally shows an alert if the Bluetooth stack is not
  * powered on
  *
- * @param powerOnAlert YES to show the alert, otherwise NO. Note that this 
- *                     parameter will only take effect on iOS 7 or greater
+ * @param powerOnAlert YES to show the alert, otherwise NO.
  */
 - (void)enableWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
 
@@ -143,8 +158,7 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * that it was used. Optionally shows an alert if the Bluetooth stack is not
  * powered on
  *
- * @param powerOnAlert YES to show the alert, otherwise NO. Note that this
- *                     parameter will only take effect on iOS 7 or greater
+ * @param powerOnAlert YES to show the alert, otherwise NO.
  */
 - (void)enableOrDisableBasedOnLastKnownStateWithBluetoothPowerOnAlert:(BOOL)powerOnAlert;
 
@@ -184,25 +198,6 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (nonatomic) BOOL reportDiagnosticData;
 
 /**
- * Indicates what style of connection to use
- *
- * The legacy style is the tap-to-connect, where the SDK is scanning for styluses, and you indicate
- * which one you want to connect by tapping it. This is the JotStylusConnectionTypeTap
- *
- * The new connection style used by the built-in settings pane requires the
- * user to press and hold the stylus on the screen, which turns on scanning. 
- * Once the SDK detects pressure for long enough from a stylus, it completes
- * the connection. JotStylusConnectionTypePressAndHold.
- *
- * This property defaults to the new JotStylusConnectionTypePressAndHold. If you
- * would like to continue using the legacy tap style, set this property to
- * JotStylusConnectionTypeTap before setting enabled=YES;
- *
- * Future versions of the SDK will exclusively use the PressAndHold connection type.
- */
-@property (readwrite, nonatomic) JotStylusConnectionType connectionType DEPRECATED_ATTRIBUTE;
-
-/**
  * The amount of time (in seconds) between the stylus being lifted from the screen
  * and the notification that gestures should be enabled. Defaults to 1 second.
  */
@@ -212,6 +207,11 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * The pressure value to assume when the stylus is not pressed down
  */
 @property (nonatomic, readwrite) NSUInteger unconnectedPressure;
+
+/**
+ * indicates whether the stylus model supports shortcut buttons
+ */
+@property (readonly) NSUInteger stylusShortcutButtonCount;
 
 /**
  * Array of JotShortcuts utilized in the settings interface
@@ -226,12 +226,12 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 /**
  * The current button 1 shortcut of the connected stylus
  */
-@property (readwrite,assign) JotShortcut *button1Shortcut;
+@property (nonatomic, assign) JotShortcut *button1Shortcut;
 
 /**
  * The current button 2 shortcut of the connected stylus
  */
-@property (readwrite,assign) JotShortcut *button2Shortcut;
+@property (nonatomic, assign) JotShortcut *button2Shortcut;
 
 /**
  * Palm rejection delegate capturing touch events for palm rejection
@@ -291,6 +291,19 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * The friendly name of the stylus model. For example: "Jot Script"
  */
 @property (readonly) NSString *stylusModelFriendlyName;
+
+/**
+ * The friendly name of the stylus. For example, "Ian's Jot Touch". Defaults
+ * to the stylusModelFriendlyName, if no friendly name is set.
+ *
+ * @see stylusModelFriendlyName
+ */
+@property (nonatomic) NSString *stylusFriendlyName;
+
+/**
+ * YES if the stylus supports having a friendly name, Otherwise NO.
+ */
+@property (nonatomic, readonly) BOOL stylusSupportsFriendlyName;
 
 /**
  * The firmware version for the connected stylus

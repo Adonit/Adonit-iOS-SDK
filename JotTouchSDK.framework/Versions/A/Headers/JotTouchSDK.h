@@ -2,16 +2,24 @@
 //  JotTouchSDK.h
 //  JotTouchSDK
 //
-//  Created by Timothy Ritchey on 4/22/14.
+//  Created by Timothy Ritchey on 8/11/14.
 //  Copyright (c) 2014 Adonit. All rights reserved.
 //
 
-#ifndef JotTouchSDK_JotTouchSDK_h
-#define JotTouchSDK_JotTouchSDK_h
+#import <UIKit/UIKit.h>
 
+//! Project version number for JotTouchSDK.
+FOUNDATION_EXPORT double JotTouchSDKVersionNumber;
+
+//! Project version string for JotTouchSDK.
+FOUNDATION_EXPORT const unsigned char JotTouchSDKVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <JotTouchSDK/PublicHeader.h>
+
+#import <JotTouchSDK/JotConstants.h>
 #import <JotTouchSDK/JotStylusManager.h>
-#import <JotTouchSDK/JotTapToConnectSettingsViewController.h>
 #import <JotTouchSDK/JotStylusMotionManager.h>
 #import <JotTouchSDK/UITouch+JotStylus.h>
 
-#endif
+#import <JotTouchSDK/UIStoryboard+JotTouchSDK.h>
+#import <JotTouchSDK/UIColor+JotTouchSDK.h>

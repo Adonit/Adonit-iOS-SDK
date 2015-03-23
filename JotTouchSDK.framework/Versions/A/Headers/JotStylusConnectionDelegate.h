@@ -17,6 +17,12 @@
  */
 @protocol JotStylusConnectionDelegate <NSObject>
 
+/**
+ * Sent to update the status of stylus to discovered
+ * @param stylus The stylus that was discovered
+ */
+- (void)jotStylusDiscovered:(JotStylus *)stylus;
+
 /** Sent to update the status of stylus to pairing
  * @param stylus The stylus that is pairing
  */
@@ -32,15 +38,14 @@
  */
 - (void)jotStylusDisconnected:(JotStylus *)stylus;
 
-/** Sent to update the level of battery remaining
- * @param stylus The stylus
- * @param batteryLevel Positive integer specifying the remaining battery of connected device
- */
-- (void)jotStylus:(JotStylus *)stylus batteryLevelUpdate:(NSUInteger)batteryLevel;
-
 /** Sent when the device does not support bluetooth 4
  */
 - (void)jotStylusUnsupported;
+
+/**
+ * Sent when a discovery attempt is cancelled
+ */
+- (void)jotStylusDiscoveryCancelled;
 
 @optional
 

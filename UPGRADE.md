@@ -1,3 +1,11 @@
+# JotTouchSDK 2.7 Upgrade Notes
+
+The Settings UI is now more modular and customizable than ever. See the revised [Getting Started Guide](http://github.com/Adonit/JotTouchSDK/wiki/Getting-Started-Guide) and [API Guide](http://github.com/Adonit/JotTouchSDK/wiki/API) for more information on how to take advantage of this new settings UI.
+
+The Tap to Connect connection style has been removed. All applications should use the Press to Connect connection style.
+
+Several parts of JotTouch have been deprecated. See the inline deprecation suggestions on how to migrate away from those pieces of API.
+
 # JotTouchSDK 2.6.5 Upgrade Notes
 
 For applications that were previously turning off our wavy-line correction by setting the lineSmoothingEnabled property to NO, please consider trying this correction method again. We've made substantial improvements to writing and drawing clarity with the wavy-line correction on.

@@ -1,5 +1,14 @@
 #JotTouchSDK Change Log
 
+# V2.7
+
+- added settings and connection UI
+- improved wavy line correction
+- improved dropped stroke connections
+- removed the tap to connect connection style
+- removed support for iOS 6
+- other miscellaneous bug fixes and improvements
+
 # V2.6.5
 - fixes issues with dropped strokes
 - improved rejection of palm touches
