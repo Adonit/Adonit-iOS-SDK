@@ -1,6 +1,6 @@
 # JotTouchSDK 2.7 Upgrade Notes
 
-The Settings UI is now more modular and customizable than ever. See the revised [Getting Started Guide](http://github.com/Adonit/JotTouchSDK/wiki/Getting-Started-Guide) and [API Guide](http://github.com/Adonit/JotTouchSDK/wiki/API) for more information on how to take advantage of this new settings UI.
+The Settings UI is now more modular and customizable than ever. See the [Connection and Settings UI Guide](https://github.com/Adonit/JotTouchSDK/wiki/Connection-and-Settings-UI-Guide) for more information on how to take advantage of this new settings UI.
 
 The Tap to Connect connection style has been removed. All applications should use the Press to Connect connection style.
 

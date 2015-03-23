@@ -13,13 +13,10 @@ The Adonit Jot Touch SDK is a free framework for iOS that provides you with the 
 
 
 ##How do I use it?
-Integrating with the Jot Touch SDK is easy. Get up and running in no time by viewing our [Getting Started Guide](http://github.com/Adonit/JotTouchSDK/wiki/Getting-Started-Guide).
+Integrating with the Jot Touch SDK is easy. Get up and running in no time by viewing our [wiki](http://github.com/Adonit/JotTouchSDK/wiki).
 
 ##What versions of iOS are Supported?
 The Jot Touch SDK supports iOS 7.x and 8.x.
-
-##API Documentation
-View the the documentation of all available methods and properties in our [API Guide](http://github.com/Adonit/JotTouchSDK/wiki/API).
 
 ##Reporting Bugs
 If you’ve uncovered a bug or have any feedback let us know by sending us an email to [developers@adonit.net](mailto:developers@adonit.net).
