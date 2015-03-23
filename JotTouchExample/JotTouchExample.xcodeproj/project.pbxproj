@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CCAF05D1A7A86A70023607E /* Launch Screen.xib */; };
 		7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7717F9471A1CD859001706AE /* MainStoryboard.storyboard */; };
-		7717F98A1A1D2F51001706AE /* JotTouchSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7717F9891A1D2F23001706AE /* JotTouchSDK.bundle */; };
 		7747EC821A1BDC9700D18429 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC811A1BDC9700D18429 /* main.m */; };
 		7747EC851A1BDC9700D18429 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC841A1BDC9700D18429 /* AppDelegate.m */; };
 		7747EC881A1BDC9700D18429 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC871A1BDC9700D18429 /* ViewController.m */; };
@@ -27,41 +26,14 @@
 		7747ECC91A1BDED100D18429 /* SmoothStroke.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECBB1A1BDED100D18429 /* SmoothStroke.m */; };
 		7747ECCA1A1BDED100D18429 /* StylusSettingsButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECBD1A1BDED100D18429 /* StylusSettingsButton.m */; };
 		7747ECCB1A1BDED100D18429 /* UIColor+Components.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECBF1A1BDED100D18429 /* UIColor+Components.m */; };
-		7747ECCD1A1BDF0300D18429 /* libJotTouchSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECCC1A1BDF0300D18429 /* libJotTouchSDK.a */; };
 		7747ECD01A1BDF2900D18429 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */; };
 		7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */; };
 		7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */; };
+		A222C3721AC0844200AFB531 /* JotTouchSDK.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */; };
+		A222C3731AC0844200AFB531 /* JotTouchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A222C3711AC0844200AFB531 /* JotTouchSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7717F9821A1D2F23001706AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 776EBBF619990B6600E0A014;
-			remoteInfo = JotTouchSDKTests;
-		};
-		7717F9841A1D2F23001706AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A28BE62F19D9A0A30010484A;
-			remoteInfo = JotTouchSDKTestRunner;
-		};
-		7717F9861A1D2F23001706AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7789BFE21A1AA3C000E130AC;
-			remoteInfo = JotTouchSDK;
-		};
-		7717F9881A1D2F23001706AE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7717F94E1A1D2A27001706AE;
-			remoteInfo = JotTouchSDKResources;
-		};
 		7747EC961A1BDC9800D18429 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7747EC741A1BDC9700D18429 /* Project object */;
@@ -69,19 +41,11 @@
 			remoteGlobalIDString = 7747EC7B1A1BDC9700D18429;
 			remoteInfo = JotTouchExample;
 		};
-		7752B04E1A24CBCA00E83DDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7747EC6C1A1BAD3700D18429;
-			remoteInfo = JotTouchSDKFramework;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3CCAF05D1A7A86A70023607E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		7717F9471A1CD859001706AE /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
-		7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JotTouchSDK.xcodeproj; path = ../JotTouchSDK/JotTouchSDK.xcodeproj; sourceTree = "<group>"; };
 		7747EC7C1A1BDC9700D18429 /* JotTouchExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotTouchExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7747EC801A1BDC9700D18429 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7747EC811A1BDC9700D18429 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -122,6 +86,8 @@
 		7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = JotTouchSDK.bundle; path = ../../JotTouchSDK.bundle; sourceTree = "<group>"; };
+		A222C3711AC0844200AFB531 /* JotTouchSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JotTouchSDK.framework; path = ../../JotTouchSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,10 +95,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A222C3721AC0844200AFB531 /* JotTouchSDK.bundle in Frameworks */,
+				A222C3731AC0844200AFB531 /* JotTouchSDK.framework in Frameworks */,
 				7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */,
 				7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */,
 				7747ECD01A1BDF2900D18429 /* CoreMotion.framework in Frameworks */,
-				7747ECCD1A1BDF0300D18429 /* libJotTouchSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,21 +113,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7717F97B1A1D2F23001706AE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7717F9831A1D2F23001706AE /* JotTouchSDKTests.xctest */,
-				7717F9851A1D2F23001706AE /* JotTouchSDKTestRunner.app */,
-				7717F9871A1D2F23001706AE /* libJotTouchSDK.a */,
-				7717F9891A1D2F23001706AE /* JotTouchSDK.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7747EC731A1BDC9700D18429 = {
 			isa = PBXGroup;
 			children = (
-				7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */,
 				7747EC7E1A1BDC9700D18429 /* JotTouchExample */,
 				7747EC981A1BDC9800D18429 /* JotTouchExampleTests */,
 				7747ECCE1A1BDF1100D18429 /* Frameworks */,
@@ -246,6 +201,8 @@
 		7747ECCE1A1BDF1100D18429 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */,
+				A222C3711AC0844200AFB531 /* JotTouchSDK.framework */,
 				7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */,
 				7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */,
 				7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */,
@@ -269,7 +226,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7752B04F1A24CBCA00E83DDF /* PBXTargetDependency */,
 			);
 			name = JotTouchExample;
 			productName = JotTouchExample;
@@ -324,12 +280,6 @@
 			mainGroup = 7747EC731A1BDC9700D18429;
 			productRefGroup = 7747EC7D1A1BDC9700D18429 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7717F97B1A1D2F23001706AE /* Products */;
-					ProjectRef = 7717F97A1A1D2F23001706AE /* JotTouchSDK.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				7747EC7B1A1BDC9700D18429 /* JotTouchExample */,
@@ -337,37 +287,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7717F9831A1D2F23001706AE /* JotTouchSDKTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = JotTouchSDKTests.xctest;
-			remoteRef = 7717F9821A1D2F23001706AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7717F9851A1D2F23001706AE /* JotTouchSDKTestRunner.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = JotTouchSDKTestRunner.app;
-			remoteRef = 7717F9841A1D2F23001706AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7717F9871A1D2F23001706AE /* libJotTouchSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libJotTouchSDK.a;
-			remoteRef = 7717F9861A1D2F23001706AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7717F9891A1D2F23001706AE /* JotTouchSDK.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = JotTouchSDK.bundle;
-			remoteRef = 7717F9881A1D2F23001706AE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7747EC7A1A1BDC9700D18429 /* Resources */ = {
@@ -377,7 +296,6 @@
 				7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */,
 				3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */,
 				7747EC8D1A1BDC9700D18429 /* Images.xcassets in Resources */,
-				7717F98A1A1D2F51001706AE /* JotTouchSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,11 +346,6 @@
 			isa = PBXTargetDependency;
 			target = 7747EC7B1A1BDC9700D18429 /* JotTouchExample */;
 			targetProxy = 7747EC961A1BDC9800D18429 /* PBXContainerItemProxy */;
-		};
-		7752B04F1A24CBCA00E83DDF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = JotTouchSDKFramework;
-			targetProxy = 7752B04E1A24CBCA00E83DDF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -520,6 +433,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jarbogast/Documents/JotTouchSDK,
+				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = JotTouchExample/Info.plist;
@@ -539,6 +456,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jarbogast/Documents/JotTouchSDK,
+				);
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				INFOPLIST_FILE = JotTouchExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
