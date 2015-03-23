@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C6B43011AC09646005CFEA3 /* JotTouchSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */; };
 		3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CCAF05D1A7A86A70023607E /* Launch Screen.xib */; };
 		7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7717F9471A1CD859001706AE /* MainStoryboard.storyboard */; };
 		7747EC821A1BDC9700D18429 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC811A1BDC9700D18429 /* main.m */; };
@@ -29,7 +30,6 @@
 		7747ECD01A1BDF2900D18429 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */; };
 		7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */; };
 		7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */; };
-		A222C3721AC0844200AFB531 /* JotTouchSDK.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */; };
 		A222C3731AC0844200AFB531 /* JotTouchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A222C3711AC0844200AFB531 /* JotTouchSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +82,6 @@
 		7747ECBD1A1BDED100D18429 /* StylusSettingsButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylusSettingsButton.m; sourceTree = "<group>"; };
 		7747ECBE1A1BDED100D18429 /* UIColor+Components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Components.h"; sourceTree = "<group>"; };
 		7747ECBF1A1BDED100D18429 /* UIColor+Components.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Components.m"; sourceTree = "<group>"; };
-		7747ECCC1A1BDF0300D18429 /* libJotTouchSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJotTouchSDK.a; path = "../../../../../Library/Developer/Xcode/DerivedData/adonit_JotSDK-cuislxxwqqpsxyftgsgapjyhvsfu/Build/Products/Debug-iphoneos/libJotTouchSDK.a"; sourceTree = "<group>"; };
 		7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -95,7 +94,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A222C3721AC0844200AFB531 /* JotTouchSDK.bundle in Frameworks */,
 				A222C3731AC0844200AFB531 /* JotTouchSDK.framework in Frameworks */,
 				7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */,
 				7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */,
@@ -206,7 +204,6 @@
 				7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */,
 				7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */,
 				7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */,
-				7747ECCC1A1BDF0300D18429 /* libJotTouchSDK.a */,
 			);
 			name = Frameworks;
 			path = JotTouchExampleTests;
@@ -293,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C6B43011AC09646005CFEA3 /* JotTouchSDK.bundle in Resources */,
 				7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */,
 				3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */,
 				7747EC8D1A1BDC9700D18429 /* Images.xcassets in Resources */,
