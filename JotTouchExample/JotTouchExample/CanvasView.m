@@ -278,6 +278,8 @@
  */
 - (void)jotStylusTouchMoved:(NSSet *)touches
 {
+    dispatch_blo
+    
     for (JotTouch* jotTouch in touches) {
         [self addLineToAndRenderStroke:[self getStrokeForTouchHash:jotTouch.hash]
                                toPoint:[jotTouch locationInView:self]
