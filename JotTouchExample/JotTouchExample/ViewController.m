@@ -7,9 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "Constants.h"
-#import <JotTouchSDK/JotTouchSDK.h>
-#import <JotTouchSDK/JotDemoOverlayView.h>
+#import <AdonitSDK/AdonitSDK.h>
 
 @interface ViewController()
 
@@ -19,10 +17,16 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *canvasViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *canvasViewHeightConstraint;
-
 @property (nonatomic) UIPopoverController *settingsPopoverController;
 
-@property (weak, nonatomic) JotDemoOverlayView *demoOverlayView;
+@property (nonatomic, weak) IBOutlet UIView *brushColorPreview;
+@property (nonatomic, weak) IBOutlet UIButton *penButton;
+@property (nonatomic, weak) IBOutlet UIButton *brushButton;
+@property (nonatomic, weak) IBOutlet UIButton *eraserButton;
+@property (nonatomic) UIColor *currentColor;
+@property (nonatomic) Brush *penBrush;
+@property (nonatomic) Brush *brushBrush;
+@property (nonatomic) Brush *eraserBrush;
 
 @end
 
@@ -36,46 +40,19 @@
     
     self.gesturesEnabled = YES;
     self.gesturesSwitch.on = YES;
-    self.customScrollView.panGestureRecognizer.enabled = YES;
-    self.customScrollView.pinchGestureRecognizer.enabled = YES;
     
     // Set initial state of Jot Status Indicators to be off
     [self showJotStatusIndicators:NO WithAnimation:NO];
 
     self.canvasView.viewController = self;
-    self.customScrollView.delegate = self;
-    self.customScrollView.dataSource = self;
-    self.customScrollView.contentSize = self.canvasView.bounds.size;
     
     [self setupJotSDK];
+    self.currentColor = [UIColor darkGrayColor];
+    [self selectBrush:self.brushButton];
+    [self adonitLogoButtonPressed:self.adonitLogo];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self setScrollViewMinScale];
-    self.customScrollView.maximumZoomScale = JotExampleScrollViewZoomScaleMax;
-    self.customScrollView.zoomScale = 1.0;
-    
-    [super viewWillAppear:animated];
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [self setScrollViewMinScale];
-}
-
-- (void)setScrollViewMinScale
-{
-    // Calculate minimumZoomScale
-    CGFloat xScale = self.customScrollView.bounds.size.width / self.canvasView.bounds.size.width;
-    CGFloat yScale =  self.customScrollView.bounds.size.height / self.canvasView.bounds.size.height;
-    CGFloat minScale = MIN(xScale, yScale);
-    
-    self.customScrollView.minimumZoomScale = minScale * JotExampleScrollViewZoomScaleMin;
-}
-
-#pragma mark - Jot SDK Setup
-
+#pragma mark - Adonit SDK Setup
 - (void)setupJotSDK
 {
     //
@@ -90,12 +67,11 @@
     // Hook up the jotManager
     self.jotManager = [JotStylusManager sharedInstance];
     self.jotManager.unconnectedPressure = 256;
-    self.jotManager.palmRejectorDelegate = self.canvasView;
-    [self.jotManager enable];
-
+    self.jotManager.jotStrokeDelegate = self.canvasView;
+    //[self.jotManager enable];
+    self.jotManager.coalescedJotStrokesEnabled = YES;
     [self.jotManager setReportDiagnosticData:YES];
     
-    //
     // Setup shortcut buttons
     [self.jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
                                                    initWithDescriptiveText:@"Undo"
@@ -127,18 +103,20 @@
     [self setupJotSDKAdvancedAndDebug];
 }
 
-- (void)friendlyNameChanged:(NSNotification *)note
-{
-    NSString *friendlyName = note.userInfo[JotStylusManagerDidChangeStylusFriendlyNameNameKey];
-    [self updateViewWithConnectionStatus:self.jotManager.connectionStatus friendleyName:friendlyName];
-}
+#pragma mark- Adonit SDK / Connection Stylus Changes
 
+/*
+ * Stylus connection has changed. We Pass on to a handle method in for this implementation.
+ */
 - (void)connectionChanged:(NSNotification *)note
 {
     JotConnectionStatus status = [note.userInfo[JotStylusManagerDidChangeConnectionStatusStatusKey] unsignedIntegerValue];
     [self updateViewWithConnectionStatus:status friendleyName:self.jotManager.stylusFriendlyName];
 }
 
+/*
+ * Update the state of your app with the connection change and also alert the user to changes. An example being displaying a on screen HUD showing that their stylus has connected, disconnected, etc.
+ */
 - (void)updateViewWithConnectionStatus:(JotConnectionStatus)status friendleyName:(NSString *)friendlyName
 {
     switch(status)
@@ -148,14 +126,14 @@
             [self showJotStatusIndicators:YES WithAnimation:YES];
             
             self.lastConnectedStylusName = friendlyName;
-            
-            [self.jotSatusIndicatorContainerView setConnectedStylusModel: [NSString stringWithFormat:@"%@ Connected", self.lastConnectedStylusName]];
+                        
+            [self.jotStatusIndicatorContainerView setConnectedStylusModel: [NSString stringWithFormat:@"%@ Connected", self.lastConnectedStylusName]];
             [JotTouchStatusHUD showJotHUDInView:self.view isConnected:YES modelName:self.lastConnectedStylusName];
             break;
         }
         case JotConnectionStatusDisconnected:
         {
-            [self.jotSatusIndicatorContainerView setConnectedStylusModel:@"No Stylus Connected"];
+            [self.jotStatusIndicatorContainerView setConnectedStylusModel:@"No Stylus Connected"];
             [self showJotStatusIndicators:NO WithAnimation:YES];
             if (self.lastConnectedStylusName.length > 0) {
                 [JotTouchStatusHUD showJotHUDInView:self.view isConnected:NO modelName:self.lastConnectedStylusName];
@@ -168,22 +146,27 @@
     }
 }
 
-- (void)jotSuggestsToDisableGestures
+/*
+ * If the user updates the friendly name of their stylus, a nice option is to show them A status HUD reflecting the new change.
+ */
+- (void)friendlyNameChanged:(NSNotification *)note
 {
-    // disable any other gestures, like a pinch to zoom
-    [self.jotSatusIndicatorContainerView setActivityMessage:@"Suggestion: DISABLE gestures"];
-    
-    self.customScrollView.pinchGestureRecognizer.enabled = NO;
-    self.customScrollView.panGestureRecognizer.enabled = NO;
+    NSString *friendlyName = note.userInfo[JotStylusManagerDidChangeStylusFriendlyNameNameKey];
+    [self updateViewWithConnectionStatus:self.jotManager.connectionStatus friendleyName:friendlyName];
 }
 
-- (void)jotSuggestsToEnableGestures
+#pragma mark - Adonit SDK - Handle gesture suggestions from canvas view.
+
+- (void)handleJotSuggestsToDisableGestures
+{
+    // disable any other gestures, like a pinch to zoom
+    [self.jotStatusIndicatorContainerView setActivityMessage:@"Suggestion: DISABLE gestures"];
+}
+
+- (void)handleJotSuggestsToEnableGestures
 {
     // enable any other gestures, like a pinch to zoom
-     [self.jotSatusIndicatorContainerView setActivityMessage:@"Suggestion: ENABLE gestures"];
-    
-    self.customScrollView.pinchGestureRecognizer.enabled = self.gesturesEnabled;
-    self.customScrollView.panGestureRecognizer.enabled = self.gesturesEnabled;
+     [self.jotStatusIndicatorContainerView setActivityMessage:@"Suggestion: ENABLE gestures"];
 }
 
 #pragma mark - IBAction
@@ -195,19 +178,58 @@
 
 - (IBAction)noActionShortCut
 {
-    [self.jotSatusIndicatorContainerView setActivityMessage:@"JotShortCut Triggered: noAction"];
+    [self.jotStatusIndicatorContainerView setActivityMessage:@"JotShortCut Triggered: noAction"];
 }
 
 - (IBAction)undoShortCut
 {
     [self.canvasView undo];
-    [self.jotSatusIndicatorContainerView setActivityMessage:@"JotShortCut Triggered: undo"];
+    [self.jotStatusIndicatorContainerView setActivityMessage:@"JotShortCut Triggered: undo"];
 }
 
 - (IBAction)redoShortCut
 {
     [self.canvasView redo];
-    [self.jotSatusIndicatorContainerView setActivityMessage:@"JotShortCut Triggered: redo"];
+    [self.jotStatusIndicatorContainerView setActivityMessage:@"JotShortCut Triggered: redo"];
+}
+
+- (IBAction)selectPen:(UIButton *)sender
+{
+    self.canvasView.currentBrush = self.penBrush;
+    [self highlightSelectedButton:sender];
+}
+
+- (IBAction)selectBrush:(UIButton *)sender
+{
+    self.canvasView.currentBrush = self.brushBrush;
+    [self highlightSelectedButton:sender];
+}
+
+- (IBAction)selectEraser:(UIButton *)sender
+{
+    self.canvasView.currentBrush = self.eraserBrush;
+    [self highlightSelectedButton:sender];
+}
+
+- (IBAction)changeColor:(UIButton *)sender
+{
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    [self setBrushColors:color];
+}
+
+- (void)highlightSelectedButton:(UIButton *)selectedButton;
+{
+    NSArray *buttons = @[self.penButton, self.brushButton, self.eraserButton];
+    for (UIButton *button in buttons) {
+        if (button == selectedButton) {
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        } else {
+            [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (IBAction)clear
@@ -218,20 +240,84 @@
 - (IBAction)gestureSwitchValueChanged
 {
     self.gesturesEnabled = self.gesturesSwitch.isOn;
-    self.customScrollView.panGestureRecognizer.enabled = self.gesturesSwitch.isOn;
-    self.customScrollView.pinchGestureRecognizer.enabled = self.gesturesSwitch.isOn;
 }
 
 - (IBAction)adonitLogoButtonPressed:(UIButton *)sender
 {
-    if (self.demoOverlayView) {
-        [self.demoOverlayView removeFromSuperview];
-    } else {
-        JotDemoOverlayView *overlayView = [[JotDemoOverlayView alloc] initWithFrame:self.view.bounds];
-        [self.view addSubview:overlayView];
-        self.demoOverlayView = overlayView;
-    }
+    self.gesturesSwitch.hidden = !self.gesturesSwitch.hidden;
+    self.jotStatusIndicatorContainerView.hidden = !self.jotStatusIndicatorContainerView.hidden;
+    self.gestureLabel.hidden = !self.gestureLabel.hidden;
 }
+
+/**
+ * The Jot Status Indicator is a view wired up to show
+ * the pressure of the stylus as it moves around.
+ *
+ * It also shows when the A & B button are pressed.
+ *
+ * This wouldn't be necessary for a shipping application,
+ * but might be helpful to get a feel for how the
+ * stylus hardware works.
+ */
+- (void)showJotStatusIndicators:(BOOL)show WithAnimation:(BOOL)animate
+{
+    CGFloat opacity =  0.0;
+    CGFloat duration = 0.0;
+    
+    if (show) opacity = 1.0;
+    if (animate) duration = 0.5;
+    
+    // Fade in or out
+    [UIView animateWithDuration:duration
+                          delay:0
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         [self.jotStatusIndicatorContainerView setAlpha:opacity];
+                     }
+                     completion:^(BOOL finished){}];
+}
+
+
+#pragma mark - Brushes
+- (void)setCurrentColor:(UIColor *)currentColor
+{
+    _currentColor = currentColor;
+    [self setBrushColors:currentColor];
+}
+
+- (void)setBrushColors:(UIColor *)brushColors
+{
+    self.penBrush.brushColor = brushColors;
+    self.brushBrush.brushColor = brushColors;
+    self.brushColorPreview.backgroundColor = brushColors;
+}
+
+- (Brush *)penBrush
+{
+    if (!_penBrush) {
+        _penBrush = [[Brush alloc]initWithMinOpac:0.175 maxOpac:0.4 minSize:1.0 maxSize:6.0 isEraser:NO];
+        _penBrush.brushColor = self.currentColor;
+    }
+    return _penBrush;
+}
+
+- (Brush *)brushBrush
+{
+    if (!_brushBrush) {
+        _brushBrush = [[Brush alloc]initWithMinOpac:0.20 maxOpac:0.45 minSize:3.0 maxSize:35 isEraser:NO];
+        _brushBrush.brushColor = self.currentColor;
+    }
+    return _brushBrush;
+}
+
+- (Brush *)eraserBrush
+{
+    if (!_eraserBrush) {
+        _eraserBrush = [[Brush alloc]initWithMinOpac:0.20 maxOpac:0.45 minSize:4.0 maxSize:45 isEraser:YES];
+    }
+    return _eraserBrush;
+}
+
 
 #pragma mark - Jot Status / Advanced Setup / DEBUG
 
@@ -257,35 +343,6 @@
     //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait] forKey:@"net.adonit.customScreenOrientation"];
 }
 
-/**
- * The Jot Status Indicator is a view wired up to show 
- * the pressure of the stylus as it moves around.
- *
- * It also shows when the A & B button are pressed.
- * 
- * This wouldn't be necessary for a shipping application,
- * but might be helpful to get a feel for how the 
- * stylus hardware works.
- */
-- (void)showJotStatusIndicators:(BOOL)show WithAnimation:(BOOL)animate
-{
-    CGFloat opacity =  0.0;
-    CGFloat duration = 0.0;
-    
-    if (show) opacity = 1.0;
-    if (animate) duration = 0.5;
-    
-    // Fade in or out
-    [UIView animateWithDuration:duration
-                          delay:0
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         [self.jotSatusIndicatorContainerView setAlpha:opacity];
-                     }
-                     completion:^(BOOL finished){}];
-}
-
-
 - (void)startTrackingPen:(NSNotification *)notification
 {
     NSLog(@"we've started tracking %@", notification.userInfo[@"name"]);
@@ -301,36 +358,10 @@
     NSLog(@"we've successfuly tracked %@", notification.userInfo[@"name"]);
 }
 
-#pragma mark - CustomScrollviewDatasource
-
-- (UIView *) contentViewForCustomScrollView: (CustomScrollView *)sender;
-{
-    return self.canvasView;
-}
-
-#pragma mark - UIScrollviewDelegate
-
--(void)scrollViewDidZoom:(UIScrollView *)scrollView
-{
-    [scrollView layoutSubviews];
-    [self.jotSatusIndicatorContainerView setActivityMessage:@"Pinch Gesture: BEGAN"];
-}
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
-{
-    [self.jotSatusIndicatorContainerView setActivityMessage:@"Pinch Gesture: ENDED"];
-}
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.canvasView;
-}
-
 #pragma mark - Cleanup
 - (void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.jotManager.palmRejectorDelegate = nil;
     self.jotManager = nil;
 }
 

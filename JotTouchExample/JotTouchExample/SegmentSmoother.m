@@ -100,4 +100,132 @@
     
     return nil;
 }
+
+#pragma mark - smoothStroke from stencil path
+
+void MyCGPathApplierFunc (void *info, const CGPathElement *element) {
+    NSMutableArray *bezierPoints = (__bridge NSMutableArray *)info;
+    
+    CGPoint *points = element->points;
+    CGPathElementType type = element->type;
+    
+    switch(type) {
+        case kCGPathElementMoveToPoint: // contains 1 point
+            // may always first include this as starting point?
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            break;
+            
+        case kCGPathElementAddLineToPoint: // contains 1 point
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            break;
+            
+        case kCGPathElementAddQuadCurveToPoint: // contains 2 points
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[1]]];
+            break;
+            
+        case kCGPathElementAddCurveToPoint: // contains 3 points
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[1]]];
+            [bezierPoints addObject:[NSValue valueWithCGPoint:points[2]]];
+            break;
+            
+        case kCGPathElementCloseSubpath: // contains no point
+            break;
+    }
+}
+
+- (NSArray *) pathSegmentsFromBezierPath:(UIBezierPath *)bezierPath
+{
+    //
+    // update the points
+    point0 = point1;
+    point1 = point2;
+    point2 = point3;
+    point3 = bezierPath.currentPoint;
+    
+    if (bezierPath) {
+        CGPathRef yourCGPath = bezierPath.CGPath;
+        NSMutableArray *bezierPoints = [NSMutableArray array];
+        CGPathApply(yourCGPath, (__bridge void *)(bezierPoints), MyCGPathApplierFunc);
+        
+        switch (bezierPoints.count) {
+            case 0:
+            {
+                NSLog(@"Error: no points in segment");
+                return nil;
+            }
+            case 1:
+            {
+                NSValue *pointValue = bezierPoints[0];
+                return @[[MoveToPathElement elementWithMoveTo:pointValue.CGPointValue]];
+            }
+            case 2:
+            {
+                NSValue *pointValue1 = bezierPoints[0];
+                NSValue *pointValue2 = bezierPoints[1];
+               
+                return @[[LineToPathElement elementWithStart:pointValue1.CGPointValue andLineTo:pointValue2.CGPointValue]];
+            }
+            case 3:
+            {
+                NSValue *pointValue1 = bezierPoints[0];
+                NSValue *pointValue2 = bezierPoints[1];
+                
+                return @[[CurveToPathElement elementWithStart:point1
+                                                 andCurveTo:point2
+                                                andControl1:pointValue1.CGPointValue
+                                                andControl2:pointValue2.CGPointValue]];
+            }
+            case 4:
+            {
+                NSValue *pointValue1 = bezierPoints[0]; // staring point
+                NSValue *pointValue2 = bezierPoints[1];
+                NSValue *pointValue3 = bezierPoints[2];
+                NSValue *pointValue4 = bezierPoints[3];
+                
+                return @[[CurveToPathElement elementWithStart:pointValue1.CGPointValue
+                                                 andCurveTo:pointValue4.CGPointValue
+                                                andControl1:pointValue2.CGPointValue
+                                                andControl2:pointValue3.CGPointValue]];
+            }
+            case 8:
+            {
+                NSValue *pointValue1 = bezierPoints[0]; // staring point
+                NSValue *pointValue2 = bezierPoints[1];
+                NSValue *pointValue3 = bezierPoints[2];
+                NSValue *pointValue4 = bezierPoints[3];
+                
+                NSValue *pointValue5 = bezierPoints[4]; // staring point
+                NSValue *pointValue6 = bezierPoints[5];
+                NSValue *pointValue7 = bezierPoints[6];
+                NSValue *pointValue8 = bezierPoints[7];
+                
+                
+                CurveToPathElement *firstCubicPath = [CurveToPathElement elementWithStart:pointValue1.CGPointValue
+                                                                               andCurveTo:pointValue4.CGPointValue
+                                                                              andControl1:pointValue2.CGPointValue
+                                                                              andControl2:pointValue3.CGPointValue];
+                
+                CurveToPathElement *secondCubicPath = [CurveToPathElement elementWithStart:pointValue5.CGPointValue
+                                                                                andCurveTo:pointValue8.CGPointValue
+                                                                               andControl1:pointValue6.CGPointValue
+                                                                               andControl2:pointValue7.CGPointValue];
+                return @[secondCubicPath, firstCubicPath];
+            }
+            
+            default:
+            {
+                NSLog(@"Too many points! %lu", (unsigned long)bezierPoints.count);
+                return nil;
+            }
+        }
+    
+        return nil;
+    } else {
+        NSLog(@"Error: UIBezierPath was not valid");
+        return nil;
+    }
+}
+
 @end

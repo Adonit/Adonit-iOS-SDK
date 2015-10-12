@@ -16,6 +16,7 @@
     CGPoint point3;
 }
 
--(AbstractBezierPathElement*) addPoint:(CGPoint)inPoint;
+- (AbstractBezierPathElement*) addPoint:(CGPoint)inPoint;
+- (NSArray *) pathSegmentsFromBezierPath:(UIBezierPath *)bezierPath;
 
 @end

@@ -24,17 +24,29 @@
     return self;
 }
 
+-(BOOL)addPath:(UIBezierPath *)path withWidth:(CGFloat)width andColor:(UIColor *)color{
+
+    NSArray *arrayOfAbstractBezierPaths = [segmentSmoother pathSegmentsFromBezierPath:path];
+    
+    if (arrayOfAbstractBezierPaths.count == 0) { return NO; }
+    
+    for (AbstractBezierPathElement *element in arrayOfAbstractBezierPaths) {
+        element.color = color;
+        element.width = width;
+        [segments addObject:element];
+    }
+    return YES;
+}
 
 -(BOOL) addPoint:(CGPoint)point withWidth:(CGFloat)width andColor:(UIColor*)color{
     AbstractBezierPathElement* element = [segmentSmoother addPoint:point];
     
-    if(!element) return NO;
+    if(!element) {return NO; }
     
     element.color = color;
     element.width = width;
     [segments addObject:element];
     return YES;
 }
-
 
 @end

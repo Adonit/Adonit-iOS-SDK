@@ -7,7 +7,7 @@
 //
 
 #import "JotStatusIndicatorView.h"
-#import <JotTouchSDK/JotTouchSDK.h>
+#import <AdonitSDK/AdonitSDK.h>
 
 @interface JotStatusIndicatorView ()
 

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import <JotTouchSDK/JotTouchSDK.h>
+#import <AdonitSDK/AdonitSDK.h>
 
 @interface AppDelegate ()
 

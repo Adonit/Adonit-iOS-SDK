@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C6B43011AC09646005CFEA3 /* JotTouchSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */; };
+		1C83D2411BB2F73E00F9048F /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C83D2401BB2F73E00F9048F /* Helper.m */; settings = {ASSET_TAGS = (); }; };
+		1C83D2441BB2FBBF00F9048F /* UIEvent+iOS8.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C83D2431BB2FBBF00F9048F /* UIEvent+iOS8.m */; settings = {ASSET_TAGS = (); }; };
+		3C0689521BCC1E7000BEF4A2 /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0689511BCC1E7000BEF4A2 /* AdonitSDK.framework */; settings = {ASSET_TAGS = (); }; };
+		3C0689541BCC1E8000BEF4A2 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3C0689531BCC1E8000BEF4A2 /* AdonitSDK.bundle */; settings = {ASSET_TAGS = (); }; };
 		3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CCAF05D1A7A86A70023607E /* Launch Screen.xib */; };
+		3CDB12801AE6EBD30066B9C5 /* Brush.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDB127F1AE6EBD30066B9C5 /* Brush.m */; };
+		3CDB12811AE6EBD30066B9C5 /* Brush.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDB127F1AE6EBD30066B9C5 /* Brush.m */; };
 		7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7717F9471A1CD859001706AE /* MainStoryboard.storyboard */; };
 		7747EC821A1BDC9700D18429 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC811A1BDC9700D18429 /* main.m */; };
 		7747EC851A1BDC9700D18429 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC841A1BDC9700D18429 /* AppDelegate.m */; };
@@ -18,7 +23,6 @@
 		7747ECC01A1BDED100D18429 /* AbstractBezierPathElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECA81A1BDED100D18429 /* AbstractBezierPathElement.m */; };
 		7747ECC11A1BDED100D18429 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECAA1A1BDED100D18429 /* CanvasView.m */; };
 		7747ECC21A1BDED100D18429 /* CurveToPathElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECAD1A1BDED100D18429 /* CurveToPathElement.m */; };
-		7747ECC31A1BDED100D18429 /* CustomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECAF1A1BDED100D18429 /* CustomScrollView.m */; };
 		7747ECC41A1BDED100D18429 /* JotStatusIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECB11A1BDED100D18429 /* JotStatusIndicatorView.m */; };
 		7747ECC51A1BDED100D18429 /* JotTouchStatusHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECB31A1BDED100D18429 /* JotTouchStatusHUD.m */; };
 		7747ECC61A1BDED100D18429 /* LineToPathElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747ECB51A1BDED100D18429 /* LineToPathElement.m */; };
@@ -30,7 +34,6 @@
 		7747ECD01A1BDF2900D18429 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */; };
 		7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */; };
 		7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */; };
-		A222C3731AC0844200AFB531 /* JotTouchSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A222C3711AC0844200AFB531 /* JotTouchSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,9 +47,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C83D23F1BB2F73E00F9048F /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		1C83D2401BB2F73E00F9048F /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
+		1C83D2421BB2FBBF00F9048F /* UIEvent+iOS8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEvent+iOS8.h"; sourceTree = "<group>"; };
+		1C83D2431BB2FBBF00F9048F /* UIEvent+iOS8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIEvent+iOS8.m"; sourceTree = "<group>"; };
+		3C0689511BCC1E7000BEF4A2 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdonitSDK.framework; sourceTree = "<group>"; };
+		3C0689531BCC1E8000BEF4A2 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdonitSDK.bundle; sourceTree = "<group>"; };
 		3CCAF05D1A7A86A70023607E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		3CDB127E1AE6EBD30066B9C5 /* Brush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brush.h; sourceTree = "<group>"; };
+		3CDB127F1AE6EBD30066B9C5 /* Brush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brush.m; sourceTree = "<group>"; };
 		7717F9471A1CD859001706AE /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
-		7747EC7C1A1BDC9700D18429 /* JotTouchExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotTouchExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7747EC7C1A1BDC9700D18429 /* JotWorkshop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotWorkshop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7747EC801A1BDC9700D18429 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7747EC811A1BDC9700D18429 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7747EC831A1BDC9700D18429 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -61,11 +72,8 @@
 		7747ECA81A1BDED100D18429 /* AbstractBezierPathElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractBezierPathElement.m; sourceTree = "<group>"; };
 		7747ECA91A1BDED100D18429 /* CanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasView.h; sourceTree = "<group>"; };
 		7747ECAA1A1BDED100D18429 /* CanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasView.m; sourceTree = "<group>"; };
-		7747ECAB1A1BDED100D18429 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		7747ECAC1A1BDED100D18429 /* CurveToPathElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurveToPathElement.h; sourceTree = "<group>"; };
 		7747ECAD1A1BDED100D18429 /* CurveToPathElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurveToPathElement.m; sourceTree = "<group>"; };
-		7747ECAE1A1BDED100D18429 /* CustomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomScrollView.h; sourceTree = "<group>"; };
-		7747ECAF1A1BDED100D18429 /* CustomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomScrollView.m; sourceTree = "<group>"; };
 		7747ECB01A1BDED100D18429 /* JotStatusIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JotStatusIndicatorView.h; sourceTree = "<group>"; };
 		7747ECB11A1BDED100D18429 /* JotStatusIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JotStatusIndicatorView.m; sourceTree = "<group>"; };
 		7747ECB21A1BDED100D18429 /* JotTouchStatusHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JotTouchStatusHUD.h; sourceTree = "<group>"; };
@@ -85,8 +93,6 @@
 		7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = JotTouchSDK.bundle; path = ../../JotTouchSDK.bundle; sourceTree = "<group>"; };
-		A222C3711AC0844200AFB531 /* JotTouchSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JotTouchSDK.framework; path = ../../JotTouchSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A222C3731AC0844200AFB531 /* JotTouchSDK.framework in Frameworks */,
+				3C0689521BCC1E7000BEF4A2 /* AdonitSDK.framework in Frameworks */,
 				7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */,
 				7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */,
 				7747ECD01A1BDF2900D18429 /* CoreMotion.framework in Frameworks */,
@@ -111,12 +117,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CAEF9641BC84525001B18A5 /* Path Elements */ = {
+			isa = PBXGroup;
+			children = (
+				7747ECA71A1BDED100D18429 /* AbstractBezierPathElement.h */,
+				7747ECA81A1BDED100D18429 /* AbstractBezierPathElement.m */,
+				7747ECB61A1BDED100D18429 /* MoveToPathElement.h */,
+				7747ECB71A1BDED100D18429 /* MoveToPathElement.m */,
+				7747ECB41A1BDED100D18429 /* LineToPathElement.h */,
+				7747ECB51A1BDED100D18429 /* LineToPathElement.m */,
+				7747ECAC1A1BDED100D18429 /* CurveToPathElement.h */,
+				7747ECAD1A1BDED100D18429 /* CurveToPathElement.m */,
+			);
+			name = "Path Elements";
+			sourceTree = "<group>";
+		};
+		3CAEF9681BC8456D001B18A5 /* Drawing Engine / Line Interpolation */ = {
+			isa = PBXGroup;
+			children = (
+				3CDB127E1AE6EBD30066B9C5 /* Brush.h */,
+				3CDB127F1AE6EBD30066B9C5 /* Brush.m */,
+				7747ECB81A1BDED100D18429 /* SegmentSmoother.h */,
+				7747ECB91A1BDED100D18429 /* SegmentSmoother.m */,
+				7747ECBA1A1BDED100D18429 /* SmoothStroke.h */,
+				7747ECBB1A1BDED100D18429 /* SmoothStroke.m */,
+				3CAEF9641BC84525001B18A5 /* Path Elements */,
+				7747ECBE1A1BDED100D18429 /* UIColor+Components.h */,
+				7747ECBF1A1BDED100D18429 /* UIColor+Components.m */,
+			);
+			name = "Drawing Engine / Line Interpolation";
+			sourceTree = "<group>";
+		};
+		3CAEF96A1BC847AC001B18A5 /* Interface / Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				3CCAF05D1A7A86A70023607E /* Launch Screen.xib */,
+				7717F9471A1CD859001706AE /* MainStoryboard.storyboard */,
+				7747ECBC1A1BDED100D18429 /* StylusSettingsButton.h */,
+				7747ECBD1A1BDED100D18429 /* StylusSettingsButton.m */,
+				7747ECB01A1BDED100D18429 /* JotStatusIndicatorView.h */,
+				7747ECB11A1BDED100D18429 /* JotStatusIndicatorView.m */,
+				7747ECB21A1BDED100D18429 /* JotTouchStatusHUD.h */,
+				7747ECB31A1BDED100D18429 /* JotTouchStatusHUD.m */,
+			);
+			name = "Interface / Storyboards";
+			sourceTree = "<group>";
+		};
 		7747EC731A1BDC9700D18429 = {
 			isa = PBXGroup;
 			children = (
 				7747EC7E1A1BDC9700D18429 /* JotTouchExample */,
 				7747EC981A1BDC9800D18429 /* JotTouchExampleTests */,
-				7747ECCE1A1BDF1100D18429 /* Frameworks */,
 				7747EC7D1A1BDC9700D18429 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,7 +175,7 @@
 		7747EC7D1A1BDC9700D18429 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7747EC7C1A1BDC9700D18429 /* JotTouchExample.app */,
+				7747EC7C1A1BDC9700D18429 /* JotWorkshop.app */,
 				7747EC951A1BDC9800D18429 /* JotTouchExampleTests.xctest */,
 			);
 			name = Products;
@@ -133,38 +184,13 @@
 		7747EC7E1A1BDC9700D18429 /* JotTouchExample */ = {
 			isa = PBXGroup;
 			children = (
-				7747EC831A1BDC9700D18429 /* AppDelegate.h */,
-				7747EC841A1BDC9700D18429 /* AppDelegate.m */,
 				7747EC861A1BDC9700D18429 /* ViewController.h */,
 				7747EC871A1BDC9700D18429 /* ViewController.m */,
-				7747ECA71A1BDED100D18429 /* AbstractBezierPathElement.h */,
-				7747ECA81A1BDED100D18429 /* AbstractBezierPathElement.m */,
 				7747ECA91A1BDED100D18429 /* CanvasView.h */,
 				7747ECAA1A1BDED100D18429 /* CanvasView.m */,
-				7747ECAB1A1BDED100D18429 /* Constants.h */,
-				7747ECAC1A1BDED100D18429 /* CurveToPathElement.h */,
-				7747ECAD1A1BDED100D18429 /* CurveToPathElement.m */,
-				7747ECAE1A1BDED100D18429 /* CustomScrollView.h */,
-				7747ECAF1A1BDED100D18429 /* CustomScrollView.m */,
-				7747ECB01A1BDED100D18429 /* JotStatusIndicatorView.h */,
-				7747ECB11A1BDED100D18429 /* JotStatusIndicatorView.m */,
-				7747ECB21A1BDED100D18429 /* JotTouchStatusHUD.h */,
-				7747ECB31A1BDED100D18429 /* JotTouchStatusHUD.m */,
-				7747ECB41A1BDED100D18429 /* LineToPathElement.h */,
-				7747ECB51A1BDED100D18429 /* LineToPathElement.m */,
-				7747ECB61A1BDED100D18429 /* MoveToPathElement.h */,
-				7747ECB71A1BDED100D18429 /* MoveToPathElement.m */,
-				7747ECB81A1BDED100D18429 /* SegmentSmoother.h */,
-				7747ECB91A1BDED100D18429 /* SegmentSmoother.m */,
-				7747ECBA1A1BDED100D18429 /* SmoothStroke.h */,
-				7747ECBB1A1BDED100D18429 /* SmoothStroke.m */,
-				7747ECBC1A1BDED100D18429 /* StylusSettingsButton.h */,
-				7747ECBD1A1BDED100D18429 /* StylusSettingsButton.m */,
-				7747ECBE1A1BDED100D18429 /* UIColor+Components.h */,
-				7747ECBF1A1BDED100D18429 /* UIColor+Components.m */,
-				7717F9471A1CD859001706AE /* MainStoryboard.storyboard */,
-				7747EC8C1A1BDC9700D18429 /* Images.xcassets */,
-				3CCAF05D1A7A86A70023607E /* Launch Screen.xib */,
+				3CAEF96A1BC847AC001B18A5 /* Interface / Storyboards */,
+				3CAEF9681BC8456D001B18A5 /* Drawing Engine / Line Interpolation */,
+				7747ECCE1A1BDF1100D18429 /* Frameworks */,
 				7747EC7F1A1BDC9700D18429 /* Supporting Files */,
 			);
 			path = JotTouchExample;
@@ -173,6 +199,13 @@
 		7747EC7F1A1BDC9700D18429 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7747EC831A1BDC9700D18429 /* AppDelegate.h */,
+				7747EC841A1BDC9700D18429 /* AppDelegate.m */,
+				1C83D23F1BB2F73E00F9048F /* Helper.h */,
+				1C83D2401BB2F73E00F9048F /* Helper.m */,
+				1C83D2421BB2FBBF00F9048F /* UIEvent+iOS8.h */,
+				1C83D2431BB2FBBF00F9048F /* UIEvent+iOS8.m */,
+				7747EC8C1A1BDC9700D18429 /* Images.xcassets */,
 				7747EC801A1BDC9700D18429 /* Info.plist */,
 				7747EC811A1BDC9700D18429 /* main.m */,
 			);
@@ -199,34 +232,35 @@
 		7747ECCE1A1BDF1100D18429 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A222C3701AC0844200AFB531 /* JotTouchSDK.bundle */,
-				A222C3711AC0844200AFB531 /* JotTouchSDK.framework */,
-				7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */,
+				3C0689531BCC1E8000BEF4A2 /* AdonitSDK.bundle */,
+				3C0689511BCC1E7000BEF4A2 /* AdonitSDK.framework */,
 				7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */,
 				7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */,
+				7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
-			path = JotTouchExampleTests;
-			sourceTree = "<group>";
+			path = JotTouchExample;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7747EC7B1A1BDC9700D18429 /* JotTouchExample */ = {
+		7747EC7B1A1BDC9700D18429 /* JotWorkshop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7747EC9F1A1BDC9800D18429 /* Build configuration list for PBXNativeTarget "JotTouchExample" */;
+			buildConfigurationList = 7747EC9F1A1BDC9800D18429 /* Build configuration list for PBXNativeTarget "JotWorkshop" */;
 			buildPhases = (
 				7747EC781A1BDC9700D18429 /* Sources */,
 				7747EC791A1BDC9700D18429 /* Frameworks */,
 				7747EC7A1A1BDC9700D18429 /* Resources */,
+				77E2E70E1A5C41AE00D0F850 /* Warn on TODOs and FIXMEs */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = JotTouchExample;
+			name = JotWorkshop;
 			productName = JotTouchExample;
-			productReference = 7747EC7C1A1BDC9700D18429 /* JotTouchExample.app */;
+			productReference = 7747EC7C1A1BDC9700D18429 /* JotWorkshop.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7747EC941A1BDC9800D18429 /* JotTouchExampleTests */ = {
@@ -253,12 +287,11 @@
 		7747EC741A1BDC9700D18429 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Adonit, USA";
 				TargetAttributes = {
 					7747EC7B1A1BDC9700D18429 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = WUZSKULPD2;
 					};
 					7747EC941A1BDC9800D18429 = {
 						CreatedOnToolsVersion = 6.1;
@@ -279,7 +312,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7747EC7B1A1BDC9700D18429 /* JotTouchExample */,
+				7747EC7B1A1BDC9700D18429 /* JotWorkshop */,
 				7747EC941A1BDC9800D18429 /* JotTouchExampleTests */,
 			);
 		};
@@ -290,8 +323,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C6B43011AC09646005CFEA3 /* JotTouchSDK.bundle in Resources */,
 				7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */,
+				3C0689541BCC1E8000BEF4A2 /* AdonitSDK.bundle in Resources */,
 				3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */,
 				7747EC8D1A1BDC9700D18429 /* Images.xcassets in Resources */,
 			);
@@ -306,6 +339,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		77E2E70E1A5C41AE00D0F850 /* Warn on TODOs and FIXMEs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Warn on TODOs and FIXMEs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7747EC781A1BDC9700D18429 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -316,11 +366,13 @@
 				7747ECCA1A1BDED100D18429 /* StylusSettingsButton.m in Sources */,
 				7747ECC21A1BDED100D18429 /* CurveToPathElement.m in Sources */,
 				7747ECC51A1BDED100D18429 /* JotTouchStatusHUD.m in Sources */,
+				1C83D2441BB2FBBF00F9048F /* UIEvent+iOS8.m in Sources */,
 				7747ECC81A1BDED100D18429 /* SegmentSmoother.m in Sources */,
 				7747ECC61A1BDED100D18429 /* LineToPathElement.m in Sources */,
 				7747ECC91A1BDED100D18429 /* SmoothStroke.m in Sources */,
 				7747ECC71A1BDED100D18429 /* MoveToPathElement.m in Sources */,
-				7747ECC31A1BDED100D18429 /* CustomScrollView.m in Sources */,
+				3CDB12801AE6EBD30066B9C5 /* Brush.m in Sources */,
+				1C83D2411BB2F73E00F9048F /* Helper.m in Sources */,
 				7747ECC41A1BDED100D18429 /* JotStatusIndicatorView.m in Sources */,
 				7747ECCB1A1BDED100D18429 /* UIColor+Components.m in Sources */,
 				7747ECC01A1BDED100D18429 /* AbstractBezierPathElement.m in Sources */,
@@ -333,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CDB12811AE6EBD30066B9C5 /* Brush.m in Sources */,
 				7747EC9C1A1BDC9800D18429 /* JotTouchExampleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,7 +395,7 @@
 /* Begin PBXTargetDependency section */
 		7747EC971A1BDC9800D18429 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7747EC7B1A1BDC9700D18429 /* JotTouchExample */;
+			target = 7747EC7B1A1BDC9700D18429 /* JotWorkshop */;
 			targetProxy = 7747EC961A1BDC9800D18429 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -368,6 +421,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -431,14 +485,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = ..;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JotTouchExampleTests",
+					"$(PROJECT_DIR)/JotTouchExample",
+				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = JotTouchExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/adonit_JotSDK-cuislxxwqqpsxyftgsgapjyhvsfu/Build/Products/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -447,13 +511,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = ..;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/JotTouchExampleTests",
+					"$(PROJECT_DIR)/JotTouchExample",
+				);
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				INFOPLIST_FILE = JotTouchExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/adonit_JotSDK-cuislxxwqqpsxyftgsgapjyhvsfu/Build/Products/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -471,6 +545,7 @@
 				);
 				INFOPLIST_FILE = JotTouchExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JotTouchExample.app/JotTouchExample";
 			};
@@ -486,6 +561,7 @@
 				);
 				INFOPLIST_FILE = JotTouchExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JotTouchExample.app/JotTouchExample";
 			};
@@ -503,7 +579,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7747EC9F1A1BDC9800D18429 /* Build configuration list for PBXNativeTarget "JotTouchExample" */ = {
+		7747EC9F1A1BDC9800D18429 /* Build configuration list for PBXNativeTarget "JotWorkshop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7747ECA01A1BDC9800D18429 /* Debug */,

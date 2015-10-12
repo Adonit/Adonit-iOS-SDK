@@ -1,7 +1,31 @@
+#AdonitSDK Change Log
+# V3.0 Release
+- Fixed a crash around switching in and out of an app in iOS 9 with a connected Stylus.
+
+#V3.0 Beta 4 / Release Canidate
+- Renamed JotTouchSDK to AdonitSDK
+- Added Coalesced JotStrokes for iOS 9.
+- Added Bitcode.
+- Changed the configuration file server location to comply with HTTPS
+- Fixed bug where asking to disconnect stylus multiple times could cause crash.
+- Done button automatically added to Settings UI during sizeclass change.
+
 #JotTouchSDK Change Log
+# V3.0 Beta 3
+- Registering a view with the SDK will limit jotStroke event delivery to strokes that began in registered views.
+- More consistent naming. Shortcut buttons now labeled Button 1 & Button 2 in settings UI.
+- More customization. New innerPressToConnectIconColor property for when using a transparent background in a pressToConnect view.
+- New stylusSupportsPressureSensitivity property on JotStylusManager to query if the connected stylus supports pressure sensitivity.
+
+# V3.0 Beta 2
+- Improved compatibility in APIs for apps written in swift.
+- Cleanup and organization of JotStylusManager.h
+
+# V3.0 Beta 1
+- Improved palm rejection and stroke syncing on iOS devices running iOS 8 or later.
+- Switch to JotStroke object and JotStrokeDelegate from JotTouch object and JotPalmRejectionDelegate.
 
 # V2.7
-
 - added settings and connection UI
 - improved wavy line correction
 - improved dropped stroke connections
@@ -93,7 +117,7 @@
 # V2.1.0.823 Alpha 2
 - update for new JTPP and Adobe Ink models
 - new writing style enums
-- switch to standard #import <JotTouchSDK/JotTouchSDK.h> header style
+- switch to standard #import <AdonitSDK/AdonitSDK.h> header style
 - new press-and-hold connection style support
 - new JotPalmGestureRecognizer interaction model to avoid spurious gestures
 - many bugfixes and improvements
@@ -128,7 +152,7 @@
 - Slowed down offset change with Jot Script when writing quickly
 - Fixed connection bug on second stylus connection registering initial pressure
 - Fixed duplicate jotTouchMoved events
-- Fixed probem where battery status was not updating
+- Fixed problem where battery status was not updating
 
 # V2.0.0.251 Beta 1
 - Fixed issue with stylus connection coming out from app being backgrounded
