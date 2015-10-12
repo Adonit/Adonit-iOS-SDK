@@ -69,13 +69,13 @@
     CGFloat prevWidth = [self widthOfPreviousElement:previousElement];
     CGFloat widthDiff = self.width - prevWidth;
     
-    // next is the steps to adjust color
-    GLubyte prevColor[4], myColor[4], colorSteps[4];
-    [[self colorOfPreviousElement:previousElement] getRGBAComponents:prevColor];
-    [self.color getRGBAComponents:myColor];
     
-    // calculate how much the RGBA will
-    // need to change throughout the stroke
+    // now find the differences in color between
+    // the previous stroke and this stroke
+    GLubyte prevColor[4], myColor[4];
+    int colorSteps[4];
+    [previousElement.color getRGBAComponents:prevColor];
+    [self.color getRGBAComponents:myColor];
     colorSteps[0] = myColor[0] - prevColor[0];
     colorSteps[1] = myColor[1] - prevColor[1];
     colorSteps[2] = myColor[2] - prevColor[2];

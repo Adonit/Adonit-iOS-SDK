@@ -1,6 +1,6 @@
 //
-//  Shortcut.h
-//  JotSDKLibrary
+//  CanvasView.h
+//  JotTouchExample
 //
 //  Created by Adam Wulf on 11/19/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
@@ -10,12 +10,14 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
-#import <JotTouchSDK/JotTouchSDK.h>
+#import <AdonitSDK/AdonitSDK.h>
+#import "Brush.h"
 
 @class SegmentSmoother, ViewController;
 
-@interface CanvasView : UIView<JotPalmRejectionDelegate>
+@interface CanvasView : UIView <JotStrokeDelegate>
 @property (nonatomic, weak) IBOutlet ViewController* viewController;
+@property (nonatomic) Brush *currentBrush;
 
 // erase the screen
 - (IBAction) clear;

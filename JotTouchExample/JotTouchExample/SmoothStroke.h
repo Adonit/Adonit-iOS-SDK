@@ -33,7 +33,6 @@
  * points to interpolate
  */
 -(BOOL) addPoint:(CGPoint)point withWidth:(CGFloat)width andColor:(UIColor*)color;
-
-
+-(BOOL)addPath:(UIBezierPath *)path withWidth:(CGFloat)width andColor:(UIColor *)color;
 
 @end

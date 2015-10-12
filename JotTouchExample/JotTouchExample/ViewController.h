@@ -7,19 +7,16 @@
 //
 
 @import UIKit;
-
-#import <JotTouchSDK/JotTouchSDK.h>
+#import <AdonitSDK/AdonitSDK.h>
 #import "CanvasView.h"
 #import "StylusSettingsButton.h"
 #import "JotTouchStatusHUD.h"
-#import "CustomScrollView.h"
 #import "JotStatusIndicatorView.h"
 
-@interface ViewController : UIViewController <UIPopoverControllerDelegate, UIScrollViewDelegate, CustomScrollViewDataSource>
+@interface ViewController : UIViewController <UIPopoverControllerDelegate>
 
 // Canvas to draw on for testing
 @property (nonatomic, weak) IBOutlet CanvasView *canvasView;
-@property (nonatomic, weak) IBOutlet CustomScrollView *customScrollView;
 
 // User Interface
 @property (nonatomic, weak) IBOutlet UIButton *adonitLogo;
@@ -27,15 +24,16 @@
 @property (nonatomic, weak) IBOutlet UIButton *resetCanvasButton;
 @property (weak, nonatomic) IBOutlet UISwitch *gesturesSwitch;
 @property (weak, nonatomic) IBOutlet UIView *connectionStatusView;
+@property (weak, nonatomic) IBOutlet UILabel *gestureLabel;
 
 // JotStatusIndicators Properties & Methods
-@property (nonatomic, weak) IBOutlet JotStatusIndicatorView* jotSatusIndicatorContainerView;
+@property (nonatomic, weak) IBOutlet JotStatusIndicatorView* jotStatusIndicatorContainerView;
 
 - (IBAction)clear;
 - (IBAction)gestureSwitchValueChanged;
 - (IBAction)adonitLogoButtonPressed:(UIButton *)sender;
 
-- (void)jotSuggestsToEnableGestures;
-- (void)jotSuggestsToDisableGestures;
+- (void)handleJotSuggestsToDisableGestures;
+- (void)handleJotSuggestsToEnableGestures;
 
 @end

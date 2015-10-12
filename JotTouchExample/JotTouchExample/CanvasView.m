@@ -1,13 +1,12 @@
 //
-//  Shortcut.h
-//  JotSDKLibrary
+//  CanvasView.m
+//  JotTouchExample
 //
 //  Created by Adam Wulf on 11/19/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
-#import <JotTouchSDK/JotTouchSDK.h>
-
+#import <AdonitSDK/AdonitSDK.h>
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
 #import "SmoothStroke.h"
@@ -17,45 +16,39 @@
 #import "CurveToPathElement.h"
 #import "UIColor+Components.h"
 #import "ViewController.h"
-#import "Constants.h"
+#import "UIEvent+iOS8.h"
 
 @interface CanvasView ()
-{
-    @private
-    // The pixel dimensions of the backbuffer
-	GLint backingWidth;
-	GLint backingHeight;
-	
-    // opengl context
-	EAGLContext *context;
-	
-	// OpenGL names for the renderbuffer and framebuffers used to render to this view
-	GLuint viewRenderbuffer, viewFramebuffer;
-	
-	// OpenGL name for the depth buffer that is attached to viewFramebuffer, if it exists (0 if it does not exist)
-	GLuint depthRenderbuffer;
-    
-	// OpenGL texure for the brush
-	GLuint	brushTexture;
-    
-    // this dictionary will hold all of the in progress
-    // stroke objects
-    __strong NSMutableDictionary* currentStrokes;
-    
-    // these arrays will act as stacks for our undo state
-    __strong NSMutableArray* stackOfStrokes;
-    __strong NSMutableArray* stackOfUndoneStrokes;
-    
-    BOOL _frameBufferCreated;
-}
 
-@property (nonatomic) UITapGestureRecognizer *doubleTapGestureRecognizer;
+// The pixel dimensions of the backbuffer
+@property GLint backingWidth;
+@property GLint backingHeight;
+
+// opengl context
+@property EAGLContext *context;
+
+// OpenGL names for the renderbuffer and framebuffers used to render to this view
+@property GLuint viewRenderbuffer, viewFramebuffer;
+
+// OpenGL name for the depth buffer that is attached to viewFramebuffer, if it exists (0 if it does not exist)
+@property GLuint depthRenderbuffer;
+
+// OpenGL texure for the brush
+@property GLuint brushTexture;
+
+// this dictionary will hold all of the in progress
+// stroke objects
+@property  NSMutableDictionary* currentStrokes;
+
+// these arrays will act as stacks for our undo state
+@property  NSMutableArray* stackOfStrokes;
+@property  NSMutableArray* stackOfUndoneStrokes;
+
+@property BOOL frameBufferCreated;
 
 @end
 
 @implementation CanvasView
-
-@synthesize viewController;
 
 #pragma mark - Initialization
 
@@ -94,21 +87,15 @@
 
 - (void)configure
 {
-    _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapped:)];
-    _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
-    [self addGestureRecognizer:_doubleTapGestureRecognizer];
-    
-    //
-    // this view should accept Jot stylus touch events
-    [[JotStylusManager sharedInstance] registerView:self];
+    [self configureDrawViewForAdonitSDK];
     
     // allow more than 1 finger/stylus to draw at a time
     self.multipleTouchEnabled = YES;
     
     // setup our storage for our undo/redo strokes
-    currentStrokes = [NSMutableDictionary dictionary];
-    stackOfStrokes = [NSMutableArray array];
-    stackOfUndoneStrokes = [NSMutableArray array];
+    _currentStrokes = [NSMutableDictionary dictionary];
+    _stackOfStrokes = [NSMutableArray array];
+    _stackOfUndoneStrokes = [NSMutableArray array];
     
     //
     // the remainder is OpenGL initialization
@@ -118,9 +105,9 @@
     eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithBool:YES], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
     
-    context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     
-    if (!context || ![EAGLContext setCurrentContext:context]) {
+    if (!_context || ![EAGLContext setCurrentContext:_context]) {
         return;
     }
     
@@ -128,7 +115,6 @@
     
     // Set the view's scale factor
     self.contentScaleFactor = [[UIScreen mainScreen] scale];
-    
 }
 
 /**
@@ -142,11 +128,11 @@
     // check if we have a framebuffer at all
     // if not, then we'll make sure to clear
     // it when we first create it
-    BOOL needsErase = (BOOL) viewFramebuffer;
+    BOOL needsErase = (BOOL) self.viewFramebuffer;
     
-    if (!_frameBufferCreated)
+    if (!self.frameBufferCreated)
     {
-        [EAGLContext setCurrentContext:context];
+        [EAGLContext setCurrentContext:self.context];
         
         [self recreateFrameBuffer];
         
@@ -155,9 +141,9 @@
             [self clear];
         }
         
-        _frameBufferCreated = YES;
+        self.frameBufferCreated = YES;
     } else {
-
+        
     }
 }
 
@@ -168,183 +154,121 @@
     [self renderAllStrokes];
 }
 
-- (void)recreateFrameBuffer
+#pragma mark - Begin Adonit SDK integration
+- (void)configureDrawViewForAdonitSDK
 {
-    [self destroyFramebuffer];
-    
-    // Setup OpenGL states
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    
-    CGRect frame = self.layer.bounds;
-    CGFloat scale = self.contentScaleFactor;
-    
-    // Setup the view port in Pixels
-    glOrthof(0, frame.size.width * scale, 0, frame.size.height * scale, -1, 1);
-    glViewport(0, 0, frame.size.width * scale, frame.size.height * scale);
-    glMatrixMode(GL_MODELVIEW);
-    
-    glDisable(GL_DITHER);
-    glEnable(GL_TEXTURE_2D);
-    
-    glEnable(GL_BLEND);
-    // Set a blending function appropriate for premultiplied alpha pixel data
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    
-    glEnable(GL_POINT_SPRITE_OES);
-    glTexEnvf(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE);
-    
-    
-    [self createFramebuffer];
+    [[JotStylusManager sharedInstance] registerView:self];
 }
 
-/**
- * this will create the framebuffer and related
- * render and depth buffers that we'll use for
- * drawing
- */
-- (BOOL)createFramebuffer
-{
-    // Generate IDs for a framebuffer object and a color renderbuffer
-    glGenFramebuffersOES(1, &viewFramebuffer);
-    glGenRenderbuffersOES(1, &viewRenderbuffer);
-    
-    glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
-    // This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
-    // allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
-    [context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(id<EAGLDrawable>)self.layer];
-    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, viewRenderbuffer);
-    
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
-    
-    // For this sample, we also need a depth buffer, so we'll create and attach one via another renderbuffer.
-    glGenRenderbuffersOES(1, &depthRenderbuffer);
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, depthRenderbuffer);
-    glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_DEPTH_COMPONENT16_OES, backingWidth, backingHeight);
-    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, depthRenderbuffer);
-    
-    if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
-    {
-        NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-        return NO;
-    }
-    
-    return YES;
-}
+#pragma mark - JotStrokeDelegate
 
 /**
- * Clean up any buffers we have allocated.
+ * Handles the start of a stylus stroke
  */
-- (void)destroyFramebuffer
+- (void)jotStylusStrokeBegan:(JotStroke *)stylusStroke
 {
-    if(viewFramebuffer){
-        glDeleteFramebuffersOES(1, &viewFramebuffer);
-        viewFramebuffer = 0;
-    }
-    if(viewRenderbuffer){
-        glDeleteRenderbuffersOES(1, &viewRenderbuffer);
-        viewRenderbuffer = 0;
-    }
-    if(depthRenderbuffer){
-        glDeleteRenderbuffersOES(1, &depthRenderbuffer);
-        depthRenderbuffer = 0;
-    }
-}
-
-
-#pragma mark - Begin JotTouchSDK integration
-#pragma mark - JotPalmRejectionDelegate
-
-/**
- * Handles the start of a stylus touch
- */
-- (void)jotStylusTouchBegan:(NSSet *)touches
-{
-    for (JotTouch* jotTouch in touches) {
-        [self addLineToAndRenderStroke:[self getStrokeForTouchHash:jotTouch.hash]
-                               toPoint:[jotTouch locationInView:self]
-                               toWidth:[self widthForPressure:jotTouch.pressure]
-                               toColor:[self colorForPressure:jotTouch.pressure]];
+    NSInteger coalesedCounter = 0;
+    JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
+    SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
+    
+    for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
+        coalesedCounter++;
         
-        //Set JotTouchStatusIndicator labels
-        [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)jotTouch.pressure]];
-    }
-}
-
-/**
- * Handles the continuation of a stylus touch.
- */
-- (void)jotStylusTouchMoved:(NSSet *)touches
-{
-    for (JotTouch* jotTouch in touches) {
-        [self addLineToAndRenderStroke:[self getStrokeForTouchHash:jotTouch.hash]
-                               toPoint:[jotTouch locationInView:self]
-                               toWidth:[self widthForPressure:jotTouch.pressure]
-                               toColor:[self colorForPressure:jotTouch.pressure]];
+        CGPoint location = [coalescedJotStroke locationInView:self];
         
-        //Set JotTouchStatusIndicator labels
-        [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)jotTouch.pressure]];
+        CGFloat pressure = [self calculatedPressureCurveForPressure:coalescedJotStroke.pressure];
+        [self addLineToAndRenderStroke:currentStroke
+                               toPoint:location
+                               toWidth:[self widthForPressure:pressure]
+                               toColor:[self colorForPressure:pressure]
+                              withPath:nil
+                          shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
+                      coalescedInteger:coalesedCounter];
     }
+    //Set JotTouchStatusIndicator labels
+    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.pressure]];
 }
 
 /**
- * Handles the end of a stylus touch event.
+ * Handles the continuation of a stylus stroke.
  */
-- (void)jotStylusTouchEnded:(NSSet *)touches
+- (void)jotStylusStrokeMoved:(JotStroke *)stylusStroke
 {
-    for (JotTouch* jotTouch in touches) {
-        SmoothStroke* currentStroke = [self getStrokeForTouchHash:jotTouch.hash];
+    NSInteger coalesedCounter = 0;
+    JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
+    SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
+    
+    for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
+        coalesedCounter++;
+        
+        CGPoint location = [coalescedJotStroke locationInView:self];
+        
+        CGFloat pressure = [self calculatedPressureCurveForPressure:coalescedJotStroke.pressure];
+        [self addLineToAndRenderStroke:currentStroke
+                               toPoint:location
+                               toWidth:[self widthForPressure:pressure]
+                               toColor:[self colorForPressure:pressure]
+                              withPath:nil
+                          shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
+                      coalescedInteger:coalesedCounter];
+    }
+    //Set JotTouchStatusIndicator labels
+    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.pressure]];
+}
+
+/**
+ * Handles the end of a stylus stroke event.
+ */
+- (void)jotStylusStrokeEnded:(JotStroke *)stylusStroke
+{
+    NSInteger coalesedCounter = 0;
+    JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
+    SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
+    
+    for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
+        coalesedCounter++;
+        
+        CGPoint location = [coalescedJotStroke locationInView:self];
         
         // now line to the end of the stroke
+        CGFloat pressure = 0.0; // Setting end of each stroke to zero pressure can cause a more organic stroke roll off with fast strokes.
         [self addLineToAndRenderStroke:currentStroke
-                               toPoint:[jotTouch locationInView:self]
-                               toWidth:[self widthForPressure:jotTouch.pressure]
-                               toColor:[self colorForPressure:jotTouch.pressure]];
-        
-        //Set JotTouchStatusIndicator labels
-        [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)jotTouch.pressure]];
-        
-        // this stroke is now finished, so add it to our completed strokes stack
-        // and remove it from the current strokes, and reset our undo state if any
-        [stackOfStrokes addObject:currentStroke];
-        [currentStrokes removeObjectForKey:@(jotTouch.hash)];
-        
-        [stackOfUndoneStrokes removeAllObjects];
+                               toPoint:location
+                               toWidth:[self widthForPressure:pressure]
+                               toColor:[self colorForPressure:pressure]
+                              withPath:nil
+                          shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
+                      coalescedInteger:coalesedCounter];
     }
     
+    [self cleanupEndedStroke:currentStroke forHash:@(stylusStroke.hash)];
+    
     //Set JotTouchStatusIndicator labels back to default
-    [self.viewController.jotSatusIndicatorContainerView.pressureLabel setText:@"none"];
+    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:@"none"];
 }
 
 /**
- * Handles the cancellation of a stylus touch event.
+ * Handles the cancellation of a stylus stroke event.
  */
-- (void)jotStylusTouchCancelled:(NSSet *)touches
+- (void)jotStylusStrokeCancelled:(JotStroke *)stylusStroke
 {
-    for (JotTouch* jotTouch in touches) {
-        // If appropriate, add code necessary to save the state of the application.
-        // This application is not saving state.
-        [currentStrokes removeObjectForKey:@(jotTouch.hash)];        
-    }
-    // we need to erase the current stroke from the screen, so
-    // clear the canvas and rerender all valid strokes
-    [self renderAllStrokes];
+    // If appropriate, add code necessary to save the state of the application.
+    // This application is not saving state.
+    [self cancelStrokeForHash:@(stylusStroke.hash)];
 }
+
+#pragma mark -
 
 - (void)jotSuggestsToDisableGestures
 {
-    self.doubleTapGestureRecognizer.enabled = NO;
     // disable any other gestures, like a pinch to zoom
-    [self.viewController jotSuggestsToDisableGestures];
+    [self.viewController handleJotSuggestsToDisableGestures];
 }
 
 - (void)jotSuggestsToEnableGestures
 {
-    self.doubleTapGestureRecognizer.enabled = YES;
     // enable any other gestures, like a pinch to zoom
-    [viewController jotSuggestsToEnableGestures];
+    [self.viewController handleJotSuggestsToEnableGestures];
 }
 
 #pragma mark - UITouch Events
@@ -364,12 +288,26 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (![JotStylusManager sharedInstance].isStylusConnected) {
-        for (UITouch *touch in touches) {
-            [self addLineToAndRenderStroke:[self getStrokeForTouchHash:touch.hash]
-                                   toPoint:[touch locationInView:self]
-                                   toWidth:[self widthForPressure:JOT_MIN_PRESSURE]
-                                   toColor:[self colorForPressure:JOT_MIN_PRESSURE]];
+        for (UITouch *mainTouch in touches) {
+            
+            NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
+            NSInteger coalesedCounter = 0;
+            UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
+            SmoothStroke *currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
+            
+            for (UITouch *coalescedTouch in coalescedTouches) {
+                coalesedCounter++;
+                
+                CGPoint location = [coalescedTouch locationInView:self];
 
+                [self addLineToAndRenderStroke:[self getStrokeForHash:@(currentStroke.hash)]
+                                       toPoint:location
+                                       toWidth:[self widthForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                       toColor:[self colorForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                      withPath:nil
+                                  shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
+                              coalescedInteger:coalesedCounter];
+            }
         }
     }
 }
@@ -377,17 +315,28 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (![JotStylusManager sharedInstance].isStylusConnected) {
-        for (UITouch *touch in touches) {
-        // check for other brands of stylus,
-        // or process non-Jot touches
-        //
-        // for this example, we'll simply draw every touch if
-        // the jot sdk is not enabled
-            [self addLineToAndRenderStroke:[self getStrokeForTouchHash:touch.hash]
-                                   toPoint:[touch locationInView:self]
-                                   toWidth:[self widthForPressure:JOT_MIN_PRESSURE]
-                                   toColor:[self colorForPressure:JOT_MIN_PRESSURE]];
+        for (UITouch *mainTouch in touches) {
             
+            NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
+            NSInteger coalesedCounter = 0;
+            UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
+            SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
+            
+            for (UITouch *coalescedTouch in coalescedTouches) {
+                coalesedCounter++;
+                
+                CGPoint location = [coalescedTouch locationInView:self];
+
+                if (currentStroke) {
+                 [self addLineToAndRenderStroke:currentStroke
+                                        toPoint:location
+                                        toWidth:[self widthForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                        toColor:[self colorForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                       withPath:nil
+                                   shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
+                               coalescedInteger:coalesedCounter];
+                }
+            }
         }
     }
 }
@@ -395,20 +344,33 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (![JotStylusManager sharedInstance].isStylusConnected) {
-        for (UITouch* touch in touches) {
-            SmoothStroke* currentStroke = [self getStrokeForTouchHash:touch.hash];
+        for (UITouch* mainTouch in touches) {
             
-            // now line to the end of the stroke
-            [self addLineToAndRenderStroke:currentStroke
-                                   toPoint:[touch locationInView:self]
-                                   toWidth:[self widthForPressure:JOT_MIN_PRESSURE]
-                                   toColor:[self colorForPressure:JOT_MIN_PRESSURE]];
+            NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
+            NSInteger coalesedCounter = 0;
+            UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
+            SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
             
-            // this stroke is now finished, so add it to our completed strokes stack
-            // and remove it from the current strokes, and reset our undo state if any
-            [stackOfStrokes addObject:currentStroke];
-            [currentStrokes removeObjectForKey:@([touch hash])];
-            [stackOfUndoneStrokes removeAllObjects];
+            for (UITouch *coalescedTouch in coalescedTouches) {
+                coalesedCounter++;
+                
+                CGPoint location = [coalescedTouch locationInView:self];
+               
+                if (currentStroke) {
+                    // now line to the end of the stroke
+                    [self addLineToAndRenderStroke:currentStroke
+                                           toPoint:location
+                                           toWidth:[self widthForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                           toColor:[self colorForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                          withPath:nil
+                                      shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
+                                  coalescedInteger:coalesedCounter];
+                    
+                    if (coalescedTouch.timestamp == lastCoalescedTouch.timestamp) {
+                        [self cleanupEndedStroke:currentStroke forHash:@(mainTouch.hash)];
+                    }
+                }
+            }
         }
     }
 }
@@ -419,22 +381,31 @@
         for (UITouch* touch in touches) {
             // If appropriate, add code necessary to save the state of the application.
             // This application is not saving state.
-            [currentStrokes removeObjectForKey:@([touch hash])];
+            [self cancelStrokeForHash:@(touch.hash)];
         }
-        // we need to erase the current stroke from the screen, so
-        // clear the canvas and rerender all valid strokes
-        [self renderAllStrokes];
     }
 }
 
 #pragma mark - Width and Color Helpers
+- (CGFloat) calculatedPressureCurveForPressure:(NSUInteger)pressure
+{
+    return (CGFloat) pressure * ((CGFloat) pressure / (CGFloat) JOT_MAX_PRESSURE);
+}
+
+- (Brush *)currentBrush
+{
+    if (!_currentBrush) {
+        _currentBrush = [[Brush alloc]init];
+    }
+    return _currentBrush;
+}
 /**
  * calculate the width from the input touch's pressure
  */
 - (CGFloat)widthForPressure:(CGFloat)pressure
 {
-    CGFloat minSize = 2;
-    CGFloat maxSize = 35;
+    CGFloat minSize = self.currentBrush.minSize;
+    CGFloat maxSize = self.currentBrush.maxSize;
     
     return minSize + (maxSize-minSize) * pressure / JOT_MAX_PRESSURE;
 }
@@ -444,19 +415,64 @@
  */
 - (UIColor*)colorForPressure:(CGFloat)pressure
 {
-   CGFloat minAlpha = .7;
-   CGFloat maxAlpha = .9;
+    CGFloat minAlpha = self.currentBrush.minOpacity;
+    CGFloat maxAlpha = self.currentBrush.maxOpacity;
 
     CGFloat segmentAlpha = minAlpha + (maxAlpha-minAlpha) * pressure / JOT_MAX_PRESSURE;
-    if (segmentAlpha < minAlpha) {
-        segmentAlpha = minAlpha;
-    }
-    return [UIColor colorWithRed:0.078 green:0.078 blue:0.078 alpha:segmentAlpha];
+    if(segmentAlpha < minAlpha) segmentAlpha = minAlpha;
+    return [self.currentBrush.brushColor colorWithAlphaComponent:segmentAlpha];
 }
 
-- (void)doubleTapped:(UITapGestureRecognizer *)recognizer
+#pragma mark - Public Interface
+
+/**
+ * this will move one of the completed strokes to the undo
+ * stack, and then rerender all other completed strokes
+ */
+- (IBAction)undo
 {
-    NSLog(@"Double Tap Gesture Recognized");
+    if ([self.stackOfStrokes count]) {
+        [self.stackOfUndoneStrokes addObject:[self.stackOfStrokes lastObject]];
+        [self.stackOfStrokes removeLastObject];
+        [self renderAllStrokes];
+    }
+}
+
+/**
+ * if we have undone strokes, then move the most recent
+ * undo back to the completed strokes list, then rerender
+ */
+- (IBAction)redo
+{
+    if ([self.stackOfUndoneStrokes count]) {
+        [self.stackOfStrokes addObject:[self.stackOfUndoneStrokes lastObject]];
+        [self.stackOfUndoneStrokes removeLastObject];
+        [self renderAllStrokes];
+    }
+}
+
+/**
+ * erase the screen
+ */
+- (IBAction)clear
+{
+    // set our context
+    [EAGLContext setCurrentContext:self.context];
+    
+    // Clear the buffer
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    
+    // Display the buffer
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+    [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+    
+    // reset undo state
+    [self.stackOfUndoneStrokes removeAllObjects];
+    [self.stackOfStrokes removeAllObjects];
+    [self.currentStrokes removeAllObjects];
 }
 
 #pragma mark - Rendering
@@ -472,19 +488,19 @@
 - (void)renderAllStrokes
 {
     // set our current OpenGL context
-    [EAGLContext setCurrentContext:context];
+    [EAGLContext setCurrentContext:self.context];
     
 	// Clear the buffer
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
     
     //
     // draw all the strokes that we have in our undo-able stack
     [self prepOpenGLState];
-    for(SmoothStroke* stroke in [stackOfStrokes arrayByAddingObjectsFromArray:[currentStrokes allValues]]){
+    for(SmoothStroke* stroke in [self.stackOfStrokes arrayByAddingObjectsFromArray:[self.currentStrokes allValues]]){
         // setup our blend mode properly for color vs eraser
-        if(stroke.segments){
+        if(stroke.segments && stroke.segments.count > 0){
             AbstractBezierPathElement* firstElement = [stroke.segments objectAtIndex:0];
             [self prepOpenGLBlendModeForColor:firstElement.color];
         }
@@ -499,8 +515,45 @@
     [self unprepOpenGLState];
     
 	// Display the buffer
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
-	[context presentRenderbuffer:GL_RENDERBUFFER_OES];
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+	[self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+}
+
+/**
+ * This renders multiple segments of an ongoing stroke.
+ * Useful for handling the extra detail of coalesced touches and strokes
+ */
+- (void)renderElements:(NSArray *)arrayOfElements
+{
+    if (arrayOfElements && arrayOfElements.count > 0) {
+        // set our current OpenGL context
+        [EAGLContext setCurrentContext:self.context];
+
+        //
+        // draw all the strokes that we have in our undo-able stack
+        [self prepOpenGLState];
+        
+        // setup our blend mode properly for color vs eraser
+        if(arrayOfElements) {
+            AbstractBezierPathElement* firstElement = [arrayOfElements firstObject];
+            [self prepOpenGLBlendModeForColor:firstElement.color];
+        }
+        
+        // draw each stroke element
+        AbstractBezierPathElement* prevElement = nil;
+        for(AbstractBezierPathElement* element in arrayOfElements){
+            if (prevElement || arrayOfElements.count == 1) {
+                [self renderElement:element fromPreviousElement:prevElement includeOpenGLPrep:NO];
+            }
+            prevElement = element;
+        }
+        
+        [self unprepOpenGLState];
+        
+        // Display the buffer
+        glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+        [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+    }
 }
 
 
@@ -524,8 +577,8 @@
     
     if(includePrep){
         // set to current context
-        [EAGLContext setCurrentContext:context];
-        glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);
+        [EAGLContext setCurrentContext:self.context];
+        glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
         
         // draw the stroke element
         [self prepOpenGLState];
@@ -564,8 +617,8 @@
         [self unprepOpenGLState];
         
         // Display the buffer
-        glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
-        [context presentRenderbuffer:GL_RENDERBUFFER_OES];
+        glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+        [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
     }
 }
 
@@ -578,24 +631,52 @@
  * it will smooth a rounded line from the previous segment, and will
  * also smooth the width and color transition
  */
-- (void)addLineToAndRenderStroke:(SmoothStroke*)currentStroke toPoint:(CGPoint)end toWidth:(CGFloat)width toColor:(UIColor*)color
+- (void)addLineToAndRenderStroke:(SmoothStroke*)currentStroke toPoint:(CGPoint)end toWidth:(CGFloat)width toColor:(UIColor*)color withPath:(UIBezierPath *)path shouldRender:(BOOL)shouldRender coalescedInteger:(NSInteger)coalescedInteger
 {
-
-    // fetch the current and previous elements
-    // of the stroke. these will help us
-    // step over their length for drawing
-    AbstractBezierPathElement* previousElement = [currentStroke.segments lastObject];
+    if (path) {
+        // Create two transforms, one to mirror across the y axis, and one to
+        // to translate the resulting path back into the desired boundingRect
+        CGAffineTransform mirrorOverYOrigin = CGAffineTransformMakeScale(1.0f, -1.0f);
+        CGAffineTransform translate = CGAffineTransformMakeTranslation(0, self.bounds.size.height);
+        [path applyTransform:mirrorOverYOrigin];
+        [path applyTransform:translate];
+        
+        if (![currentStroke addPath:path withWidth:width andColor:color]) return;
+    } else {
+        // Convert touch point from UIView referential to OpenGL one (upside-down flip)
+        end.y = self.bounds.size.height - end.y;
+        if(![currentStroke addPoint:end withWidth:width andColor:color]) return;
+    }
     
-    // Convert touch point from UIView referential to OpenGL one (upside-down flip)
-    end.y = self.bounds.size.height - end.y;
-    if(![currentStroke addPoint:end withWidth:width andColor:color]) return;
-    
-    //
-    // ok, now we have the current + previous stroke segment
-    // so let's set to drawing it!
-    [self renderElement:[currentStroke.segments lastObject] fromPreviousElement:previousElement includeOpenGLPrep:YES];
+    if (shouldRender) {
+        [self renderLineWithCurrentStroke:currentStroke numberOfElementsToRender:coalescedInteger];
+    }
 }
 
+- (void)renderLineWithCurrentStroke:(SmoothStroke *)currentStroke numberOfElementsToRender:(NSInteger)renderElements
+{
+    NSInteger subtractor = 0;
+    
+    if (currentStroke.segments.count > 1) {
+        subtractor = 1;
+    }
+    
+    //
+    // get the all the previous element and all of the new coalesced ones
+    // and send them to be drawn!
+    NSInteger previousRenderIndex = currentStroke.segments.count - renderElements - subtractor;
+    if (previousRenderIndex >= 0 && previousRenderIndex < currentStroke.segments.count) {
+        
+        NSMutableArray *arrayOfElements = [NSMutableArray array];
+        
+        for (NSInteger counter = 0; counter < renderElements + subtractor; counter++) {
+           
+            [arrayOfElements insertObject:[currentStroke.segments objectAtIndex:currentStroke.segments.count - 1 - counter] atIndex:0];
+        }
+        
+        [self renderElements:arrayOfElements];
+    }
+}
 
 /**
  * this will prepare the OpenGL state to draw
@@ -640,6 +721,91 @@
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+- (void)recreateFrameBuffer
+{
+    [self destroyFramebuffer];
+    
+    // Setup OpenGL states
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    
+    CGRect frame = self.layer.bounds;
+    CGFloat scale = self.contentScaleFactor;
+    
+    // Setup the view port in Pixels
+    glOrthof(0, frame.size.width * scale, 0, frame.size.height * scale, -1, 1);
+    glViewport(0, 0, frame.size.width * scale, frame.size.height * scale);
+    glMatrixMode(GL_MODELVIEW);
+    
+    glDisable(GL_DITHER);
+    glEnable(GL_TEXTURE_2D);
+    
+    glEnable(GL_BLEND);
+    // Set a blending function appropriate for premultiplied alpha pixel data
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glEnable(GL_POINT_SPRITE_OES);
+    glTexEnvf(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE);
+    
+    
+    [self createFramebuffer];
+}
+
+/**
+ * this will create the framebuffer and related
+ * render and depth buffers that we'll use for
+ * drawing
+ */
+- (BOOL)createFramebuffer
+{
+    // Generate IDs for a framebuffer object and a color renderbuffer
+    glGenFramebuffersOES(1, &_viewFramebuffer);
+    glGenRenderbuffersOES(1, &_viewRenderbuffer);
+    
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+    // This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
+    // allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
+    [self.context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(id<EAGLDrawable>)self.layer];
+    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+    
+    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &_backingWidth);
+    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &_backingHeight);
+    
+    // For this sample, we also need a depth buffer, so we'll create and attach one via another renderbuffer.
+    glGenRenderbuffersOES(1, &_depthRenderbuffer);
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.depthRenderbuffer);
+    glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_DEPTH_COMPONENT16_OES, self.backingWidth, self.backingHeight);
+    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, self.depthRenderbuffer);
+    
+    if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
+    {
+        NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
+        return NO;
+    }
+    
+    return YES;
+}
+
+/**
+ * Clean up any buffers we have allocated.
+ */
+- (void)destroyFramebuffer
+{
+    if(self.viewFramebuffer){
+        glDeleteFramebuffersOES(1, &_viewFramebuffer);
+        self.viewFramebuffer = 0;
+    }
+    if(self.viewRenderbuffer){
+        glDeleteRenderbuffersOES(1, &_viewRenderbuffer);
+        self.viewRenderbuffer = 0;
+    }
+    if(self.depthRenderbuffer){
+        glDeleteRenderbuffersOES(1, &_depthRenderbuffer);
+        self.depthRenderbuffer = 0;
+    }
+}
+
 
 
 #pragma mark - Manage Smooth Stroke Cache
@@ -650,72 +816,35 @@
  *
  * this method will return the stroke for the given touch
  */
-- (SmoothStroke *)getStrokeForTouchHash:(NSUInteger)touchHash
+- (SmoothStroke *)getStrokeForHash:(NSNumber *)hash
 {
-    SmoothStroke* ret = [currentStrokes objectForKey:@(touchHash)];
-    if (!ret) {
-        ret = [[SmoothStroke alloc] init];
-        [currentStrokes setObject:ret forKey:@(touchHash)];
+    SmoothStroke* stroke = [self.currentStrokes objectForKey:hash];
+    if (!stroke) {
+        stroke = [[SmoothStroke alloc] init];
+        [self.currentStrokes setObject:stroke forKey:hash];
     }
-    return ret;
+    return stroke;
 }
 
-
-
-#pragma mark - Public Interface
-
-/**
- * this will move one of the completed strokes to the undo
- * stack, and then rerender all other completed strokes
- */
-- (IBAction)undo
+- (void)cleanupEndedStroke:(SmoothStroke *)stroke forHash:(NSNumber *)hash
 {
-    if ([stackOfStrokes count]) {
-        [stackOfUndoneStrokes addObject:[stackOfStrokes lastObject]];
-        [stackOfStrokes removeLastObject];
-        [self renderAllStrokes];
-    }
+    // this stroke is now finished, so add it to our completed strokes stack
+    // and remove it from the current strokes, and reset our undo state if any
+    [self.stackOfStrokes addObject:stroke];
+    [self.currentStrokes removeObjectForKey:hash];
+    [self.stackOfUndoneStrokes removeAllObjects];
 }
 
-/**
- * if we have undone strokes, then move the most recent
- * undo back to the completed strokes list, then rerender
- */
-- (IBAction)redo
+- (void)cancelStrokeForHash:(NSNumber *)hash
 {
-    if ([stackOfUndoneStrokes count]) {
-        [stackOfStrokes addObject:[stackOfUndoneStrokes lastObject]];
-        [stackOfUndoneStrokes removeLastObject];
-        [self renderAllStrokes];
-    }
+    // Cancel the stroke.
+    NSLog(@"Stroke removed on cancel!");
+    
+    // we need to erase the current stroke from the screen, so
+    // clear the canvas and rerender all valid strokes
+    [self.currentStrokes removeObjectForKey:hash];
+    [self renderAllStrokes];
 }
-
-
-/**
- * erase the screen
- */
-- (IBAction)clear
-{
-    // set our context
-	[EAGLContext setCurrentContext:context];
-	
-	// Clear the buffer
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer);
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-    
-    
-	// Display the buffer
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer);
-	[context presentRenderbuffer:GL_RENDERBUFFER_OES];
-    
-    // reset undo state
-    [stackOfUndoneStrokes removeAllObjects];
-    [stackOfStrokes removeAllObjects];
-    [currentStrokes removeAllObjects];
-}
-
-
 
 #pragma mark - Private
 
@@ -747,7 +876,7 @@
     CGColorSpaceRelease(myColorspace);
     UIGraphicsPopContext();
     
-    [self setBrushTexture:UIGraphicsGetImageFromCurrentImageContext()];
+    [self setupBrushTexture:UIGraphicsGetImageFromCurrentImageContext()];
     
     UIGraphicsEndImageContext();
 }
@@ -755,12 +884,12 @@
 /**
  * setup the texture to use for the next brush stroke
  */
-- (void)setBrushTexture:(UIImage*)brushImage
+- (void)setupBrushTexture:(UIImage*)brushImage
 {
     // first, delete the old texture if needed
-	if (brushTexture) {
-		glDeleteTextures(1, &brushTexture);
-		brushTexture = 0;
+	if (self.brushTexture) {
+		glDeleteTextures(1, &_brushTexture);
+		self.brushTexture = 0;
 	}
     
     // fetch the cgimage for us to draw into a texture
@@ -784,9 +913,9 @@
         // You don't need the context at this point, so you need to release it to avoid memory leaks.
         CGContextRelease(brushContext);
         // Use OpenGL ES to generate a name for the texture.
-        glGenTextures(1, &brushTexture);
+        glGenTextures(1, &_brushTexture);
         // Bind the texture name.
-        glBindTexture(GL_TEXTURE_2D, brushTexture);
+        glBindTexture(GL_TEXTURE_2D, self.brushTexture);
         // Set the texture parameters to use a minifying filter and a linear filer (weighted average)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         // Specify a 2D texture image, providing the a pointer to the image data in memory
@@ -807,12 +936,12 @@
     
     [self destroyFramebuffer];
     
-	if (brushTexture) {
-		glDeleteTextures(1, &brushTexture);
-		brushTexture = 0;
+	if (self.brushTexture) {
+		glDeleteTextures(1, &_brushTexture);
+		self.brushTexture = 0;
 	}
     
-	if ([EAGLContext currentContext] == context) {
+	if ([EAGLContext currentContext] == self.context) {
 		[EAGLContext setCurrentContext:nil];
 	}
 }

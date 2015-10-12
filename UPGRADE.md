@@ -1,3 +1,77 @@
+# Adonit iOS SDK 3.0 Upgrade Notes
+
+step 1: Sending Events
+step 2: Hook up Stylus Events
+
+## Sending Events
+
+The first integration point is to make sure events are being delivered to the new `AdonitTouchTypeIdentifier` engine, which is used to detect stylus as early in the event delivery flow as possible. The easiest way to do this is to subclass `JotDrawingApplication`, which includes built-in support for this event delivery. In your `main.m`, replace the normal call to `UIApplicationMain` with:
+
+#import <AdonitSDK/AdonitSDK.h>
+
+int main(int argc, char *argv[])
+{
+@autoreleasepool {
+return UIApplicationMain(argc, argv, NSStringFromClass([JotDrawingApplication class]), NSStringFromClass([AppDelegate class]));
+}
+}
+
+
+If you do not want to subclass `JotDrawingApplication`, you can implement your own event delivery in your own `UIApplication` subclass by overriding the `sendEvent` method. Below is the code used in `JotDrawingApplication`.
+
+#import "JotDrawingApplication.h"
+#import "AdonitTouchTypeIdentifier.h"
+#import "JotStylusManager.h"
+
+@interface JotDrawingApplication ()
+@property (nonatomic) AdonitTouchTypeIdentifier *touchTypeIdentifier;
+@end
+
+@implementation JotDrawingApplication
+
+- (AdonitTouchTypeIdentifier *)touchTypeIdentifier
+{
+if (!_touchTypeIdentifier) {
+_touchTypeIdentifier = [JotStylusManager sharedInstance].touchTypeIdentifier;
+}
+
+return _touchTypeIdentifier;
+}
+
+- (void)sendEvent:(UIEvent *)event
+{
+[self.touchTypeIdentifier classifyAdonitDeviceIdentificationForEvent:event];
+[super sendEvent:event];
+}
+
+@end
+
+The critical code is to make sure you call `classifyAdonitDeviceIdentificationForEvent:` before `super`'s `sendEvent:`.
+
+## Hookup Stylus Events
+
+[[JotStylusManager sharedInstance] enable];
+
+Most of the stylus integration from this point on is similar to 2.7 of our SDK, but we have changed some names to more closely reflect the purpose and function of our SDK.
+
+JotPalmRejectionDelegate ->                                 jotStrokeDelegate
+[JotStylusManager sharedInstance].palmRejectorDelegate ->   [JotStylusManager sharedInstance].jotStrokeDelegate
+JotTouch object ->                                          JotStroke object
+
+Similar to the renaming to JotStroke Objects and a JotStrokeDelegate, the delegate events with stylus information have also been renamed.
+
+jotStylusTouchBegan: ->                                     jotStylusStrokeBegan:
+jotStylusTouchMoved: ->                                     jotStylusStrokeMoved:
+jotStylusTouchEnded: ->                                     jotStylusStrokeEnded:
+jotStylusTouchCancelled: ->                                 jotStylusStrokeCancelled:
+
+Also note, that these stylus events now directly provide the stroke object, instead of embedding them within an NSSet object.
+
+- (void)jotStylusStrokeBegan:(nonnull JotStroke *)stylusStroke;
+- (void)jotStylusStrokeMoved:(nonnull JotStroke *)stylusStroke;
+- (void)jotStylusStrokeEnded:(nonnull JotStroke *)stylusStroke;
+- (void)jotStylusStrokeCancelled:(nonnull JotStroke *)stylusStroke;
+
 # JotTouchSDK 2.7 Upgrade Notes
 
 The Settings UI is now more modular and customizable than ever. See the [Connection and Settings UI Guide](https://github.com/Adonit/JotTouchSDK/wiki/Connection-and-Settings-UI-Guide) for more information on how to take advantage of this new settings UI.
@@ -30,7 +104,7 @@ The 2.5 JotTouchSDK includes a few updates that will require changes to your cod
 
 The 2.5 JotTouchSDK includes some cleanup to the header files, and introduces a more standard header file format. You can reference all the JotTouchSDK headers using the following import:
 
-    #import <JotTouchSDK/JotTouchSDK.h>
+    #import <AdonitSDK/AdonitSDK.h>
     
 If you see any compilation warnings about unknown class types, you may need to include this import in your files.
 
