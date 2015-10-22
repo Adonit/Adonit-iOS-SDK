@@ -97,10 +97,6 @@
     // Register for jotStylus notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:JotStylusManagerDidChangeConnectionStatus object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(friendlyNameChanged:) name:JotStylusManagerDidChangeStylusFriendlyName object:nil];
-    
-    //
-    // setup advanced settings or debug options.
-    [self setupJotSDKAdvancedAndDebug];
 }
 
 #pragma mark- Adonit SDK / Connection Stylus Changes
@@ -316,46 +312,6 @@
         _eraserBrush = [[Brush alloc]initWithMinOpac:0.20 maxOpac:0.45 minSize:4.0 maxSize:45 isEraser:YES];
     }
     return _eraserBrush;
-}
-
-
-#pragma mark - Jot Status / Advanced Setup / DEBUG
-
-- (void)setupJotSDKAdvancedAndDebug
-{
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector:@selector(startTrackingPen:)
-                                                 name: JotStylusTrackingPressureForConnectionNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector:@selector(startTrackingPenFailed:)
-                                                 name: JotStylusTrackingPressureForConnectionFailedNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector:@selector(startTrackingPenSuccessful:)
-                                                 name: JotStylusTrackingPressureForConnectionSuccessfulNotification
-                                               object:nil];
-    
-    //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableConsoleLogging"];
-    //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheBTThings"];
-    //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheTouchThings"];
-    //[[JotStylusManager sharedInstance] setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableCustomScreenOrientation"];
-    //[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait] forKey:@"net.adonit.customScreenOrientation"];
-}
-
-- (void)startTrackingPen:(NSNotification *)notification
-{
-    NSLog(@"we've started tracking %@", notification.userInfo[@"name"]);
-}
-
-- (void)startTrackingPenFailed:(NSNotification *)notification
-{
-    NSLog(@"we've stopped tracking %@", notification.userInfo[@"name"]);
-}
-
-- (void)startTrackingPenSuccessful:(NSNotification *)notification
-{
-    NSLog(@"we've successfuly tracked %@", notification.userInfo[@"name"]);
 }
 
 #pragma mark - Cleanup

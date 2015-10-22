@@ -1,5 +1,12 @@
 #AdonitSDK Change Log
-# V3.0 Release
+
+# v3.0.2
+-Fixed an issue with the "Done" button not always appearing with our Settings UI on iPhone or in iOS 9 multi-tasking.
+
+# V3.0.1
+-Fixed an issue that could cause a crash in the iOS Simulator.
+
+# V3.0 
 - Fixed a crash around switching in and out of an app in iOS 9 with a connected Stylus.
 
 #V3.0 Beta 4 / Release Canidate
