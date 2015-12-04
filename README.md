@@ -1,4 +1,4 @@
-#Adonit iOS SDK 3.0.2
+#Adonit iOS SDK 3.0.3
 
 Note: We are in the process of updating our wiki for the 3.0 version release.
 
