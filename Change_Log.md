@@ -1,5 +1,10 @@
 #AdonitSDK Change Log
 
+# v3.0.3
+-Fixed an issue where repeatedly connecting and disconnecting a stylus could cause a crash.
+-Fixed an issue where quick multiple strokes could cause a crash.
+-Fixed an issue where an end stroke could jump down to a users onscreen palm.
+
 # v3.0.2
 -Fixed an issue with the "Done" button not always appearing with our Settings UI on iPhone or in iOS 9 multi-tasking.
 
