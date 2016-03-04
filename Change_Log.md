@@ -1,5 +1,10 @@
 #AdonitSDK Change Log
 
+# v3.0.4
+- Fixed an issue that could cause JotStroke ended events to have a nil view property.
+- Fixed an issue that could cause JotStroke ended events to have an incorrect location.
+- Minor performance and stability updates.
+
 # v3.0.3
 -Fixed an issue where repeatedly connecting and disconnecting a stylus could cause a crash.
 -Fixed an issue where quick multiple strokes could cause a crash.
