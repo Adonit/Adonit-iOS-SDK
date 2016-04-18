@@ -167,23 +167,19 @@
  */
 - (void)jotStylusStrokeBegan:(JotStroke *)stylusStroke
 {
-    NSInteger coalesedCounter = 0;
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
     
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
-        coalesedCounter++;
-        
         CGPoint location = [coalescedJotStroke locationInView:self];
         
-        CGFloat pressure = [self calculatedPressureCurveForPressure:coalescedJotStroke.pressure];
         [self addLineToAndRenderStroke:currentStroke
                                toPoint:location
-                               toWidth:[self widthForPressure:pressure]
-                               toColor:[self colorForPressure:pressure]
+                               toWidth:[self widthForPressure:coalescedJotStroke.pressure]
+                               toColor:[self colorForPressure:coalescedJotStroke.pressure]
                               withPath:nil
                           shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
-                      coalescedInteger:coalesedCounter];
+                      coalescedInteger:stylusStroke.coalescedJotStrokes.count];
     }
     //Set JotTouchStatusIndicator labels
     [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.pressure]];
@@ -194,23 +190,19 @@
  */
 - (void)jotStylusStrokeMoved:(JotStroke *)stylusStroke
 {
-    NSInteger coalesedCounter = 0;
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
     
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
-        coalesedCounter++;
-        
         CGPoint location = [coalescedJotStroke locationInView:self];
         
-        CGFloat pressure = [self calculatedPressureCurveForPressure:coalescedJotStroke.pressure];
         [self addLineToAndRenderStroke:currentStroke
                                toPoint:location
-                               toWidth:[self widthForPressure:pressure]
-                               toColor:[self colorForPressure:pressure]
+                               toWidth:[self widthForPressure:coalescedJotStroke.pressure]
+                               toColor:[self colorForPressure:coalescedJotStroke.pressure]
                               withPath:nil
                           shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
-                      coalescedInteger:coalesedCounter];
+                      coalescedInteger:stylusStroke.coalescedJotStrokes.count];
     }
     //Set JotTouchStatusIndicator labels
     [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.pressure]];
@@ -221,13 +213,10 @@
  */
 - (void)jotStylusStrokeEnded:(JotStroke *)stylusStroke
 {
-    NSInteger coalesedCounter = 0;
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
     
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
-        coalesedCounter++;
-        
         CGPoint location = [coalescedJotStroke locationInView:self];
         
         // now line to the end of the stroke
@@ -238,7 +227,7 @@
                                toColor:[self colorForPressure:pressure]
                               withPath:nil
                           shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
-                      coalescedInteger:coalesedCounter];
+                      coalescedInteger:stylusStroke.coalescedJotStrokes.count];
     }
     
     [self cleanupEndedStroke:currentStroke forHash:@(stylusStroke.hash)];
@@ -291,22 +280,19 @@
         for (UITouch *mainTouch in touches) {
             
             NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
-            NSInteger coalesedCounter = 0;
             UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
             SmoothStroke *currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
             
             for (UITouch *coalescedTouch in coalescedTouches) {
-                coalesedCounter++;
-                
                 CGPoint location = [coalescedTouch locationInView:self];
 
                 [self addLineToAndRenderStroke:[self getStrokeForHash:@(currentStroke.hash)]
                                        toPoint:location
-                                       toWidth:[self widthForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
-                                       toColor:[self colorForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                       toWidth:[self widthForPressure:0.5]
+                                       toColor:[self colorForPressure:0.5]
                                       withPath:nil
                                   shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
-                              coalescedInteger:coalesedCounter];
+                              coalescedInteger:coalescedTouches.count];
             }
         }
     }
@@ -318,23 +304,20 @@
         for (UITouch *mainTouch in touches) {
             
             NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
-            NSInteger coalesedCounter = 0;
             UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
             SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
             
             for (UITouch *coalescedTouch in coalescedTouches) {
-                coalesedCounter++;
-                
                 CGPoint location = [coalescedTouch locationInView:self];
 
                 if (currentStroke) {
                  [self addLineToAndRenderStroke:currentStroke
                                         toPoint:location
-                                        toWidth:[self widthForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
-                                        toColor:[self colorForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                        toWidth:[self widthForPressure:0.5]
+                                        toColor:[self colorForPressure:0.5]
                                        withPath:nil
                                    shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
-                               coalescedInteger:coalesedCounter];
+                               coalescedInteger:coalescedTouches.count];
                 }
             }
         }
@@ -347,24 +330,21 @@
         for (UITouch* mainTouch in touches) {
             
             NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
-            NSInteger coalesedCounter = 0;
             UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
             SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
             
             for (UITouch *coalescedTouch in coalescedTouches) {
-                coalesedCounter++;
-                
                 CGPoint location = [coalescedTouch locationInView:self];
                
                 if (currentStroke) {
                     // now line to the end of the stroke
                     [self addLineToAndRenderStroke:currentStroke
                                            toPoint:location
-                                           toWidth:[self widthForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
-                                           toColor:[self colorForPressure:[JotStylusManager sharedInstance].unconnectedPressure]
+                                           toWidth:[self widthForPressure:0.5]
+                                           toColor:[self colorForPressure:0.5]
                                           withPath:nil
                                       shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
-                                  coalescedInteger:coalesedCounter];
+                                  coalescedInteger:coalescedTouches.count];
                     
                     if (coalescedTouch.timestamp == lastCoalescedTouch.timestamp) {
                         [self cleanupEndedStroke:currentStroke forHash:@(mainTouch.hash)];
@@ -387,10 +367,6 @@
 }
 
 #pragma mark - Width and Color Helpers
-- (CGFloat) calculatedPressureCurveForPressure:(NSUInteger)pressure
-{
-    return (CGFloat) pressure * ((CGFloat) pressure / (CGFloat) JOT_MAX_PRESSURE);
-}
 
 - (Brush *)currentBrush
 {
@@ -407,7 +383,7 @@
     CGFloat minSize = self.currentBrush.minSize;
     CGFloat maxSize = self.currentBrush.maxSize;
     
-    return minSize + (maxSize-minSize) * pressure / JOT_MAX_PRESSURE;
+    return minSize + (maxSize-minSize) * pressure;
 }
 
 /**
@@ -418,7 +394,7 @@
     CGFloat minAlpha = self.currentBrush.minOpacity;
     CGFloat maxAlpha = self.currentBrush.maxOpacity;
 
-    CGFloat segmentAlpha = minAlpha + (maxAlpha-minAlpha) * pressure / JOT_MAX_PRESSURE;
+    CGFloat segmentAlpha = minAlpha + (maxAlpha-minAlpha) * pressure;
     if(segmentAlpha < minAlpha) segmentAlpha = minAlpha;
     return [self.currentBrush.brushColor colorWithAlphaComponent:segmentAlpha];
 }

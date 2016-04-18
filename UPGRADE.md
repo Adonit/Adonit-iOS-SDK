@@ -1,8 +1,76 @@
+# Adonit iOS SDK 3.1 Upgrade Notes
+
+## New Pressure API
+Pressure has been given a more simple 0.0 to 1.0 float value range with an Adonit calibrated pressure curve for simplicity and convenience. The raw pressure can still be accessed for creating custom pressure curves if needed. 
+```
+/*! A float between 0 and 1 indicating the pressure associated with the jotStroke, calculated from the raw pressure.
+ */
+@property (nonatomic, readonly) CGFloat pressure;
+
+/*! The raw pressure associated with the jotStroke.
+ */
+@property (nonatomic, readonly) NSUInteger rawPressure;
+```
+
+## Altitude Angle with JotStrokes
+
+Check with the JotStylusManager to see if what allitude capabilities the connected stylus has with the `stylusSupportsAltitudeAngle` and `minimumAltitudeAngleSupported` properties.
+```
+/**
+ * Indicates whether the connected stylus supports a variable altitude angle.
+ */
+@property (readonly) BOOL stylusSupportsAltitudeAngle;
+
+/**
+ * The minimum achievable altitude angle of stylus. Lower angles can cause the styluses pressure sensor to no longer touch the screen. Use this measurement to map tilt effects across the styluses useable range, or as a way to determine if stylus can be used in a "tilt-to-shade" mode.
+ */
+@property (readonly) CGFloat minimumAltitudeAngleSupported;
+```
+Fetch the current `altitudeAngle` form a JotStroke object.
+
+```
+/*! A value of 0 radians indicates that the stylus is parallel to the surface; when the stylus is perpendicular to the surface, altitudeAngle is Pi/2.
+    Styluses that do not support altitude angle (Such as Jot Script and Jot Touch 4) will return a value of Pi/4.
+ */
+@property (nonatomic, readonly) CGFloat altitudeAngle;
+```
+
+## Predictive JotStrokes
+
+Enable and adjust predictive JotStrokes in the JotStylusManager using the `predictedJotStrokesEnabled` and `predictedJotStrokeLagMulitplier` properties.
+```
+/**
+* Turn this on to enable predictedJotStrokes similar to predictedUITouches. Only available in iOS 9 and later. See JotStroke.h for more information.
+*/
+@property (readwrite) BOOL predictedJotStrokesEnabled;
+
+/**
+* Since the purpose of predicted strokes is to eliminate lag, this multiplier can be tweaked to apply the appropriate amount of prediction tuned to an apps specific drawing engine. The higher the number, the further out a predicted stroke will go. Ideally the prediction will get a stroke very close to the tip of a fast moving stylus without overshooting it. Default value is 1.75.
+*/
+@property (nonatomic, readwrite) CGFloat predictedJotStrokeLagMulitplier;
+```
+
+Retreive JotStrokes from the `predictedJotStrokes` property of a JotStroke object.
+```
+
+/*! An array of auxiliary JotStrokes for stroke events that are predicted to occur for a given main JotStroke. These predictions may not exactly match the real behavior of the stroke as the stylus moves, so they should be interpreted as an estimate. To enable predictedJotStrokes turn on "predictedJotStrokesEnabled" on an instance of JotStylusManager.
+*/
+@property (nonatomic, readonly) NSArray *predictedJotStrokes;
+```
+
+### DebugStatusViewController
+
+We now offer a debug controller for diagnostic information on the connected stylus. While this is not intended to be used in a shipping app, it can help trouble shoot issues, and provide insight into how the hardware works.
+
+```
+//A view controller that can be used to show the hardware status for debugging purposes
+extern NSString * const AdonitViewControllerDebugStatusIdentifier;
+```
+
 # Adonit iOS SDK 3.0 Upgrade Notes
 
-step 1: Sending Events
-
-step 2: Hook up Stylus Events
+Step 1: **Sending Events**  
+Step 2: **Hook up Stylus Events**  
 
 ## Sending Events
 
@@ -58,25 +126,23 @@ The critical code is to make sure you call `classifyAdonitDeviceIdentificationFo
 
 Most of the stylus integration from this point on is similar to 2.7 of our SDK, but we have changed some names to more closely reflect the purpose and function of our SDK.
 
-`JotPalmRejectionDelegate` ->                                 `jotStrokeDelegate`
-
-`[JotStylusManager sharedInstance].palmRejectorDelegate` ->   `[JotStylusManager sharedInstance].jotStrokeDelegate`
-
-`JotTouch` object ->                                          `JotStroke` object
+`JotPalmRejectionDelegate` ->                                 `jotStrokeDelegate`  
+`[JotStylusManager sharedInstance].palmRejectorDelegate` ->   `[JotStylusManager sharedInstance].jotStrokeDelegate`  
+`JotTouch` object ->                                          `JotStroke` object  
 
 Similar to the renaming to `JotStroke` Objects and a `JotStrokeDelegate`, the delegate events with stylus information have also been renamed.
 
-`jotStylusTouchBegan:` ->                                     `jotStylusStrokeBegan:`
-`jotStylusTouchMoved:` ->                                     `jotStylusStrokeMoved:`
-`jotStylusTouchEnded:` ->                                     `jotStylusStrokeEnded:`
-`jotStylusTouchCancelled:` ->                                 `jotStylusStrokeCancelled:`
+`jotStylusTouchBegan:` ->                                     `jotStylusStrokeBegan:`  
+`jotStylusTouchMoved:` ->                                     `jotStylusStrokeMoved:`  
+`jotStylusTouchEnded:` ->                                     `jotStylusStrokeEnded:`  
+`jotStylusTouchCancelled:` ->                                 `jotStylusStrokeCancelled:`  
 
 Also note, that these stylus events now directly provide the stroke object, instead of embedding them within an `NSSet` object.
 
-`- (void)jotStylusStrokeBegan:(nonnull JotStroke *)stylusStroke;`
-`- (void)jotStylusStrokeMoved:(nonnull JotStroke *)stylusStroke;`
-`- (void)jotStylusStrokeEnded:(nonnull JotStroke *)stylusStroke;`
-`- (void)jotStylusStrokeCancelled:(nonnull JotStroke *)stylusStroke;`
+`- (void)jotStylusStrokeBegan:(nonnull JotStroke *)stylusStroke;`  
+`- (void)jotStylusStrokeMoved:(nonnull JotStroke *)stylusStroke;`  
+`- (void)jotStylusStrokeEnded:(nonnull JotStroke *)stylusStroke;`  
+`- (void)jotStylusStrokeCancelled:(nonnull JotStroke *)stylusStroke;`  
 
 # JotTouchSDK 2.7 Upgrade Notes
 

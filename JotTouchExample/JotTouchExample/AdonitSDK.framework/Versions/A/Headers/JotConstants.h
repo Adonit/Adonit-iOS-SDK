@@ -22,6 +22,10 @@ extern NSString * const JotStylusManagerDidChangeBatteryLevel;
 extern NSString * const JotStylusManagerDidChangeStylusFriendlyName;
 extern NSString * const JotStylusManagerDidChangeStylusFriendlyNameNameKey;
 
+extern NSString * const JotStylusTrackingPressureForConnectionNotification;
+extern NSString * const JotStylusTrackingPressureForConnectionFailedNotification;
+extern NSString * const JotStylusTrackingPressureForConnectionSuccessfulNotification;
+
 // Notification sent when the battery changes state to normal. Normal is 20-100%
 extern NSString * const JotStylusNotificationBatteryLevelNormal;
 
@@ -42,11 +46,6 @@ extern NSString * const JotStylusButton2Down;
 
 // Notification sent when the user releases button 2
 extern NSString * const JotStylusButton2Up;
-
-extern NSString * const JotStylusTrackingPressureForConnectionNotification;
-extern NSString * const JotStylusTrackingPressureForConnectionFailedNotification;
-extern NSString * const JotStylusTrackingPressureForConnectionSuccessfulNotification;
-
 
 /**
  * Describes how the user typically holds their Jot

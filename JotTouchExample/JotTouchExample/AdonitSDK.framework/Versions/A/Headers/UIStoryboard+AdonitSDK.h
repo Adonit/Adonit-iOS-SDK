@@ -28,6 +28,9 @@ extern NSString * const JotViewControllerShortCutsIdentifier;
 //A view controller that can be used to show the battery level of a Jot
 extern NSString * const JotViewControllerBatteryIdentifier;
 
+//A view controller that can be used to show the hardware status for debugging purposes
+extern NSString * const AdonitViewControllerDebugStatusIdentifier;
+
 /**
  * Allows for the creation of Jot View Controllers which assist in the connection and configuration of Jots
  */

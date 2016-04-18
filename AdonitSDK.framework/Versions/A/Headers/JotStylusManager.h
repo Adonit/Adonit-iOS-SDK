@@ -188,6 +188,16 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (readonly) BOOL stylusSupportsPressureSensitivity;
 
 /**
+ * Indicates whether the connected stylus supports a variable altitude angle.
+ */
+@property (readonly) BOOL stylusSupportsAltitudeAngle;
+
+/**
+ * The minimum achievable altitude angle of stylus. Lower angles can cause the styluses pressure sensor to no longer touch the screen. Use this measurement to map tilt effects across the styluses useable range, or as a way to determine if stylus can be used in a "tilt-to-shade" mode.
+ */
+@property (readonly) CGFloat minimumAltitudeAngleSupported;
+
+/**
  * A positive integer specifying the amount of battery remaining
  */
 @property (readonly) NSUInteger batteryLevel;
@@ -213,6 +223,16 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * Turn this on to enable coalescedJotStrokes similar to coalescedUITouches. Only available in iOS 9 and later. See JotStroke.h for more information.
  */
 @property (readwrite) BOOL coalescedJotStrokesEnabled;
+
+/**
+ * Turn this on to enable predictedJotStrokes similar to predictedUITouches. Only available in iOS 9 and later. See JotStroke.h for more information.
+ */
+@property (readwrite) BOOL predictedJotStrokesEnabled;
+
+/**
+ * Since the purpose of predicted strokes is to eliminate lag, this multiplier can be tweaked to apply the appropriate amount of prediction tuned to an apps specific drawing engine. The higher the number, the further out a predicted stroke will go. Ideally the prediction will get a stroke very close to the tip of a fast moving stylus without overshooting it. Default value is 1.75.
+ */
+@property (nonatomic, readwrite) CGFloat predictedJotStrokeLagMulitplier;
 
 /**
  * An enum specifying the current writing style and prefered writing hand. Default to JotWritingStyleRightAverage
@@ -286,6 +306,11 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * @param shortcut The default option of the second stylus button shortcut to be added to the settings interface
  */
 - (void)addShortcutOptionButton2Default:(JotShortcut *)shortcut;
+
+/**
+ * Removes the current shortcuts
+ */
+- (void)removeAllShorcuts;
 
 #pragma mark - SDK Info
 

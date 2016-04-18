@@ -1,20 +1,30 @@
 #AdonitSDK Change Log
 
+#v3.1 
+- Support for upcoming Adonit Stylus
+- Predictive jotStrokes.
+- JotStroke pressure is now an adonit calibrated pressure curve that returns a float value beween 0.0 and 1.0
+- Added "rawPressure" property to JotStroke for access to NSUInteger raw pressure value. (Similar to pressure in previous versions of the SDK).
+- Added allitutde angle to JotStroke on supported styluses.
+- Added "stylusSupportsAltitudeAngle" property to JotStylusManager.
+- Added "minimumAltitudeAngleSupported" property to JotStylusManager.
+- New "AdonitViewControllerDebugStatusIdentifier" JotModelController for debug information on a connected stylus.
+
 # v3.0.4
 - Fixed an issue that could cause JotStroke ended events to have a nil view property.
 - Fixed an issue that could cause JotStroke ended events to have an incorrect location.
 - Minor performance and stability updates.
 
 # v3.0.3
--Fixed an issue where repeatedly connecting and disconnecting a stylus could cause a crash.
--Fixed an issue where quick multiple strokes could cause a crash.
--Fixed an issue where an end stroke could jump down to a users onscreen palm.
+- Fixed an issue where repeatedly connecting and disconnecting a stylus could cause a crash.
+- Fixed an issue where quick multiple strokes could cause a crash.
+- Fixed an issue where an end stroke could jump down to a users onscreen palm.
 
 # v3.0.2
--Fixed an issue with the "Done" button not always appearing with our Settings UI on iPhone or in iOS 9 multi-tasking.
+- Fixed an issue with the "Done" button not always appearing with our Settings UI on iPhone or in iOS 9 multi-tasking.
 
 # V3.0.1
--Fixed an issue that could cause a crash in the iOS Simulator.
+- Fixed an issue that could cause a crash in the iOS Simulator.
 
 # V3.0 
 - Fixed a crash around switching in and out of an app in iOS 9 with a connected Stylus.

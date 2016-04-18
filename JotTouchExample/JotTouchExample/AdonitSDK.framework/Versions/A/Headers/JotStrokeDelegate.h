@@ -20,7 +20,7 @@
 /** Called when the stylus begins a stroke event
  * @param jotStroke where the stylus began its stroke
  */
-- (void)jotStylusStrokeBegan:(nonnull JotStroke *) stylusStroke;
+- (void)jotStylusStrokeBegan:(nonnull JotStroke *)stylusStroke;
 
 /** Called when the jot stylus moves across the screen
  * @param jotStroke where stylus is moving
