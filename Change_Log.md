@@ -1,5 +1,9 @@
 #AdonitSDK Change Log
 
+#v3.1.1
+- Improved responsiveness of altitudeAngle on jotStroke with compatible styluses.
+- Updated default primaryColor of JotSettings UI to match Adonit Branding. (Can still be changed to match your apps palette.)
+
 #v3.1 
 - Support for upcoming Adonit Stylus
 - Predictive jotStrokes.
