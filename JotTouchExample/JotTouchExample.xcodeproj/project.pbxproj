@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		1C83D2411BB2F73E00F9048F /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C83D2401BB2F73E00F9048F /* Helper.m */; };
 		1C83D2441BB2FBBF00F9048F /* UIEvent+iOS8.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C83D2431BB2FBBF00F9048F /* UIEvent+iOS8.m */; };
-		3C0F5F381CD12256009C5B60 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3C0F5F371CD12256009C5B60 /* AdonitSDK.bundle */; };
-		3C0F5F3A1CD12260009C5B60 /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0F5F391CD12260009C5B60 /* AdonitSDK.framework */; };
+		3C600B6B1CDBEE3B0012E354 /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C600B6A1CDBEE3B0012E354 /* AdonitSDK.framework */; };
+		3C600B6D1CDBEE410012E354 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3C600B6C1CDBEE410012E354 /* AdonitSDK.bundle */; };
 		3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CCAF05D1A7A86A70023607E /* Launch Screen.xib */; };
 		3CDB12801AE6EBD30066B9C5 /* Brush.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDB127F1AE6EBD30066B9C5 /* Brush.m */; };
 		3CDB12811AE6EBD30066B9C5 /* Brush.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDB127F1AE6EBD30066B9C5 /* Brush.m */; };
@@ -51,8 +51,8 @@
 		1C83D2401BB2F73E00F9048F /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		1C83D2421BB2FBBF00F9048F /* UIEvent+iOS8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEvent+iOS8.h"; sourceTree = "<group>"; };
 		1C83D2431BB2FBBF00F9048F /* UIEvent+iOS8.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIEvent+iOS8.m"; sourceTree = "<group>"; };
-		3C0F5F371CD12256009C5B60 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdonitSDK.bundle; sourceTree = "<group>"; };
-		3C0F5F391CD12260009C5B60 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdonitSDK.framework; sourceTree = "<group>"; };
+		3C600B6A1CDBEE3B0012E354 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdonitSDK.framework; sourceTree = "<group>"; };
+		3C600B6C1CDBEE410012E354 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdonitSDK.bundle; sourceTree = "<group>"; };
 		3CCAF05D1A7A86A70023607E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		3CDB127E1AE6EBD30066B9C5 /* Brush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brush.h; sourceTree = "<group>"; };
 		3CDB127F1AE6EBD30066B9C5 /* Brush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brush.m; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C0F5F3A1CD12260009C5B60 /* AdonitSDK.framework in Frameworks */,
+				3C600B6B1CDBEE3B0012E354 /* AdonitSDK.framework in Frameworks */,
 				7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */,
 				7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */,
 				7747ECD01A1BDF2900D18429 /* CoreMotion.framework in Frameworks */,
@@ -232,8 +232,8 @@
 		7747ECCE1A1BDF1100D18429 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3C0F5F371CD12256009C5B60 /* AdonitSDK.bundle */,
-				3C0F5F391CD12260009C5B60 /* AdonitSDK.framework */,
+				3C600B6C1CDBEE410012E354 /* AdonitSDK.bundle */,
+				3C600B6A1CDBEE3B0012E354 /* AdonitSDK.framework */,
 				7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */,
 				7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */,
 				7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */,
@@ -324,7 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */,
-				3C0F5F381CD12256009C5B60 /* AdonitSDK.bundle in Resources */,
+				3C600B6D1CDBEE410012E354 /* AdonitSDK.bundle in Resources */,
 				3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */,
 				7747EC8D1A1BDC9700D18429 /* Images.xcassets in Resources */,
 			);
