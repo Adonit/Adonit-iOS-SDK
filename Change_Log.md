@@ -1,11 +1,12 @@
 #AdonitSDK Change Log
 
 #v3.1.3
--New 3x Assets for all images for better fidelity on iPhone 6 Plus and iPhone 6s Plus.
--New pixel assets for shortcut buttons when an Adonit Pixel is connected.
--By optimizing assets and some occasional programatic drawing, we’ve reduced the bundle size by 50% despite adding in pixel assets.
--Minor Performance increase of offset correction when palms are detected on screen.
--Improved coalescing of coalescedJotStrokes at the beginning of a stroke.
+
+-New 3x Assets for all images for better fidelity on iPhone 6 Plus and iPhone 6s Plus.  
+-New pixel assets for shortcut buttons when an Adonit Pixel is connected.  
+-By optimizing assets and some occasional programatic drawing, we’ve reduced the bundle size by 50% despite adding in pixel assets.  
+-Minor Performance increase of offset correction when palms are detected on screen.  
+-Improved coalescing of coalescedJotStrokes at the beginning of a stroke.  
 -Removed Support for iOS 7.
 
 #v3.1.2
