@@ -1,4 +1,4 @@
-#Adonit iOS SDK 3.1.2
+#Adonit iOS SDK 3.1.3
 
 **Note:** We are in the process of updating our wiki for the 3.1 version release.
 
@@ -18,7 +18,7 @@ The Adonit iOS SDK is a free framework for iOS that provides you with the necess
 Integrating with the Adonit iOS SDK is easy. Get up and running in no time by viewing our [wiki](https://github.com/Adonit/Adonit-iOS-SDK/wiki).
 
 ##What versions of iOS are Supported?
-The Adonit iOS SDK supports iOS 7.x, 8.x, and 9.x. Note: All future versions of this SDK will no longer support iOS 7.x.
+The Adonit iOS SDK supports iOS 8.x, and 9.x.
 
 ##Reporting Bugs
 If you’ve uncovered a bug or have any feedback let us know by sending us an email to [developers@adonit.net](mailto:developers@adonit.net).
