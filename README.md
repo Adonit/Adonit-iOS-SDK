@@ -1,6 +1,6 @@
-#Adonit iOS SDK 3.1.3
+#Adonit iOS SDK 3.1.4
 
-**Note:** We are in the process of updating our wiki for the 3.1 version release.
+**Note:** We are in the process of updating our wiki for the 3.1.4 version release.
 
 Please provide any bugs or feedback reports to [developers@adonit.net](mailto:developers@adonit.net).
 
