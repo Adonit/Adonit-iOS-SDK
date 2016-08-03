@@ -1,0 +1,424 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D5D3AE01D51A08B00859878 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */; };
+		4D5D3AE11D51A08B00859878 /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */; };
+		4D5D3AE21D51A0E900859878 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B2ADB211ADDBE77000A3214 /* Main.storyboard */; };
+		4D5D3AE31D51A0E900859878 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B2ADB261ADDBE77000A3214 /* LaunchScreen.xib */; };
+		9B2ADB1E1ADDBE77000A3214 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2ADB1D1ADDBE77000A3214 /* AppDelegate.swift */; };
+		9B2ADB251ADDBE77000A3214 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B2ADB241ADDBE77000A3214 /* Images.xcassets */; };
+		9B3980F51AF01B33003790A9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3980F41AF01B33003790A9 /* main.swift */; };
+		9B7CA4D01AFAA16500B87A21 /* DrawingToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7CA4CF1AFAA16500B87A21 /* DrawingToolbarViewController.swift */; };
+		9BA9DA8D1AE03FF3002359B2 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9DA8C1AE03FF3002359B2 /* DrawingViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdonitSDK.bundle; sourceTree = "<group>"; };
+		4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdonitSDK.framework; sourceTree = "<group>"; };
+		9B2ADB181ADDBE77000A3214 /* JotTouchSwiftExampleNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotTouchSwiftExampleNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B2ADB1C1ADDBE77000A3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B2ADB1D1ADDBE77000A3214 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9B2ADB221ADDBE77000A3214 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9B2ADB241ADDBE77000A3214 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9B2ADB271ADDBE77000A3214 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9B2ADB321ADDBE77000A3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B2ADB331ADDBE77000A3214 /* JotWorkshopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JotWorkshopTests.swift; sourceTree = "<group>"; };
+		9B3980F41AF01B33003790A9 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		9B7CA4CF1AFAA16500B87A21 /* DrawingToolbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingToolbarViewController.swift; sourceTree = "<group>"; };
+		9BA9DA8C1AE03FF3002359B2 /* DrawingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
+		9BE0B8231B41E239002A28F6 /* Libraries.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Libraries.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9B2ADB151ADDBE77000A3214 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D5D3AE11D51A08B00859878 /* AdonitSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9B2ADB0F1ADDBE77000A3214 = {
+			isa = PBXGroup;
+			children = (
+				4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */,
+				4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */,
+				9B2ADB1A1ADDBE77000A3214 /* JotWorkshop */,
+				9B2ADB301ADDBE77000A3214 /* JotWorkshopTests */,
+				9B2ADB191ADDBE77000A3214 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9B2ADB191ADDBE77000A3214 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B2ADB181ADDBE77000A3214 /* JotTouchSwiftExampleNew.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9B2ADB1A1ADDBE77000A3214 /* JotWorkshop */ = {
+			isa = PBXGroup;
+			children = (
+				9BA9DA8B1AE03FBD002359B2 /* Views */,
+				9BEBF14B1ADDE04A004202F8 /* Libraries */,
+				9B3980FA1AF01C11003790A9 /* Assets */,
+				9B2ADB1B1ADDBE77000A3214 /* Supporting Files */,
+			);
+			path = JotWorkshop;
+			sourceTree = "<group>";
+		};
+		9B2ADB1B1ADDBE77000A3214 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B3980F41AF01B33003790A9 /* main.swift */,
+				9B2ADB1D1ADDBE77000A3214 /* AppDelegate.swift */,
+				9B2ADB1C1ADDBE77000A3214 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9B2ADB301ADDBE77000A3214 /* JotWorkshopTests */ = {
+			isa = PBXGroup;
+			children = (
+				9B2ADB331ADDBE77000A3214 /* JotWorkshopTests.swift */,
+				9B2ADB311ADDBE77000A3214 /* Supporting Files */,
+			);
+			path = JotWorkshopTests;
+			sourceTree = "<group>";
+		};
+		9B2ADB311ADDBE77000A3214 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9B2ADB321ADDBE77000A3214 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9B3980FA1AF01C11003790A9 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9B2ADB211ADDBE77000A3214 /* Main.storyboard */,
+				9B2ADB241ADDBE77000A3214 /* Images.xcassets */,
+				9B2ADB261ADDBE77000A3214 /* LaunchScreen.xib */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		9BA9DA8B1AE03FBD002359B2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9BAD45AA1AFBC6040083ACF2 /* Toolbar */,
+				9BA9DA8C1AE03FF3002359B2 /* DrawingViewController.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		9BAD45AA1AFBC6040083ACF2 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				9B7CA4CF1AFAA16500B87A21 /* DrawingToolbarViewController.swift */,
+			);
+			name = Toolbar;
+			sourceTree = "<group>";
+		};
+		9BEBF14B1ADDE04A004202F8 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				9BE0B8231B41E239002A28F6 /* Libraries.h */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9B2ADB171ADDBE77000A3214 /* JotTouchSwiftExampleNew */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B2ADB371ADDBE77000A3214 /* Build configuration list for PBXNativeTarget "JotTouchSwiftExampleNew" */;
+			buildPhases = (
+				9B2ADB141ADDBE77000A3214 /* Sources */,
+				9B2ADB151ADDBE77000A3214 /* Frameworks */,
+				9B2ADB161ADDBE77000A3214 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JotTouchSwiftExampleNew;
+			productName = JotWorkshop;
+			productReference = 9B2ADB181ADDBE77000A3214 /* JotTouchSwiftExampleNew.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9B2ADB101ADDBE77000A3214 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Adonit;
+				TargetAttributes = {
+					9B2ADB171ADDBE77000A3214 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+				};
+			};
+			buildConfigurationList = 9B2ADB131ADDBE77000A3214 /* Build configuration list for PBXProject "JotTouchSwiftExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9B2ADB0F1ADDBE77000A3214;
+			productRefGroup = 9B2ADB191ADDBE77000A3214 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9B2ADB171ADDBE77000A3214 /* JotTouchSwiftExampleNew */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9B2ADB161ADDBE77000A3214 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D5D3AE21D51A0E900859878 /* Main.storyboard in Resources */,
+				4D5D3AE31D51A0E900859878 /* LaunchScreen.xib in Resources */,
+				4D5D3AE01D51A08B00859878 /* AdonitSDK.bundle in Resources */,
+				9B2ADB251ADDBE77000A3214 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9B2ADB141ADDBE77000A3214 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B2ADB1E1ADDBE77000A3214 /* AppDelegate.swift in Sources */,
+				9B3980F51AF01B33003790A9 /* main.swift in Sources */,
+				9BA9DA8D1AE03FF3002359B2 /* DrawingViewController.swift in Sources */,
+				9B7CA4D01AFAA16500B87A21 /* DrawingToolbarViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9B2ADB211ADDBE77000A3214 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B2ADB221ADDBE77000A3214 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9B2ADB261ADDBE77000A3214 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B2ADB271ADDBE77000A3214 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9B2ADB351ADDBE77000A3214 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = JotWorkshop/Libraries.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9B2ADB361ADDBE77000A3214 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = JotWorkshop/Libraries.h;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9B2ADB381ADDBE77000A3214 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)/JotWorkshop",
+					"$(PROJECT_DIR)",
+				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				INFOPLIST_FILE = JotWorkshop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = net.adonit.jotworkshopnew;
+				PRODUCT_NAME = JotTouchSwiftExampleNew;
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = JotWorkshop/Libraries.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		9B2ADB391ADDBE77000A3214 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)/JotWorkshop",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = JotWorkshop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = net.adonit.jotworkshopnew;
+				PRODUCT_NAME = JotTouchSwiftExampleNew;
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = JotWorkshop/Libraries.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9B2ADB131ADDBE77000A3214 /* Build configuration list for PBXProject "JotTouchSwiftExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B2ADB351ADDBE77000A3214 /* Debug */,
+				9B2ADB361ADDBE77000A3214 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B2ADB371ADDBE77000A3214 /* Build configuration list for PBXNativeTarget "JotTouchSwiftExampleNew" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B2ADB381ADDBE77000A3214 /* Debug */,
+				9B2ADB391ADDBE77000A3214 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9B2ADB101ADDBE77000A3214 /* Project object */;
+}
