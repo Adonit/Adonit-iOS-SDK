@@ -2,7 +2,6 @@
 //  AbstractSegment.m
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 12/19/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 

@@ -2,7 +2,6 @@
 //  UIColor+JotHelper.m
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 1/2/13.
 //  Copyright (c) 2013 Adonit, LLC. All rights reserved.
 //
 

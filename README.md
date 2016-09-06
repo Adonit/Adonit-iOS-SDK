@@ -1,6 +1,4 @@
-#Adonit iOS SDK 3.1.4
-
-**Note:** We are in the process of updating our wiki for the 3.1.4 version release.
+#Adonit iOS SDK 3.2
 
 Please provide any bugs or feedback reports to [developers@adonit.net](mailto:developers@adonit.net).
 
@@ -12,6 +10,7 @@ The Adonit iOS SDK is a free framework for iOS that provides you with the necess
 - Palm Rejection
 - Battery level
 - Settings UI
+- double tap and scroll (Pixel-only)
 
 
 ##How do I use it?
@@ -24,5 +23,5 @@ The Adonit iOS SDK supports iOS 8.x, and 9.x.
 If you’ve uncovered a bug or have any feedback let us know by sending us an email to [developers@adonit.net](mailto:developers@adonit.net).
 
 ##Get Involved
-We're always looking for talented developers to join our team. email us at [software.jobs@adonit.net](mailto:software.jobs@adonit.net) if you're interested in contributing or joining our team.
+We're always looking for talented developers to join our team. email us at [developers@adonit.net](mailto:developers@adonit.net) if you're interested in contributing or joining our team.
 

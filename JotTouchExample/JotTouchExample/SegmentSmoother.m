@@ -2,7 +2,6 @@
 //  SegmentSmoother.m
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 12/19/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
@@ -17,34 +16,42 @@
 
 -(id) init{
     if(self = [super init]){
-        point0 = CGPointMake(-1, -1);
-        point1 = CGPointMake(-1, -1); // previous previous point
-        point2 = CGPointMake(-1, -1); // previous touch point
-        point3 = CGPointMake(-1, -1);
+        point[0] = CGPointMake(-1, -1);
+        point[1] = CGPointMake(-1, -1); // previous previous point
+        point[2] = CGPointMake(-1, -1); // previous touch point
+        point[3] = CGPointMake(-1, -1);
     }
     return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    SegmentSmoother* smoother = [[SegmentSmoother alloc] init];
+    memcpy(smoother->point, point, sizeof(point));
+
+    return smoother;
 }
 
 -(AbstractBezierPathElement*) addPoint:(CGPoint)inPoint{
     
     //
     // update the points
-    point0 = point1;
-    point1 = point2;
-    point2 = point3;
-    point3 = inPoint;
+    point[0] = point[1];
+    point[1] = point[2];
+    point[2] = point[3];
+    point[3] = inPoint;
     
     //
     // determine if we need a new segment
-    if(point1.x > -1){
-        double x0 = (point0.x > -1) ? point0.x : point1.x; //after 4 touches we should have a back anchor point, if not, use the current anchor point
-        double y0 = (point0.y > -1) ? point0.y : point1.y; //after 4 touches we should have a back anchor point, if not, use the current anchor point
-        double x1 = point1.x;
-        double y1 = point1.y;
-        double x2 = point2.x;
-        double y2 = point2.y;
-        double x3 = point3.x;
-        double y3 = point3.y;
+    if(point[1].x > -1){
+        double x0 = (point[0].x > -1) ? point[0].x : point[1].x; //after 4 touches we should have a back anchor point, if not, use the current anchor point
+        double y0 = (point[0].y > -1) ? point[0].y : point[1].y; //after 4 touches we should have a back anchor point, if not, use the current anchor point
+        double x1 = point[1].x;
+        double y1 = point[1].y;
+        double x2 = point[2].x;
+        double y2 = point[2].y;
+        double x3 = point[3].x;
+        double y3 = point[3].y;
         
         // Assume we need to calculate the control
         // points between (x1,y1) and (x2,y2).
@@ -81,21 +88,21 @@
         CGFloat ctrl2_y = ym2 + (yc2 - ym2) * smooth_value + y2 - ym2;
         
         if(isnan(ctrl1_x) || isnan(ctrl1_y)){
-            ctrl1_x = point1.x;
-            ctrl1_y = point1.y;
+            ctrl1_x = point[1].x;
+            ctrl1_y = point[1].y;
         }
         
         if(isnan(ctrl2_x) || isnan(ctrl2_y)){
-            ctrl2_x = point2.x;
-            ctrl2_y = point2.y;
+            ctrl2_x = point[2].x;
+            ctrl2_y = point[2].y;
         }
         
-        return [CurveToPathElement elementWithStart:point1
-                                         andCurveTo:point2
+        return [CurveToPathElement elementWithStart:point[1]
+                                         andCurveTo:point[2]
                                         andControl1:CGPointMake(ctrl1_x, ctrl1_y)
                                         andControl2:CGPointMake(ctrl2_x, ctrl2_y)];
-    }else if(point2.x == -1){
-        return [MoveToPathElement elementWithMoveTo:point3];
+    }else if(point[2].x == -1){
+        return [MoveToPathElement elementWithMoveTo:point[3]];
     }
     
     return nil;
@@ -139,10 +146,10 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element) {
 {
     //
     // update the points
-    point0 = point1;
-    point1 = point2;
-    point2 = point3;
-    point3 = bezierPath.currentPoint;
+    point[0] = point[1];
+    point[1] = point[2];
+    point[2] = point[3];
+    point[3] = bezierPath.currentPoint;
     
     if (bezierPath) {
         CGPathRef yourCGPath = bezierPath.CGPath;
@@ -164,7 +171,7 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element) {
             {
                 NSValue *pointValue1 = bezierPoints[0];
                 NSValue *pointValue2 = bezierPoints[1];
-               
+
                 return @[[LineToPathElement elementWithStart:pointValue1.CGPointValue andLineTo:pointValue2.CGPointValue]];
             }
             case 3:
@@ -172,10 +179,10 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element) {
                 NSValue *pointValue1 = bezierPoints[0];
                 NSValue *pointValue2 = bezierPoints[1];
                 
-                return @[[CurveToPathElement elementWithStart:point1
-                                                 andCurveTo:point2
-                                                andControl1:pointValue1.CGPointValue
-                                                andControl2:pointValue2.CGPointValue]];
+                return @[[CurveToPathElement elementWithStart:point[1]
+                                                   andCurveTo:point[2]
+                                                  andControl1:pointValue1.CGPointValue
+                                                  andControl2:pointValue2.CGPointValue]];
             }
             case 4:
             {
@@ -185,9 +192,9 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element) {
                 NSValue *pointValue4 = bezierPoints[3];
                 
                 return @[[CurveToPathElement elementWithStart:pointValue1.CGPointValue
-                                                 andCurveTo:pointValue4.CGPointValue
-                                                andControl1:pointValue2.CGPointValue
-                                                andControl2:pointValue3.CGPointValue]];
+                                                   andCurveTo:pointValue4.CGPointValue
+                                                  andControl1:pointValue2.CGPointValue
+                                                  andControl2:pointValue3.CGPointValue]];
             }
             case 8:
             {
@@ -213,14 +220,14 @@ void MyCGPathApplierFunc (void *info, const CGPathElement *element) {
                                                                                andControl2:pointValue7.CGPointValue];
                 return @[secondCubicPath, firstCubicPath];
             }
-            
+ 
             default:
             {
                 NSLog(@"Too many points! %lu", (unsigned long)bezierPoints.count);
                 return nil;
             }
         }
-    
+
         return nil;
     } else {
         NSLog(@"Error: UIBezierPath was not valid");

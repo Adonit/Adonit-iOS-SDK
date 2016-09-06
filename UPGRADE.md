@@ -1,3 +1,42 @@
+# Adonit iOS SDK 3.2 Upgrade Notes
+## Add Double Tap (Pixel-only feature)
+
+```
+/**
+* Sets the default option state for a shortcut interface that will be used when first loaded.
+*
+* @param shortcut The option to be used as a default for the first stylus button when double tapped
+*/
+- (void)addShortcutOptionButton1DoubleTapDefault:(JotShortcut *)shortcut;
+
+/**
+* Sets the default option state for the second shortcut that will used when initially loading the interface.
+*
+* @param shortcut The option to be used as a default for the second stylus button when double tapped
+*/
+- (void)addShortcutOptionButton2DoubleTapDefault:(JotShortcut *)shortcut;
+```
+
+## Scroll (Pixel-only feature)
+
+```
+/**
+* Turn this on to enable enable scroll function.
+*/
+- (void)setRequireScrollData:(BOOL)enabled;
+
+
+/**
+* Scroll vaule callback function.
+*/
+- (void)scrollValueUpdate:(CGFloat)value;
+```
+
+
+## Adjust stroke correction
+```
+[[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithInteger:value] forKey:@"net.adonit.pointCorrectorValue"];
+```
 # Adonit iOS SDK 3.1 Upgrade Notes
 
 ## New Pressure API
@@ -81,9 +120,9 @@ The first integration point is to make sure events are being delivered to the ne
 
 int main(int argc, char *argv[])
 {
-	@autoreleasepool {
-		return UIApplicationMain(argc, argv, NSStringFromClass([JotDrawingApplication class]), NSStringFromClass([AppDelegate class]));
-	}
+@autoreleasepool {
+return UIApplicationMain(argc, argv, NSStringFromClass([JotDrawingApplication class]), NSStringFromClass([AppDelegate class]));
+}
 }
 ```
 If you do not want to subclass `JotDrawingApplication`, you can implement your own event delivery in your own `UIApplication` subclass by overriding the `sendEvent` method. Below is the code used in `JotDrawingApplication`.
@@ -103,17 +142,17 @@ If you do not want to subclass `JotDrawingApplication`, you can implement your o
 
 - (AdonitTouchTypeIdentifier *)touchTypeIdentifier
 {
-	if (!_touchTypeIdentifier) {
-		_touchTypeIdentifier = [JotStylusManager sharedInstance].touchTypeIdentifier;
-	}
+if (!_touchTypeIdentifier) {
+_touchTypeIdentifier = [JotStylusManager sharedInstance].touchTypeIdentifier;
+}
 
-	return _touchTypeIdentifier;
+return _touchTypeIdentifier;
 }
 
 - (void)sendEvent:(UIEvent *)event
 {
-	[self.touchTypeIdentifier classifyAdonitDeviceIdentificationForEvent:event];
-	[super sendEvent:event];
+[self.touchTypeIdentifier classifyAdonitDeviceIdentificationForEvent:event];
+[super sendEvent:event];
 }
 
 @end

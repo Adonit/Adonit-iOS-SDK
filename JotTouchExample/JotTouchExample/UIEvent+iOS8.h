@@ -2,7 +2,6 @@
 //  UIEvent+iOS8.h
 //  JotTouchExample
 //
-//  Created by Rohan Parolkar on 9/23/15.
 //  Copyright © 2015 Adonit, USA. All rights reserved.
 //
 
@@ -16,5 +15,6 @@
  */
 
 - (NSArray *)coalescedTouchesIfAvailableForTouch:(UITouch *)touch;
+- (NSArray *)predictedTouchesIfAvailableForTouch:(UITouch *)touch;
 
 @end

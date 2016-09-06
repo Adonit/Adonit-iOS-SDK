@@ -47,6 +47,11 @@ extern NSString * const JotStylusButton2Down;
 // Notification sent when the user releases button 2
 extern NSString * const JotStylusButton2Up;
 
+extern NSString * const JotStylusButton1DoubleTap;
+extern NSString * const JotStylusButton2DoubleTap;
+extern NSString * const JotStylusScrollRelativeValueUpdated;
+extern NSString * const JotStylusScrollValue;
+
 /**
  * Describes how the user typically holds their Jot
  */

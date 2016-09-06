@@ -2,7 +2,6 @@
 //  CanvasView.h
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 11/19/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
@@ -13,11 +12,15 @@
 #import <AdonitSDK/AdonitSDK.h>
 #import "Brush.h"
 
-@class SegmentSmoother, ViewController;
+@class ColorPaletteLibrary,BrushLibrary, SegmentSmoother, ViewController;
 
 @interface CanvasView : UIView <JotStrokeDelegate>
 @property (nonatomic, weak) IBOutlet ViewController* viewController;
+@property (nonatomic) ColorPaletteLibrary *colorLibrary;
+@property (nonatomic) BrushLibrary *brushLibrary;
+@property (nonatomic) UIColor *currentColor;
 @property (nonatomic) Brush *currentBrush;
+@property (nonatomic) BOOL altitudeEnable;
 
 // erase the screen
 - (IBAction) clear;
@@ -28,4 +31,6 @@
 // redo the last undo, if any
 - (IBAction) redo;
 
+- (void)scrollToZoom:(CGFloat)zoomScale;
+- (void)setAltitudeEnable:(BOOL)enabled;
 @end

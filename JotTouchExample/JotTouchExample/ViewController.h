@@ -2,7 +2,6 @@
 //  ViewController.h
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 12/8/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
@@ -12,11 +11,18 @@
 #import "StylusSettingsButton.h"
 #import "JotTouchStatusHUD.h"
 #import "JotStatusIndicatorView.h"
+#import "AdonitPrototypeViewController.h"
+#import "AdonitPrototypeOverlayViewController.h"
 
+
+@class ColorPaletteLibrary,BrushLibrary;
 @interface ViewController : UIViewController <UIPopoverControllerDelegate>
 
 // Canvas to draw on for testing
 @property (nonatomic, weak) IBOutlet CanvasView *canvasView;
+@property (weak, nonatomic) AdonitPrototypeViewController *protoController;
+@property (weak, nonatomic) AdonitPrototypeOverlayViewController *overlayController;
+@property (weak, nonatomic) IBOutlet UIView *configContainerView;
 
 // User Interface
 @property (nonatomic, weak) IBOutlet UIButton *adonitLogo;
@@ -29,11 +35,15 @@
 // JotStatusIndicators Properties & Methods
 @property (nonatomic, weak) IBOutlet JotStatusIndicatorView* jotStatusIndicatorContainerView;
 
+@property (nonatomic, weak) id<JotStylusScrollValueDelegate> scrollValueDelegate;
+
 - (IBAction)clear;
 - (IBAction)gestureSwitchValueChanged;
 - (IBAction)adonitLogoButtonPressed:(UIButton *)sender;
 
 - (void)handleJotSuggestsToDisableGestures;
 - (void)handleJotSuggestsToEnableGestures;
-
+- (void)updateProtoTypeBrushColor;
+- (void)updateProtoTypeBrushSize;
+- (void)cancelTap;
 @end

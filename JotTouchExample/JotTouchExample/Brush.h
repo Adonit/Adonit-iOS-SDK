@@ -2,7 +2,6 @@
 //  Brush.h
 //  JotTouchExample
 //
-//  Created by Ian on 4/21/15.
 //  Copyright (c) 2015 Adonit, USA. All rights reserved.
 //
 
@@ -11,15 +10,45 @@
 @interface Brush : NSObject
 
 @property (nonatomic) UIColor *brushColor;
+@property (readonly) UIColor *nonEraserColor;
 
+@property (nonatomic) CGFloat minPressureOpacity;
+@property (nonatomic) CGFloat maxPressureOpacity;
 @property CGFloat minOpacity;
 @property CGFloat maxOpacity;
 
+@property (nonatomic) CGFloat minPressureSize;
+@property (nonatomic) CGFloat maxPressureSize;
 @property CGFloat minSize;
 @property CGFloat maxSize;
 
 @property BOOL isEraser;
 
+@property (nonatomic) UIImage *selectedIcon;
+@property (nonatomic) UIImage *unselectedIcon;
+
 -(instancetype)init;
--(instancetype)initWithMinOpac:(CGFloat)minOpac maxOpac:(CGFloat)maxOpac minSize:(CGFloat)minSize maxSize:(CGFloat)maxSize isEraser:(BOOL)isEraser;
+
+-(instancetype)initWithMinPressureOpacity:(CGFloat)minPressureOpacity
+                       maxPressureOpacity:(CGFloat)maxPressureOpacity
+                               minOpacity:(CGFloat)minOpacity
+                               maxOpacity:(CGFloat)maxOpacity
+                          minPressureSize:(CGFloat)minPressureSize
+                          maxPressureSize:(CGFloat)maxPressureSize
+                                  minSize:(CGFloat)minSize
+                                  maxSize:(CGFloat)maxSize
+                                 isEraser:(BOOL)isEraser;
+
+-(instancetype)initWithMinPressureOpacity:(CGFloat)minPressureOpacity
+                       maxPressureOpacity:(CGFloat)maxPressureOpacity
+                               minOpacity:(CGFloat)minOpacity
+                               maxOpacity:(CGFloat)maxOpacity
+                          minPressureSize:(CGFloat)minPressureSize
+                          maxPressureSize:(CGFloat)maxPressureSize
+                                  minSize:(CGFloat)minSize
+                                  maxSize:(CGFloat)maxSize
+                             selectedIcon:(UIImage *)selectedIcon
+                           unselectedIcon:(UIImage *)unselectedIcon
+                                 isEraser:(BOOL)isEraser;
+
 @end

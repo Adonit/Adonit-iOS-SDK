@@ -2,7 +2,6 @@
 //  StylusSettingsButton.m
 //  JotTouchExample
 //
-//  Created by Ian on 8/9/13.
 //  Copyright (c) 2013 Adonit, LLC. All rights reserved.
 //
 

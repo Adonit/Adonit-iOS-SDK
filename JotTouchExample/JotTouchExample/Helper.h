@@ -2,7 +2,6 @@
 //  Helper.h
 //  JotTouchExample
 //
-//  Created by Rohan Parolkar on 9/23/15.
 //  Copyright © 2015 Adonit, USA. All rights reserved.
 //
 

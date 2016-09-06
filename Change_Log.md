@@ -1,16 +1,22 @@
 #AdonitSDK Change Log
 
+#v3.2
+- Added support for Adonit Pixel-only features: double tap & scroll.
+- Removed option to “Send Diagnostics to Adonit” found in connections UI.
+- Fixed broken link to the “Help” page found in connections UI.
+- Implemented a new mechanism to adjust stroke correction parameters from an online config file
+
 #v3.1.4
-Fix app crash issue when open JotPressToConnectView during bt turn off
-Fix repetitively connect/disconnect different stylus crash issue
+- Fix app crash issue when open JotPressToConnectView during bt turn off
+- Fix repetitively connect/disconnect different stylus crash issue
 
 #v3.1.3
--New 3x Assets for all images for better fidelity on iPhone 6 Plus and iPhone 6s Plus.  
--New pixel assets for shortcut buttons when an Adonit Pixel is connected.  
--By optimizing assets and some occasional programatic drawing, we’ve reduced the bundle size by 50% despite adding in pixel assets.  
--Minor Performance increase of offset correction when palms are detected on screen.  
--Improved coalescing of coalescedJotStrokes at the beginning of a stroke.  
--Removed Support for iOS 7.
+- New 3x Assets for all images for better fidelity on iPhone 6 Plus and iPhone 6s Plus.
+- New pixel assets for shortcut buttons when an Adonit Pixel is connected.
+- By optimizing assets and some occasional programatic drawing, we’ve reduced the bundle size by 50% despite adding in pixel assets.
+- Minor Performance increase of offset correction when palms are detected on screen.
+- Improved coalescing of coalescedJotStrokes at the beginning of a stroke.
+- Removed Support for iOS 7.
 
 #v3.1.2
 - Fixed issue that prevented online configuration file from persisting or appropriately updating.
@@ -137,8 +143,8 @@ Fix repetitively connect/disconnect different stylus crash issue
 - see UPDATE.md for a rundown of API changes in this release
 - fixed numerous bugs when running on legacy iOS 6 devices
 - added ability for SDK to update configuration settings. 
-  this will allow us to support future iOS devices without
-  requiring apps to distribute new builds.
+this will allow us to support future iOS devices without
+requiring apps to distribute new builds.
 - updated example app to support new API changes
 
 # V2.1.0.844 Beta 1

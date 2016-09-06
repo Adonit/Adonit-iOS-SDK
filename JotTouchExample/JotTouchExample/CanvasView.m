@@ -2,7 +2,6 @@
 //  CanvasView.m
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 11/19/12.
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
@@ -17,8 +16,39 @@
 #import "UIColor+Components.h"
 #import "ViewController.h"
 #import "UIEvent+iOS8.h"
+#import "JotWorkshop-Swift.h"
 
-@interface CanvasView ()
+#define MINIMUM_ZOOM_SCALE 0.01f
+#define MAXIMUM_ZOOM_SCALE 10.0f
+#define MAX_SNAPSHOTS 10
+
+enum renderType {
+    RENDER_NONE,
+    RENDER_DRAWING,
+    RENDER_COMP,
+};
+
+typedef struct {
+    void* data;
+    int x, y;
+    CGSize current, max;
+} glSnapshot_t;
+
+typedef struct {
+    glSnapshot_t snapshots[MAX_SNAPSHOTS];
+    int index;
+    int depth; // cannot exceed the snapshots array size
+} glSnapStack_t;
+
+typedef struct {
+    GLfloat Position[2];
+    GLfloat TextureCoord[3];
+} vertexTexture_t;
+
+
+@interface CanvasView () {
+    glSnapStack_t snapStack;
+}
 
 // The pixel dimensions of the backbuffer
 @property GLint backingWidth;
@@ -43,12 +73,18 @@
 // these arrays will act as stacks for our undo state
 @property  NSMutableArray* stackOfStrokes;
 @property  NSMutableArray* stackOfUndoneStrokes;
+// the state that openGL was last configured for
+@property enum renderType currentPrepType;
 
 @property BOOL frameBufferCreated;
-
+@property CGFloat lastWidthTiltPercentage;
+@property CGFloat lastColorTiltPercentage;
+@property BOOL isShading;
 @end
 
 @implementation CanvasView
+
+@synthesize currentBrush = _currentBrush;
 
 #pragma mark - Initialization
 
@@ -167,22 +203,30 @@
  */
 - (void)jotStylusStrokeBegan:(JotStroke *)stylusStroke
 {
+    self.viewController.protoController.stylusIsOnScreen = YES;
+    [self checkForShadingWithTilt:stylusStroke.altitudeAngle];
+    [self.viewController cancelTap];
+    NSInteger coalesedCounter = 0;
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
     
+    [self configureWithStartingTiltPercentageFromTilt:stylusStroke.altitudeAngle];
+    
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
+        coalesedCounter++;
+        CGFloat pressure = coalescedJotStroke.pressure;
         CGPoint location = [coalescedJotStroke locationInView:self];
+        CGFloat offset = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
         
         [self addLineToAndRenderStroke:currentStroke
-                               toPoint:location
-                               toWidth:[self widthForPressure:coalescedJotStroke.pressure]
-                               toColor:[self colorForPressure:coalescedJotStroke.pressure]
+                               toPoint:CGPointMake(location.x + offset, location.y + offset)
+                               toWidth:[self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle]
+                               toColor:[self colorForPressure:pressure tilt:coalescedJotStroke.altitudeAngle]
                               withPath:nil
                           shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
-                      coalescedInteger:stylusStroke.coalescedJotStrokes.count];
+                      coalescedInteger:coalesedCounter];
     }
-    //Set JotTouchStatusIndicator labels
-    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.pressure]];
+    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%f", stylusStroke.pressure]];
 }
 
 /**
@@ -190,22 +234,110 @@
  */
 - (void)jotStylusStrokeMoved:(JotStroke *)stylusStroke
 {
+    [self checkForShadingWithTilt:stylusStroke.altitudeAngle];
+    while(snapStack.depth){
+        [self popSnapShotFromStack:&snapStack];
+    }
+    
+    JotStroke *lastPredictedStroke = [stylusStroke.predictedJotStrokes lastObject];
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
+    CGFloat brushWidthActual = [self widthForPressure:stylusStroke.pressure tilt:stylusStroke.altitudeAngle];
+    CGFloat brushWidthPredicted = 0.0;
+    if (lastPredictedStroke) {
+        brushWidthPredicted = [self widthForPressure:lastPredictedStroke.pressure tilt:lastPredictedStroke.altitudeAngle];
+    }
+    
+    [currentStroke undoPrediction];
     
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
-        CGPoint location = [coalescedJotStroke locationInView:self];
         
+        CGPoint location = [coalescedJotStroke locationInView:self];
+        CGFloat pressure = coalescedJotStroke.pressure;
+        CGFloat width = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle];
+        CGFloat offset = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
+        
+        brushWidthActual = brushWidthActual < width ? width : brushWidthActual;
         [self addLineToAndRenderStroke:currentStroke
-                               toPoint:location
-                               toWidth:[self widthForPressure:coalescedJotStroke.pressure]
-                               toColor:[self colorForPressure:coalescedJotStroke.pressure]
+                               toPoint:CGPointMake(location.x + offset, location.y + offset)
+                               toWidth:width
+                               toColor:[self colorForPressure:pressure tilt:coalescedJotStroke.altitudeAngle]
                               withPath:nil
-                          shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
+                          shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp && !stylusStroke.predictedJotStrokes.count
                       coalescedInteger:stylusStroke.coalescedJotStrokes.count];
     }
+    
+    
+    CGPoint min, max;
+    
+    // compute the region of the texture that will be effected
+    // by both the coalesced touches and the predicted touches
+    {
+        min = max = [((JotStroke*)stylusStroke.coalescedJotStrokes.firstObject) locationInView:self];
+        for (JotStroke *coalescedStroke in stylusStroke.coalescedJotStrokes) {
+            CGPoint location = [coalescedStroke locationInView:self];
+            
+            if(location.x > max.x) max.x = location.x;
+            if(location.x < min.x) min.x = location.x;
+            if(location.y > max.y) max.y = location.y;
+            if(location.y < min.y) min.y = location.y;
+        }
+        
+        for (JotStroke *predictedStroke in stylusStroke.predictedJotStrokes) {
+            CGPoint location = [predictedStroke locationInView:self];
+            CGFloat width = [self widthForPressure:predictedStroke.pressure tilt:predictedStroke.altitudeAngle];
+            if(location.x > max.x) max.x = location.x;
+            if(location.x < min.x) min.x = location.x;
+            if(location.y > max.y) max.y = location.y;
+            if(location.y < min.y) min.y = location.y;
+            brushWidthPredicted = brushWidthPredicted < width ? width : brushWidthPredicted;
+        }
+        
+        CGFloat width = brushWidthActual > brushWidthPredicted ? brushWidthActual : brushWidthPredicted;
+        width *= 2;
+        max = CGPointApplyAffineTransform(max, CGAffineTransformMakeTranslation(width, width));
+        min = CGPointApplyAffineTransform(min, CGAffineTransformMakeTranslation(-width, -width));
+    }
+    
+    // save the state of the region computed above
+    // before any predicted stroke segments are rendered into it
+    if(stylusStroke.predictedJotStrokes.count){
+        [currentStroke startPrediction];
+        [self pushSnapshotIntoStack:&snapStack
+                               from:min
+                                 to:max];
+        
+        
+        // Add the predicted strokes to the path, and render
+        for (JotStroke* predictedStroke in stylusStroke.predictedJotStrokes){
+            UIColor *predictionColor = [self colorForPressure:predictedStroke.pressure tilt:predictedStroke.altitudeAngle];
+            
+            
+            [self addLineToAndRenderStroke:currentStroke
+                                   toPoint:[predictedStroke locationInView:self]
+                                   toWidth:[self widthForPressure:predictedStroke.pressure tilt:predictedStroke.altitudeAngle]
+                                   toColor:predictionColor
+                                  withPath:nil
+                              shouldRender:NO //predictedStroke.timestamp == lastPredictedStroke.timestamp
+                          coalescedInteger:stylusStroke.predictedJotStrokes.count];
+            
+            //NSLog(@"prediction Location: %@", NSStringFromCGPoint([predictedStroke locationInView:nil]));
+            
+            if (predictedStroke.timestamp == lastPredictedStroke.timestamp) {
+                // helps render prediction closer to end of stroke.
+                [self addLineToAndRenderStroke:currentStroke
+                                       toPoint:[predictedStroke locationInView:self]
+                                       toWidth:[self widthForPressure:predictedStroke.pressure tilt:predictedStroke.altitudeAngle]
+                                       toColor: predictionColor
+                                      withPath:nil
+                                  shouldRender:predictedStroke.timestamp == lastPredictedStroke.timestamp
+                              coalescedInteger:stylusStroke.predictedJotStrokes.count + 1];
+                //NSLog(@"prediction Location: %@", NSStringFromCGPoint([predictedStroke locationInView:nil]));
+            }
+        }
+    }
     //Set JotTouchStatusIndicator labels
-    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.pressure]];
+    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%f", stylusStroke.pressure]];
 }
 
 /**
@@ -213,21 +345,38 @@
  */
 - (void)jotStylusStrokeEnded:(JotStroke *)stylusStroke
 {
+    self.viewController.protoController.stylusIsOnScreen = NO;
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
+    
+    [currentStroke undoPrediction];
+    
+    while(snapStack.depth){
+        [self popSnapShotFromStack:&snapStack];
+    }
     
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
         CGPoint location = [coalescedJotStroke locationInView:self];
         
-        // now line to the end of the stroke
-        CGFloat pressure = 0.0; // Setting end of each stroke to zero pressure can cause a more organic stroke roll off with fast strokes.
+        CGFloat stylusPressure = coalescedJotStroke.pressure / 2.0; // Setting end of each stroke to zero pressure can cause a more organic stroke roll off with fast strokes.
         [self addLineToAndRenderStroke:currentStroke
                                toPoint:location
-                               toWidth:[self widthForPressure:pressure]
-                               toColor:[self colorForPressure:pressure]
+                               toWidth:[self widthForPressure:stylusPressure tilt:coalescedJotStroke.altitudeAngle]
+                               toColor:[self colorForPressure:stylusPressure tilt:coalescedJotStroke.altitudeAngle]
                               withPath:nil
-                          shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
+                          shouldRender:NO //coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
                       coalescedInteger:stylusStroke.coalescedJotStrokes.count];
+        
+        if (coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp) {
+            CGFloat endingPressure = 0.0; // Setting end of each stroke to zero pressure can cause a more organic stroke roll off with fast strokes.
+            [self addLineToAndRenderStroke:currentStroke
+                                   toPoint:location
+                                   toWidth:[self widthForPressure:endingPressure tilt:coalescedJotStroke.altitudeAngle]
+                                   toColor:[self colorForPressure:endingPressure tilt:coalescedJotStroke.altitudeAngle]
+                                  withPath:nil
+                              shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
+                          coalescedInteger:stylusStroke.coalescedJotStrokes.count + 1];
+        }
     }
     
     [self cleanupEndedStroke:currentStroke forHash:@(stylusStroke.hash)];
@@ -288,8 +437,8 @@
 
                 [self addLineToAndRenderStroke:[self getStrokeForHash:@(currentStroke.hash)]
                                        toPoint:location
-                                       toWidth:[self widthForPressure:0.5]
-                                       toColor:[self colorForPressure:0.5]
+                                       toWidth:[self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
+                                       toColor:[self colorForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
                                       withPath:nil
                                   shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
                               coalescedInteger:coalescedTouches.count];
@@ -301,50 +450,133 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (![JotStylusManager sharedInstance].isStylusConnected) {
+        while(snapStack.depth){
+            [self popSnapShotFromStack:&snapStack];
+        }
         for (UITouch *mainTouch in touches) {
-            
+
+            NSArray *predictedTouches = [event predictedTouchesIfAvailableForTouch:mainTouch];
             NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
             UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
+            UITouch *lastPredictedTouch = [predictedTouches lastObject];
             SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
+            CGFloat brushWidth = [self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2];
             
+            [currentStroke undoPrediction];
+
+            AbstractBezierPathElement* last = currentStroke.segments.lastObject;
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
 
                 if (currentStroke) {
-                 [self addLineToAndRenderStroke:currentStroke
-                                        toPoint:location
-                                        toWidth:[self widthForPressure:0.5]
-                                        toColor:[self colorForPressure:0.5]
-                                       withPath:nil
-                                   shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
-                               coalescedInteger:coalescedTouches.count];
+                    [self addLineToAndRenderStroke:currentStroke
+                                           toPoint:location
+                                           toWidth:brushWidth
+                                           toColor:[self colorForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
+                                          withPath:nil
+                                      shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp && !predictedTouches.count
+                                  coalescedInteger:coalescedTouches.count];
+                }
+            }
+
+            CGPoint min, max;
+
+            // compute the region of the texture that will be effected
+            // by both the coalesced touches and the predicted touches
+            {
+                min = max = [((UITouch*)coalescedTouches.firstObject) locationInView:self];
+                for (UITouch *touch in coalescedTouches) {
+                    CGPoint location = [touch locationInView:self];
+                    if(location.x > max.x) max.x = location.x;
+                    if(location.x < min.x) min.x = location.x;
+                    if(location.y > max.y) max.y = location.y;
+                    if(location.y < min.y) min.y = location.y;
+                }
+
+                for (UITouch *touch in predictedTouches) {
+                    CGPoint location = [touch locationInView:self];
+                    if(location.x > max.x) max.x = location.x;
+                    if(location.x < min.x) min.x = location.x;
+                    if(location.y > max.y) max.y = location.y;
+                    if(location.y < min.y) min.y = location.y;
+                }
+
+                brushWidth *= 2;
+                max = CGPointApplyAffineTransform(max, CGAffineTransformMakeTranslation(brushWidth, brushWidth));
+                min = CGPointApplyAffineTransform(min, CGAffineTransformMakeTranslation(-brushWidth, -brushWidth));
+            }
+
+            // save the state of the region computed above
+            // before any predicted stroke segments are rendered into it
+            if(predictedTouches.count){
+                [currentStroke startPrediction];
+                [self pushSnapshotIntoStack:&snapStack
+                                       from:min
+                                         to:max];
+            }
+
+            // Add the predicted strokes to the path, and render
+            for (UITouch* predictedTouch in predictedTouches){
+                UIColor *predictionColor = [self colorForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2];
+
+                [self addLineToAndRenderStroke:currentStroke
+                                       toPoint:[predictedTouch locationInView:self]
+                                       toWidth:[self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
+                                       toColor:predictionColor
+                                      withPath:nil
+                                  shouldRender:NO //predictedTouch.timestamp == lastPredictedTouch.timestamp
+                              coalescedInteger:predictedTouches.count];
+
+                if (predictedTouch.timestamp == lastPredictedTouch.timestamp) {
+                    [self addLineToAndRenderStroke:currentStroke
+                                           toPoint:[predictedTouch locationInView:self]
+                                           toWidth:[self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
+                                           toColor:predictionColor
+                                          withPath:nil
+                                      shouldRender:predictedTouch.timestamp == lastPredictedTouch.timestamp
+                                  coalescedInteger:predictedTouches.count + 1];
                 }
             }
         }
     }
 }
-
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if (![JotStylusManager sharedInstance].isStylusConnected) {
+        
+        while(snapStack.depth){
+            [self popSnapShotFromStack:&snapStack];
+        }
         for (UITouch* mainTouch in touches) {
             
             NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
             UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
             SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
             
+            [currentStroke undoPrediction];
+            
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
-               
+                
                 if (currentStroke) {
                     // now line to the end of the stroke
                     [self addLineToAndRenderStroke:currentStroke
                                            toPoint:location
-                                           toWidth:[self widthForPressure:0.5]
-                                           toColor:[self colorForPressure:0.5]
+                                           toWidth:[self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
+                                           toColor:[self colorForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
                                           withPath:nil
-                                      shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
+                                      shouldRender:NO //coalescedTouch.timestamp == lastCoalescedTouch.timestamp
                                   coalescedInteger:coalescedTouches.count];
+                    
+                    if (coalescedTouch.timestamp == lastCoalescedTouch.timestamp) {
+                        [self addLineToAndRenderStroke:currentStroke
+                                               toPoint:location
+                                               toWidth:[self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
+                                               toColor:[self colorForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
+                                              withPath:nil
+                                          shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
+                                      coalescedInteger:coalescedTouches.count + 1];
+                    }
                     
                     if (coalescedTouch.timestamp == lastCoalescedTouch.timestamp) {
                         [self cleanupEndedStroke:currentStroke forHash:@(mainTouch.hash)];
@@ -368,35 +600,143 @@
 
 #pragma mark - Width and Color Helpers
 
+- (ColorPaletteLibrary *)colorLibrary
+{
+    if (!_colorLibrary) {
+        _colorLibrary = [ColorPaletteLibrary new];
+    }
+    return _colorLibrary;
+}
+
+- (BrushLibrary *)brushLibrary
+{
+    if (!_brushLibrary) {
+        _brushLibrary = [BrushLibrary new];
+    }
+    return _brushLibrary;
+}
+
 - (Brush *)currentBrush
 {
     if (!_currentBrush) {
-        _currentBrush = [[Brush alloc]init];
+        _currentBrush = self.brushLibrary.currentBrush;
     }
     return _currentBrush;
 }
+
+- (void)setCurrentBrush:(Brush *)currentBrush
+{
+    _currentBrush = currentBrush;
+    [self.viewController updateProtoTypeBrushColor];
+    [self.viewController updateProtoTypeBrushSize];
+}
+
+- (void)checkForShadingWithTilt:(CGFloat)tilt
+{
+    if (self.altitudeEnable) {
+        if (tilt < M_PI_4 * 0.70 ) { // 30% lower than a comfortable drawing angle. 31.5 degrees.
+            self.isShading = YES;
+        } else {
+            self.isShading = NO;
+        }
+    } else {
+        self.isShading = NO;
+    }
+}
+
+
 /**
  * calculate the width from the input touch's pressure
  */
-- (CGFloat)widthForPressure:(CGFloat)pressure
+- (CGFloat)widthForPressure:(CGFloat)pressure tilt:(CGFloat)tilt;
 {
-    CGFloat minSize = self.currentBrush.minSize;
-    CGFloat maxSize = self.currentBrush.maxSize;
-    
-    return minSize + (maxSize-minSize) * pressure;
+    CGFloat minSize = self.currentBrush.minPressureSize;
+    CGFloat maxSize = self.currentBrush.maxPressureSize;
+
+    CGFloat preTiltSize =  minSize + (maxSize-minSize) * pressure;
+
+    // amount of tilt to apply
+    //    CGFloat percentage;
+    //    if (self.isShading) {
+    //        percentage = 1.0;
+    //    } else {
+    //        percentage = 0.0;
+    //    }
+    if (self.altitudeEnable) {
+        CGFloat percentage = [self percentageOfTiltEffectToAppyFromCurrentTilt:tilt];
+        percentage = (self.lastWidthTiltPercentage * 0.7) + (percentage * 0.3);
+        self.lastWidthTiltPercentage = percentage;
+
+        CGFloat sizeChange = 4.0;
+        if (self.brushLibrary.currentBrush == self.brushLibrary.pencil) {
+            sizeChange = 8.0; //more size change for pencil.
+        }
+
+        CGFloat postTiltSize = preTiltSize + ((self.currentBrush.maxPressureSize * sizeChange) * percentage);
+        return postTiltSize;
+    } else {
+        return preTiltSize;
+    }
 }
 
 /**
  * calculate the color from the input touch's color
  */
-- (UIColor*)colorForPressure:(CGFloat)pressure
+- (UIColor*)colorForPressure:(CGFloat)pressure tilt:(CGFloat)tilt
 {
-    CGFloat minAlpha = self.currentBrush.minOpacity;
-    CGFloat maxAlpha = self.currentBrush.maxOpacity;
+    CGFloat minAlpha = self.currentBrush.minPressureOpacity;
+    CGFloat maxAlpha = self.currentBrush.maxPressureOpacity;
 
     CGFloat segmentAlpha = minAlpha + (maxAlpha-minAlpha) * pressure;
     if(segmentAlpha < minAlpha) segmentAlpha = minAlpha;
-    return [self.currentBrush.brushColor colorWithAlphaComponent:segmentAlpha];
+
+    //    CGFloat percentage;
+    //    // amount of tilt to apply
+    //    if (self.isShading) {
+    //        percentage = 1.0;
+    //    } else {
+    //        percentage = 0.0;
+    //    }
+    if (self.altitudeEnable) {
+        CGFloat percentage = [self percentageOfTiltEffectToAppyFromCurrentTilt:tilt];
+        percentage = (self.lastColorTiltPercentage * 0.7) + (percentage * 0.3);
+        self.lastColorTiltPercentage = percentage;
+
+        segmentAlpha = segmentAlpha - (segmentAlpha * percentage) - (minAlpha * percentage);
+    }
+
+    segmentAlpha = MAX(0.015, segmentAlpha);
+    UIColor *color;
+    if (self.brushLibrary.currentBrush == self.brushLibrary.eraser) {
+        color = [UIColor whiteColor];
+    } else {
+        color = self.currentColor;
+    }
+    return [color colorWithAlphaComponent:segmentAlpha];
+}
+
+- (CGFloat)percentageOfTiltEffectToAppyFromCurrentTilt:(CGFloat)tilt
+{
+    CGFloat minTiltAngle = 0.355742 * 1.25; // 25% higher than lowest achievable
+    CGFloat maxTiltAngle = M_PI_4 * 0.85; // 15% lower than a comfortable drawing angle.
+
+    if (tilt >= maxTiltAngle) {return 0.0;}
+    if ([JotStylusManager sharedInstance].minimumAltitudeAngleSupported >= 0.5) {return 0.0;}
+
+    CGFloat maxTiltRange = maxTiltAngle - minTiltAngle;
+    CGFloat currentTiltRange = maxTiltAngle - tilt;
+
+    CGFloat percentage = currentTiltRange / maxTiltRange;
+    percentage = MIN(percentage, 1.0);
+
+    return percentage;
+}
+
+- (void)configureWithStartingTiltPercentageFromTilt:(CGFloat)tilt
+{
+    CGFloat startingPercentage = [self percentageOfTiltEffectToAppyFromCurrentTilt:tilt];
+    self.lastColorTiltPercentage = startingPercentage;
+    self.lastWidthTiltPercentage = startingPercentage;
 }
 
 #pragma mark - Public Interface
@@ -434,17 +774,17 @@
 {
     // set our context
     [EAGLContext setCurrentContext:self.context];
-    
+
     // Clear the buffer
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
-    
-    
+
+
     // Display the buffer
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
     [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
-    
+
     // reset undo state
     [self.stackOfUndoneStrokes removeAllObjects];
     [self.stackOfStrokes removeAllObjects];
@@ -463,51 +803,168 @@
  */
 - (void)renderAllStrokes
 {
-    // set our current OpenGL context
-    [EAGLContext setCurrentContext:self.context];
-    
-	// Clear the buffer
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-    
-    //
-    // draw all the strokes that we have in our undo-able stack
-    [self prepOpenGLState];
-    for(SmoothStroke* stroke in [self.stackOfStrokes arrayByAddingObjectsFromArray:[self.currentStrokes allValues]]){
-        // setup our blend mode properly for color vs eraser
-        if(stroke.segments && stroke.segments.count > 0){
-            AbstractBezierPathElement* firstElement = [stroke.segments objectAtIndex:0];
-            [self prepOpenGLBlendModeForColor:firstElement.color];
-        }
+//    if (self.stackOfStrokes.count + self.currentStrokes.count > 0) {
+        // set our current OpenGL context
+        [EAGLContext setCurrentContext:self.context];
         
-        // draw each stroke element
-        AbstractBezierPathElement* prevElement = nil;
-        for(AbstractBezierPathElement* element in stroke.segments){
-            [self renderElement:element fromPreviousElement:prevElement includeOpenGLPrep:NO];
-            prevElement = element;
+        // Clear the buffer
+        glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
+        glClearColor(0.0, 0.0, 0.0, 0.0);
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        //
+        // draw all the strokes that we have in our undo-able stack
+        [self prepOpenGLState:RENDER_DRAWING];
+        for(SmoothStroke* stroke in [self.stackOfStrokes arrayByAddingObjectsFromArray:[self.currentStrokes allValues]]){
+            // setup our blend mode properly for color vs eraser
+            if(stroke.segments && stroke.segments.count > 0){
+                AbstractBezierPathElement* firstElement = [stroke.segments objectAtIndex:0];
+                [self prepOpenGLBlendModeForColor:firstElement.color];
+            }
+            
+            // draw each stroke element
+            AbstractBezierPathElement* prevElement = nil;
+            for(AbstractBezierPathElement* element in stroke.segments){
+                [self renderElement:element fromPreviousElement:prevElement includeOpenGLPrep:NO];
+                prevElement = element;
+            }
+        }
+        [self unprepOpenGLState:RENDER_DRAWING];
+        
+        // Display the buffer
+        glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+        [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+        
+        [self.currentStrokes removeAllObjects];
+//    }
+}
+
+
+- (GLuint)glTexCompositeTile
+{
+    static GLuint texCompositeTile;
+    
+    if(!texCompositeTile){
+        // Generate and setup the compositing texture and VBO
+        glGenTextures(1, &texCompositeTile);
+        
+        glBindTexture(GL_TEXTURE_2D, texCompositeTile);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    }
+    
+    return texCompositeTile;
+}
+
+- (void)clearSnapStack:(glSnapStack_t*)stack
+{
+    stack->index = 0;
+    stack->depth = 0;
+}
+
+- (void)popSnapShotFromStack:(glSnapStack_t*)stack
+{
+    // there are no stored snapshots on the stack
+    if(stack->depth <= 0) return;
+    
+    // decrease the depth, back up the index
+    // but roll over to the end of the array if
+    // we finde our-selfs at < 0
+    stack->index--;
+    stack->depth--;
+    if(stack->index < 0){
+        stack->index = MAX_SNAPSHOTS - 1;
+    }
+    
+    glSnapshot_t* snap = stack->snapshots + stack->index;
+    
+    vertexTexture_t compTileVerts[4] = {
+        { // top left
+            { snap->x, snap->y }, // position
+            {  0,  0 }, // tex-coord
+        },
+        { // top right
+            {  snap->x + snap->current.width,  snap->y },
+            {  1,  0 },
+        },
+        { // bottom right
+            {  snap->x + snap->current.width, snap->y + snap->current.height },
+            {  1,  1 },
+        },
+        { // bottom left
+            { snap->x, snap->y + snap->current.height },
+            {  0,  1 },
+        },
+    };
+    GLuint lastTexture = 0;
+    glGetIntegerv(GL_TEXTURE_BINDING_2D, (GLint*)&lastTexture);
+    
+    glBindTexture(GL_TEXTURE_2D, [self glTexCompositeTile]);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, snap->current.width, snap->current.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, snap->data);
+    
+    [self prepOpenGLState:RENDER_COMP];
+    glVertexPointer(2, GL_FLOAT, sizeof(vertexTexture_t), compTileVerts[0].Position);
+    glTexCoordPointer(2, GL_FLOAT, sizeof(vertexTexture_t), compTileVerts[0].TextureCoord);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    
+    // set the texture back to the last one
+    glBindTexture(GL_TEXTURE_2D, lastTexture);
+}
+
+- (void)pushSnapshotIntoStack:(glSnapStack_t*)stack from:(CGPoint)from to:(CGPoint)to
+{
+    CGFloat s = [UIScreen mainScreen].scale;
+    GLfloat min[2] = { from.x * s, (self.bounds.size.height - from.y) * s };
+    GLfloat max[2] = { to.x * s, (self.bounds.size.height - to.y) * s };
+    
+    for(int i = 2; i--;){
+        if(min[i] > max[i]) {
+            GLfloat temp = min[i];
+            min[i] = max[i];
+            max[i] = temp;
         }
     }
-    [self unprepOpenGLState];
     
-	// Display the buffer
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
-	[self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+    int dims[2] = { ceil(max[0] - min[0]), ceil(max[1] - min[1]) };
+    glSnapshot_t* snap = stack->snapshots + stack->index;
+    
+    stack->index = (stack->index + 1) % MAX_SNAPSHOTS;
+    stack->depth = MIN(stack->depth + 1, MAX_SNAPSHOTS);
+    
+    // does this bounding box have area
+    if(dims[0] <= 0 || dims[1] <= 0){
+        return;
+    }
+    
+    // does this texture need to grow larger?
+    if(dims[0] > snap->max.width || dims[1] > snap->max.height){
+        snap->max = CGSizeMake(dims[0], dims[1]);
+        snap->data = realloc(snap->data, snap->max.width * snap->max.height * sizeof(GLubyte) * 4);
+        snap->current = snap->max;
+    }
+    else{
+        snap->current = CGSizeMake(dims[0], dims[1]);
+    }
+    
+    glReadPixels(snap->x = floor(min[0]), snap->y = floor(min[1]), (int)dims[0], (int)dims[1], GL_RGBA, GL_UNSIGNED_BYTE, snap->data);
 }
+
 
 /**
  * This renders multiple segments of an ongoing stroke.
  * Useful for handling the extra detail of coalesced touches and strokes
  */
-- (void)renderElements:(NSArray *)arrayOfElements
+- (void)renderElements:(NSArray *)arrayOfElements toScreen:(BOOL)drawToScreen
 {
     if (arrayOfElements && arrayOfElements.count > 0) {
         // set our current OpenGL context
         [EAGLContext setCurrentContext:self.context];
-
+        
         //
         // draw all the strokes that we have in our undo-able stack
-        [self prepOpenGLState];
+        [self prepOpenGLState:RENDER_DRAWING];
         
         // setup our blend mode properly for color vs eraser
         if(arrayOfElements) {
@@ -524,14 +981,15 @@
             prevElement = element;
         }
         
-        [self unprepOpenGLState];
+        [self unprepOpenGLState:RENDER_DRAWING];
         
         // Display the buffer
-        glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
-        [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+        if(drawToScreen){
+            glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
+            [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
+        }
     }
 }
-
 
 /**
  * this renders a single stroke segment to the glcontext.
@@ -557,11 +1015,10 @@
         glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
         
         // draw the stroke element
-        [self prepOpenGLState];
-        [self prepOpenGLBlendModeForColor:element.color];
+        [self prepOpenGLState:RENDER_DRAWING];
     }
     
-    
+    [self prepOpenGLBlendModeForColor:element.color]; // TODO: put this somewhere better?
     
     // find our screen scale so that we can convert from
     // points to pixels
@@ -590,8 +1047,6 @@
     }
     
     if(includePrep){
-        [self unprepOpenGLState];
-        
         // Display the buffer
         glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
         [self.context presentRenderbuffer:GL_RENDERBUFFER_OES];
@@ -623,50 +1078,29 @@
         end.y = self.bounds.size.height - end.y;
         if(![currentStroke addPoint:end withWidth:width andColor:color]) return;
     }
-    
-    if (shouldRender) {
-        [self renderLineWithCurrentStroke:currentStroke numberOfElementsToRender:coalescedInteger];
-    }
-}
-
-- (void)renderLineWithCurrentStroke:(SmoothStroke *)currentStroke numberOfElementsToRender:(NSInteger)renderElements
-{
-    NSInteger subtractor = 0;
-    
-    if (currentStroke.segments.count > 1) {
-        subtractor = 1;
-    }
-    
     //
-    // get the all the previous element and all of the new coalesced ones
-    // and send them to be drawn!
-    NSInteger previousRenderIndex = currentStroke.segments.count - renderElements - subtractor;
-    if (previousRenderIndex >= 0 && previousRenderIndex < currentStroke.segments.count) {
-        
-        NSMutableArray *arrayOfElements = [NSMutableArray array];
-        
-        for (NSInteger counter = 0; counter < renderElements + subtractor; counter++) {
-           
-            [arrayOfElements insertObject:[currentStroke.segments objectAtIndex:currentStroke.segments.count - 1 - counter] atIndex:0];
-        }
-        
-        [self renderElements:arrayOfElements];
-    }
+    //    if (shouldRender) {
+    [self renderLineWithCurrentStroke:currentStroke numberOfElementsToRender:coalescedInteger toScreen:shouldRender];
+    //    }
 }
 
-/**
- * this will prepare the OpenGL state to draw
- * a Vertex array for all of the points along
- * the line. each of our vertices contains the
- * point location, color info, and the size
- */
-- (void)prepOpenGLState
+
+- (void)renderLineWithCurrentStroke:(SmoothStroke *)currentStroke numberOfElementsToRender:(NSInteger)renderElements toScreen:(BOOL)shouldRender
 {
-    // setup our state
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_COLOR_ARRAY);
-    glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
+    NSUInteger segCount = currentStroke.segments.count;
+    
+    // get the all the previous element and all of the new coalesced ones
+    // and send them to be drawn! Here we are drawing the new segments that
+    // have just been added for this frame
+    NSMutableArray *arrayOfElements = [NSMutableArray array];
+    
+    for (NSInteger index = segCount - renderElements - 1; index < segCount; index++) {
+        [arrayOfElements addObject:currentStroke.segments[index]];
+    }
+    
+    [self renderElements:arrayOfElements toScreen:shouldRender];
 }
+
 
 /**
  * sets up the blend mode
@@ -682,6 +1116,36 @@
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     }
 }
+/**
+ * this will prepare the OpenGL state to draw
+ * a Vertex array for all of the points along
+ * the line. each of our vertices contains the
+ * point location, color info, and the size
+ */
+- (void)prepOpenGLState:(enum renderType)renderType
+{
+    if(renderType == self.currentPrepType) return;
+    [self unprepOpenGLState:self.currentPrepType];
+    
+    switch (renderType) {
+        case RENDER_DRAWING:
+            // setup our state
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glEnableClientState(GL_COLOR_ARRAY);
+            glEnableClientState(GL_POINT_SIZE_ARRAY_OES);
+            break;
+        case RENDER_COMP:
+            // setup our state
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            glBlendFunc(GL_ONE, GL_ZERO); // replace all pixels, no blending
+            break;
+        default:
+            break;
+    }
+    
+    self.currentPrepType = renderType;
+}
 
 /**
  * after drawing, calling this function will
@@ -689,41 +1153,54 @@
  * linger if we want to draw a different way
  * later
  */
-- (void)unprepOpenGLState
+- (void)unprepOpenGLState:(enum renderType)renderType
 {
-    // Restore state
-    glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
-    glDisableClientState(GL_COLOR_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
+    switch (renderType) {
+        case RENDER_DRAWING:
+            // Restore state
+            glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
+            glDisableClientState(GL_COLOR_ARRAY);
+            glDisableClientState(GL_VERTEX_ARRAY);
+            break;
+        case RENDER_COMP:
+            // setup our state
+            glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+            glDisableClientState(GL_VERTEX_ARRAY);
+            break;
+        default:
+            break;
+    }
+    
+    self.currentPrepType = RENDER_NONE;
 }
 
 - (void)recreateFrameBuffer
 {
     [self destroyFramebuffer];
-    
+
     // Setup OpenGL states
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    
+
     CGRect frame = self.layer.bounds;
     CGFloat scale = self.contentScaleFactor;
-    
+
     // Setup the view port in Pixels
     glOrthof(0, frame.size.width * scale, 0, frame.size.height * scale, -1, 1);
     glViewport(0, 0, frame.size.width * scale, frame.size.height * scale);
     glMatrixMode(GL_MODELVIEW);
-    
+
     glDisable(GL_DITHER);
     glEnable(GL_TEXTURE_2D);
-    
+
     glEnable(GL_BLEND);
     // Set a blending function appropriate for premultiplied alpha pixel data
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    
+
     glEnable(GL_POINT_SPRITE_OES);
     glTexEnvf(GL_POINT_SPRITE_OES, GL_COORD_REPLACE_OES, GL_TRUE);
-    
-    
+
+
     [self createFramebuffer];
 }
 
@@ -737,29 +1214,29 @@
     // Generate IDs for a framebuffer object and a color renderbuffer
     glGenFramebuffersOES(1, &_viewFramebuffer);
     glGenRenderbuffersOES(1, &_viewRenderbuffer);
-    
+
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, self.viewFramebuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.viewRenderbuffer);
     // This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
     // allowing us to draw into a buffer that will later be rendered to screen wherever the layer is (which corresponds with our view).
     [self.context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(id<EAGLDrawable>)self.layer];
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, self.viewRenderbuffer);
-    
+
     glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &_backingWidth);
     glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &_backingHeight);
-    
+
     // For this sample, we also need a depth buffer, so we'll create and attach one via another renderbuffer.
     glGenRenderbuffersOES(1, &_depthRenderbuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, self.depthRenderbuffer);
     glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_DEPTH_COMPONENT16_OES, self.backingWidth, self.backingHeight);
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, self.depthRenderbuffer);
-    
+
     if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
     {
         NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
         return NO;
     }
-    
+
     return YES;
 }
 
@@ -815,7 +1292,7 @@
 {
     // Cancel the stroke.
     NSLog(@"Stroke removed on cancel!");
-    
+
     // we need to erase the current stroke from the screen, so
     // clear the canvas and rerender all valid strokes
     [self.currentStrokes removeObjectForKey:hash];
@@ -834,16 +1311,16 @@
     UIGraphicsBeginImageContext(CGSizeMake(64, 64));
     CGContextRef defBrushTextureContext = UIGraphicsGetCurrentContext();
     UIGraphicsPushContext(defBrushTextureContext);
-    
+
     size_t num_locations = 3;
     CGFloat locations[3] = { 0.0, 0.8, 1.0 };
     CGFloat components[12] = { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,1.0, 1.0, 1.0, 1.0, 1.0, 0.0 };
     CGColorSpaceRef myColorspace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef myGradient = CGGradientCreateWithColorComponents (myColorspace, components, locations, num_locations);
-    
+
     CGPoint myCentrePoint = CGPointMake(32, 32);
     CGFloat myRadius = 20.0f;
-    
+
     CGContextDrawRadialGradient (UIGraphicsGetCurrentContext(), myGradient, myCentrePoint,
                                  0, myCentrePoint, myRadius,
                                  kCGGradientDrawsAfterEndLocation);
@@ -851,9 +1328,9 @@
     CGGradientRelease(myGradient);
     CGColorSpaceRelease(myColorspace);
     UIGraphicsPopContext();
-    
+
     [self setupBrushTexture:UIGraphicsGetImageFromCurrentImageContext()];
-    
+
     UIGraphicsEndImageContext();
 }
 
@@ -867,19 +1344,19 @@
 		glDeleteTextures(1, &_brushTexture);
 		self.brushTexture = 0;
 	}
-    
+
     // fetch the cgimage for us to draw into a texture
     CGImageRef brushCGImage = brushImage.CGImage;
-    
+
     // Make sure the image exists
     if (brushCGImage) {
         // Get the width and height of the image
         size_t width = CGImageGetWidth(brushCGImage);
         size_t height = CGImageGetHeight(brushCGImage);
-        
+
         // Texture dimensions must be a power of 2. If you write an application that allows users to supply an image,
         // you'll want to add code that checks the dimensions and takes appropriate action if they are not a power of 2.
-        
+
         // Allocate  memory needed for the bitmap context
         GLubyte* brushData = (GLubyte *) calloc(width * height * 4, sizeof(GLubyte));
         // Use  the bitmatp creation function provided by the Core Graphics framework.
@@ -909,17 +1386,40 @@
 - (void)dealloc
 {
     [[JotStylusManager sharedInstance] unregisterView:self];
-    
+
     [self destroyFramebuffer];
-    
+
 	if (self.brushTexture) {
 		glDeleteTextures(1, &_brushTexture);
 		self.brushTexture = 0;
 	}
-    
+
 	if ([EAGLContext currentContext] == self.context) {
 		[EAGLContext setCurrentContext:nil];
 	}
 }
 
+- (void)scrollToZoom:(CGFloat)zoomScale
+{
+    //NSLog(@"Incoming zoom scale %f", zoomScale);
+
+    CGFloat currentScale = self.frame.size.width / self.bounds.size.width;
+    CGFloat newScale = currentScale * zoomScale;
+
+    if (newScale < MINIMUM_ZOOM_SCALE) {
+        zoomScale = MINIMUM_ZOOM_SCALE / currentScale;
+    }
+    if (newScale > MAXIMUM_ZOOM_SCALE) {
+        zoomScale = MAXIMUM_ZOOM_SCALE / currentScale;
+    }
+
+    //NSLog(@"Setting with zoom scale %f", zoomScale);
+
+    self.transform = CGAffineTransformScale(self.transform, zoomScale, zoomScale);
+}
+
+- (void)setAltitudeAgnleEnable:(BOOL)enabled
+{
+    _altitudeEnable = enabled;
+}
 @end

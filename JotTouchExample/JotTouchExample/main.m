@@ -2,7 +2,6 @@
 //  main.m
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 2/28/13.
 //  Copyright (c) 2013 Adonit, LLC. All rights reserved.
 //
 

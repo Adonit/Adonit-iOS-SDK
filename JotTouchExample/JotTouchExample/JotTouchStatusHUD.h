@@ -2,7 +2,6 @@
 //  JotTouchStatusHUD.h
 //  JotTouchExample
 //
-//  Created by Ian on 8/12/13.
 //  Copyright (c) 2013 Adonit, LLC. All rights reserved.
 //
 
@@ -17,5 +16,6 @@
 @property CGFloat displayDuration; // in Seconds. Default is 2
 
 + (void)showJotHUDInView:(UIView *)viewToDisplayIn isConnected:(BOOL)isConnected modelName:(NSString *)modelName;
++ (void)showJotHUDInView:(UIView *)viewToDisplayIn topLineMessage:(NSString *)topLineMessage bottomeLineMessage:(NSString *)bottomLineMessage;
 
 @end

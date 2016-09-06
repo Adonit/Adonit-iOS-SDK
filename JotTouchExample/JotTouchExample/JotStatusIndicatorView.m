@@ -2,7 +2,6 @@
 //  JotStatusIndicatorView.m
 //  JotTouchExample
 //
-//  Created by Ian Busch on 8/5/14.
 //  Copyright (c) 2014 Adonit, LLC. All rights reserved.
 //
 
@@ -16,9 +15,13 @@
 @property (nonatomic, weak) IBOutlet UILabel* bButtonLabel;
 @property (nonatomic, weak) IBOutlet UILabel* friendlyNameLabel;
 
+
 @end
 
-@implementation JotStatusIndicatorView
+@implementation JotStatusIndicatorView {
+    BOOL button1TapOn;
+    BOOL button2TapOn;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -64,6 +67,11 @@
                                              selector:@selector(jotButton2Up)
                                                  name: JotStylusButton2Up
                                                object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver: self
+//                                             selector:@selector(scrollValueUpdate:)
+//                                                 name: JotStylusScrollRelativeValueUpdated
+//                                               object:nil];
 }
 
 - (void) jotButton1Down
@@ -95,6 +103,24 @@
 {
     self.friendlyNameLabel.text = stylusModelName;
 }
+
+- (void) jotButton1Tap:(NSString *)text
+{
+    self.aTapLabel.text = text;
+}
+
+- (void) jotButton2Tap:(NSString *)text
+{
+    self.bTapLabel.text = text;
+}
+
+- (void) jotScrollUpdate:(float)value
+{
+//    NSLog(@"value = %f",[[notification.userInfo objectForKey:JotStylusScrollValue] floatValue]);
+    self.scrollValue.value += value;
+    self.scrollData.text = [NSString stringWithFormat:@"%f",self.scrollValue.value];
+}
+
 
 #pragma mark - Cleanup
 - (void) dealloc

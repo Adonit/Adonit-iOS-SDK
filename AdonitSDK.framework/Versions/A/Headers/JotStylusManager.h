@@ -9,6 +9,7 @@
 #import "JotStrokeDelegate.h"
 #import "JotShortcut.h"
 #import "JotConstants.h"
+#import "JotStylusScrollValueDelegate.h"
 
 @class JotStylusMotionManager;
 @class JotDrawingApplication;
@@ -198,6 +199,11 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (readonly) CGFloat minimumAltitudeAngleSupported;
 
 /**
+ * Indicates whether the connected stylus supports scroll sensitivity.
+ */
+@property (readonly) BOOL stylusSupportsScrollSensor;
+
+/**
  * A positive integer specifying the amount of battery remaining
  */
 @property (readonly) NSUInteger batteryLevel;
@@ -273,6 +279,12 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (readonly) NSArray *shortcuts;
 
 /**
+ * Array of JotShortcuts utilized in the settings interface
+ */
+@property (readonly) NSArray *scrollShortcuts;
+
+
+/**
  * Disable and enable shortcut notifications
  */
 @property BOOL shortcutsEnabled;
@@ -287,11 +299,29 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  */
 @property (nonatomic, assign) JotShortcut *button2Shortcut;
 
+/**
+ * The current button 1 double tap shortcut of the connected stylus
+ */
+@property (nonatomic, assign) JotShortcut *button1DoubleTapShortcut;
+
+/**
+ * The current button 2 double tap shortcut of the connected stylus
+ */
+@property (nonatomic, assign) JotShortcut *button2DoubleTapShortcut;
+
+
 /** Adds a shortcut option that is accessibile and can be specified by the user
  *
  * @param shortcut A shortcut to be added to the settings interface
  */
 - (void)addShortcutOption:(JotShortcut *)shortcut;
+
+
+/** Adds a shortcut option that is accessibile and can be specified by the user
+ *
+ * @param shortcut A shortcut to be added to the settings interface
+ */
+- (void)addScrollShortcutOption:(JotShortcut *)shortcut;
 
 /**
  * Sets the default option state for the first shortcut that will used when initially loading the interface.
@@ -308,9 +338,38 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 - (void)addShortcutOptionButton2Default:(JotShortcut *)shortcut;
 
 /**
+ * Sets the default option state for the first shortcut that will used when initially loading the interface.
+ *
+ * @param shortcut The default option of the first stylus button tap shortcut to be added to the settings interface
+ */
+- (void)addShortcutOptionButton1DoubleTapDefault:(JotShortcut *)shortcut;
+
+/**
+ * Sets the default option state for the second shortcut that will used when initially loading the interface.
+ *
+ * @param shortcut The default option of the second stylus button tap shortcut to be added to the settings interface
+ */
+- (void)addShortcutOptionButton2DoubleTapDefault:(JotShortcut *)shortcut;
+
+/**
+ * Sets the JotStylusScrollValue delegate for delivering JotStylus scroll value
+ */
+- (void)setJotStylusScrollValueDelegate:(id<JotStylusScrollValueDelegate>)JotStylusScrollValueDelegate;
+
+/**
  * Removes the current shortcuts
  */
 - (void)removeAllShorcuts;
+
+/**
+ * Tilted far enough to initiate shading
+ */
+- (CGFloat) tiltThreshold;
+
+/**
+ * Require scroll data
+ */
+- (void)setRequireScrollData:(BOOL)enabled;
 
 #pragma mark - SDK Info
 

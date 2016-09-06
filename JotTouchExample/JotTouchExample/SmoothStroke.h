@@ -2,7 +2,6 @@
 //  SmoothStroke.h
 //  JotTouchExample
 //
-//  Created by Adam Wulf on 1/9/13.
 //  Copyright (c) 2013 Adonit, LLC. All rights reserved.
 //
 
@@ -20,6 +19,9 @@
     SegmentSmoother* segmentSmoother;
     // this will store all the segments in drawn order
     NSMutableArray* segments;
+
+    SegmentSmoother* beforePreSmoother;
+    NSInteger        beforePreCount;
 }
 
 @property (nonatomic, readonly) SegmentSmoother* segmentSmoother;
@@ -34,5 +36,8 @@
  */
 -(BOOL) addPoint:(CGPoint)point withWidth:(CGFloat)width andColor:(UIColor*)color;
 -(BOOL)addPath:(UIBezierPath *)path withWidth:(CGFloat)width andColor:(UIColor *)color;
+
+- (void)startPrediction;
+- (void)undoPrediction;
 
 @end
