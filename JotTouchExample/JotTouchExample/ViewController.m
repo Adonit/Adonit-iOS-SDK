@@ -233,13 +233,13 @@
                                                            target:self selector:@selector(noActionShortCut)
                                                            ]];
 
-                [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                [self.jotManager addShortcutOptionButton1DoubleTapDefault: [[JotShortcut alloc]
                                                                             initWithDescriptiveText:@"Zoom"
                                                                             key:@"Zoom"
                                                                             target:self selector:@selector(zoom)
                                                                             ]];
 
-                [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                [self.jotManager addShortcutOptionButton2DoubleTapDefault: [[JotShortcut alloc]
                                                                             initWithDescriptiveText:@"Quick Undo/Redo"
                                                                             key:@"quickundoredo"
                                                                             target:self selector:@selector(quickUndoRedo)
