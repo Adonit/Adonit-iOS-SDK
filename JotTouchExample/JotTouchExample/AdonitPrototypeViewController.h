@@ -11,6 +11,8 @@
 
 @protocol PrototypeBrushAdjustments
 
+@optional
+
 // Relative
 - (void)adjustBrushSizeBy:(CGFloat)sizeIncrement;
 - (void)adjustBrushOpacityBy:(CGFloat)opacityIncrement;
