@@ -81,9 +81,6 @@
 		4D22738F1D2A6F65008AEE13 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4D2273901D2A6F65008AEE13 /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
 		4D2273991D2B597C008AEE13 /* ColorPaletteLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPaletteLibrary.swift; sourceTree = "<group>"; };
-		4D810F721D24CC1D00DBCCDA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		4D810F741D24CC4300DBCCDA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4D810F761D24CC5D00DBCCDA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4DC541CA1D61BBD2008631C8 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../../AdonitSDK.bundle; sourceTree = "<group>"; };
 		4DC541CB1D61BBD2008631C8 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../../AdonitSDK.framework; sourceTree = "<group>"; };
 		7717F9471A1CD859001706AE /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -227,9 +224,6 @@
 		7747EC731A1BDC9700D18429 = {
 			isa = PBXGroup;
 			children = (
-				4D810F761D24CC5D00DBCCDA /* CoreGraphics.framework */,
-				4D810F741D24CC4300DBCCDA /* Foundation.framework */,
-				4D810F721D24CC1D00DBCCDA /* UIKit.framework */,
 				7747EC7E1A1BDC9700D18429 /* JotTouchExample */,
 				7747EC981A1BDC9800D18429 /* JotTouchExampleTests */,
 				7747EC7D1A1BDC9700D18429 /* Products */,
