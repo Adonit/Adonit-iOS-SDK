@@ -12,6 +12,8 @@ const CGFloat SelectionReticalThickness = 2.0;
 const CGFloat SelectionAnimateTimer = 0.6;
 const CGFloat LabelHeight = 22.0;
 const CGFloat labelBottomPadding = 8.0;
+const CGFloat SelectionSizeHeight = 120.0;
+const CGFloat SelectionSizeWidth = 280.0;
 
 @interface AdonitSelectionView()
 @property NSArray *selectedViews;
