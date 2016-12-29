@@ -19,8 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdonitSDK.bundle; sourceTree = "<group>"; };
-		4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdonitSDK.framework; sourceTree = "<group>"; };
+		4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../AdonitSDK.bundle; sourceTree = "<group>"; };
+		4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../AdonitSDK.framework; sourceTree = "<group>"; };
 		9B2ADB181ADDBE77000A3214 /* JotTouchSwiftExampleNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotTouchSwiftExampleNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2ADB1C1ADDBE77000A3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B2ADB1D1ADDBE77000A3214 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -352,7 +352,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)/JotWorkshop",
-					"$(PROJECT_DIR)",
+					"${PROJECT_DIR}/..",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
@@ -382,7 +382,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)/JotWorkshop",
-					"$(PROJECT_DIR)",
+					"${PROJECT_DIR}/..",
 				);
 				INFOPLIST_FILE = JotWorkshop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
