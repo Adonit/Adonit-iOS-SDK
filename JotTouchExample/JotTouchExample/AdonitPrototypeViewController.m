@@ -9,6 +9,7 @@
 #import "AdonitColorView.h"
 #import "AdonitLineWidthView.h"
 #import <AdonitSDK/AdonitSDK.h>
+#import "AdonitPrototypeOverlayViewController.h"
 
 #pragma mark - Enums
 

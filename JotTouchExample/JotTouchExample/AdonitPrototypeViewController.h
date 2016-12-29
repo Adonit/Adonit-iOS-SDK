@@ -6,7 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AdonitPrototypeOverlayViewController.h"
+
+@class AdonitPrototypeOverlayViewController;
 
 @protocol PrototypeBrushAdjustments
 
