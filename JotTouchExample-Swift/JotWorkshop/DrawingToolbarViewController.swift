@@ -15,9 +15,9 @@ Depending on the toolbar state, things like a wink view might be positioned diff
 The .Freestyle case is a couresy state if needed, and is safe to be treated as the .Presenting state
 */
 enum ToolbarPresentationState {
-	case Presenting
-	case Hidden
-	case Freestyle
+	case presenting
+	case hidden
+	case freestyle
 }
 
 class DrawingToolbarViewController: UIViewController, UIGestureRecognizerDelegate, ListensToJotSuggestions, UICollectionViewDelegate, UIPopoverPresentationControllerDelegate {
@@ -41,17 +41,17 @@ class DrawingToolbarViewController: UIViewController, UIGestureRecognizerDelegat
 	@IBOutlet weak var jotSettingsView: UIView!
 
 		
-	let acceptableFingerGestureTypes = [AdonitTouchIdentificationType.Unknown, AdonitTouchIdentificationType.NotDevice]
+	let acceptableFingerGestureTypes = [AdonitTouchIdentificationType.unknown, AdonitTouchIdentificationType.notDevice]
 	var drawingView:DrawingViewController!
 	
-	private let cornerRadius:CGFloat = 4;
+	fileprivate let cornerRadius:CGFloat = 4;
 	
-	private(set) var presentationState:ToolbarPresentationState = .Presenting
+	fileprivate(set) var presentationState:ToolbarPresentationState = .presenting
 	
-	private var offscreenPanStartState:ToolbarPresentationState!
-	private var lastOffscreenPanPosition:CGPoint!
-	private var presentedPositionY:CGFloat!
-	private var hiddenPositionY:CGFloat!
+	fileprivate var offscreenPanStartState:ToolbarPresentationState!
+	fileprivate var lastOffscreenPanPosition:CGPoint!
+	fileprivate var presentedPositionY:CGFloat!
+	fileprivate var hiddenPositionY:CGFloat!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -65,13 +65,13 @@ class DrawingToolbarViewController: UIViewController, UIGestureRecognizerDelegat
 		animateToolbarTo(presentedPositionY, animate: false)
 		
 		let statusViewController = UIStoryboard.instantiateInitialJotViewController();
-		statusViewController.view.frame = jotSettingsView.bounds;
-		jotSettingsView.backgroundColor = UIColor.clearColor()
-		jotSettingsView.addSubview(statusViewController.view);
-		addChildViewController(statusViewController);
+		statusViewController?.view.frame = jotSettingsView.bounds;
+		jotSettingsView.backgroundColor = UIColor.clear
+		jotSettingsView.addSubview((statusViewController?.view)!);
+		addChildViewController(statusViewController!);
 		
 		
-		JotStylusManager.sharedInstance().registerView(self.view)
+		JotStylusManager.sharedInstance().register(self.view)
 		
     }
 	
@@ -84,11 +84,11 @@ class DrawingToolbarViewController: UIViewController, UIGestureRecognizerDelegat
 		//animage to hidden
 	}
 	
-	private func animateToolbarTo(posY:CGFloat, animate:Bool = true) {
+	fileprivate func animateToolbarTo(_ posY:CGFloat, animate:Bool = true) {
 		containerTopOffset.constant = posY
 		
 		if animate {
-			UIView.animateWithDuration(0.25, delay: 0, options: .BeginFromCurrentState, animations: {
+			UIView.animate(withDuration: 0.25, delay: 0, options: .beginFromCurrentState, animations: {
 				self.containerView.layoutIfNeeded()
 				}, completion: nil)
 		} else {
@@ -108,7 +108,7 @@ class DrawingToolbarViewController: UIViewController, UIGestureRecognizerDelegat
 		
 	}
 	
-	func deselectAll(colors:Bool = true, brushes:Bool = true) {
+	func deselectAll(_ colors:Bool = true, brushes:Bool = true) {
 		
 	}
 	
@@ -125,27 +125,27 @@ class DrawingToolbarViewController: UIViewController, UIGestureRecognizerDelegat
 		
 	}
 	
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0;
 	}
 	
-	func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 		
 	}
 	
-	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		
 	}
 	
-	func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+	func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 		
 	}
 	
-	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return false;
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 	}
 }
