@@ -47,13 +47,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9B2ADB0F1ADDBE77000A3214 = {
+		55D363951E15C11800994618 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */,
 				4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B2ADB0F1ADDBE77000A3214 = {
+			isa = PBXGroup;
+			children = (
 				9B2ADB1A1ADDBE77000A3214 /* JotWorkshop */,
 				9B2ADB301ADDBE77000A3214 /* JotWorkshopTests */,
+				55D363951E15C11800994618 /* Frameworks */,
 				9B2ADB191ADDBE77000A3214 /* Products */,
 			);
 			sourceTree = "<group>";
