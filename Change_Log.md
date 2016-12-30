@@ -1,5 +1,22 @@
 #AdonitSDK Change Log
 
+#v3.3
+
+**SDK**
+
+- show SDK and Configuration versions in Adonit "Press-To-Connect" UI
+- fix issue that sometimes show opaque or invisible UI components
+- fix issue that shows wrong information when no shortcut button is set on first run
+- fix issue that resets shortcut button settings after a reconnection or force close
+- fix issue that resets stylus settings after an app update
+- optimized correction algorithm to provide faster writing experience on iPad Pro and iPhone devices
+- added interface for manually updating SDK configuration file
+- added support for IP7 and IP7+
+
+**Jot Workshop**
+- show device model name in UI
+- removed extra settings from UI (Gestures)
+
 #v3.2
 - Added support for Adonit Pixel-only features: double tap & scroll.
 - Removed option to “Send Diagnostics to Adonit” found in connections UI.

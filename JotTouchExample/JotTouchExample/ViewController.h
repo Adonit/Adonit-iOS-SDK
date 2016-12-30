@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *gesturesSwitch;
 @property (weak, nonatomic) IBOutlet UIView *connectionStatusView;
 @property (weak, nonatomic) IBOutlet UILabel *gestureLabel;
+@property (strong, nonatomic) IBOutlet UILabel *platformLabel;
 
 // JotStatusIndicators Properties & Methods
 @property (nonatomic, weak) IBOutlet JotStatusIndicatorView* jotStatusIndicatorContainerView;

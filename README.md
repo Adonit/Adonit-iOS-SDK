@@ -1,4 +1,4 @@
-#Adonit iOS SDK 3.2
+#Adonit iOS SDK 3.3
 
 ##Overview
 The Adonit iOS SDK is a free framework for iOS that provides you with the necessary tools to integrate a complete sketching experience in your apps when used with Adonit's line of [Bluetooth connected styluses](http://adonit.net/jot). It includes support for for the following features:

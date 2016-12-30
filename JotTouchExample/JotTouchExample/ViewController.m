@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <AdonitSDK/AdonitSDK.h>
 #import "JotWorkshop-Swift.h"
+#import <sys/sysctl.h>
 
 @interface ViewController()<JotStylusScrollValueDelegate,PrototypeBrushAdjustments>
 
@@ -48,18 +49,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-    
-    self.gesturesEnabled = YES;
-    self.gesturesSwitch.on = YES;
-    
+
     // Set initial state of Jot Status Indicators to be off
     [self showJotStatusIndicators:NO WithAnimation:NO];
 
     self.canvasView.viewController = self;
-    
+
     [self setupJotSDK];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults boolForKey:@"isFirstTimeLaunch"]) {
+        // Setup shortcut buttons
+        [self setupShortcut];
+    } else {
+        [self addShortcuts];
+    }
+
     [self setupProtoType];
     self.currentColor = [UIColor darkGrayColor];
     NSInteger penIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentBrushIndex"];
@@ -72,7 +76,16 @@
                                             action:@selector(cancelTap)];
     [self.connectionStatusView addGestureRecognizer:singleFingerTap];
     [self.connectionStatusView setUserInteractionEnabled:true];
+    [userDefaults setBool:YES forKey:@"isFirstTimeLaunch"];
+    [userDefaults synchronize];
+
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    self.platformLabel.text =  [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
     
+    free(machine);
 }
 
 #pragma mark - Adonit SDK Setup
@@ -103,6 +116,101 @@
 }
 
 #pragma mark - prototype
+- (void)setupShortcut
+{
+    // Setup shortcut buttons
+    [self removeAllShortcuts];
+    [self.jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
+                                                       initWithDescriptiveText:@"Undo"
+                                                       key:@"undo"
+                                                       target:self selector:@selector(undoShortCut)
+                                                       ]];
+    
+    [self.jotManager addShortcutOptionButton2Default: [[JotShortcut alloc]
+                                                       initWithDescriptiveText:@"Redo"
+                                                       key:@"redo"
+                                                       target:self selector:@selector(redoShortCut)
+                                                       ]];
+    
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:@"No Action"
+                                         key:@"noaction"
+                                         target:self selector:@selector(noActionShortCut)
+                                         ]];
+    
+    [self.jotManager addShortcutOptionButton1DoubleTapDefault: [[JotShortcut alloc]
+                                                                initWithDescriptiveText:@"Zoom"
+                                                                key:@"Zoom"
+                                                                target:self selector:@selector(zoom)
+                                                                ]];
+    
+    [self.jotManager addShortcutOptionButton2DoubleTapDefault: [[JotShortcut alloc]
+                                                                initWithDescriptiveText:@"Quick Undo/Redo"
+                                                                key:@"quickundoredo"
+                                                                target:self selector:@selector(quickUndoRedo)
+                                                                ]];
+    
+    [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                                               initWithDescriptiveText:@"Tools"
+                                               key:@"tools"
+                                               target:self selector:@selector(toolsSelect)
+                                               ]];
+    
+    [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                                               initWithDescriptiveText:@"No Action"
+                                               key:@"noaction"
+                                               target:self selector:@selector(noActionShortCut)
+                                               ]];
+
+}
+
+- (void)addShortcuts
+{
+    // Setup shortcut buttons
+    [self removeAllShortcuts];
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                                       initWithDescriptiveText:@"Undo"
+                                                       key:@"undo"
+                                                       target:self selector:@selector(undoShortCut)
+                                                       ]];
+
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                                       initWithDescriptiveText:@"Redo"
+                                                       key:@"redo"
+                                                       target:self selector:@selector(redoShortCut)
+                                                       ]];
+
+    [self.jotManager addShortcutOption: [[JotShortcut alloc]
+                                         initWithDescriptiveText:@"No Action"
+                                         key:@"noaction"
+                                         target:self selector:@selector(noActionShortCut)
+                                         ]];
+
+    [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                                                                initWithDescriptiveText:@"Zoom"
+                                                                key:@"Zoom"
+                                                                target:self selector:@selector(zoom)
+                                                                ]];
+
+    [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                                                                initWithDescriptiveText:@"Quick Undo/Redo"
+                                                                key:@"quickundoredo"
+                                                                target:self selector:@selector(quickUndoRedo)
+                                                                ]];
+
+    [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                                               initWithDescriptiveText:@"Tools"
+                                               key:@"tools"
+                                               target:self selector:@selector(toolsSelect)
+                                               ]];
+
+    [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
+                                               initWithDescriptiveText:@"No Action"
+                                               key:@"noaction"
+                                               target:self selector:@selector(noActionShortCut)
+                                               ]];
+}
+
 - (void)setupProtoType
 {
     self.protoController.delegate = self;
