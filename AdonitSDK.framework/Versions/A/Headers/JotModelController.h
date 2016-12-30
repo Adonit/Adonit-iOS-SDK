@@ -31,66 +31,66 @@
  * The stylus manager that this view controller should communicate with
  * Default to [JotStylusManager sharedInstance].
  */
-@property (nonatomic) JotStylusManager *stylusManager;
+@property (nonatomic, strong) JotStylusManager *stylusManager;
 
 #pragma mark - Main customization options
 /**
  * A bolder color often used as a highlight color
  */
-@property (nonatomic) UIColor *primaryColor;
+@property (nonatomic, strong) UIColor *primaryColor;
 
 /**
  * A softer color often used as a background color
  */
-@property (nonatomic) UIColor *secondaryColor;
+@property (nonatomic, strong) UIColor *secondaryColor;
 
 #pragma mark - Secondary customization options
 
 /**
  * The color of the pen icon within the PressToConnectTarget. If not set it will default to the primary or secondary color appropriately. (Setting this is useful if you are using a custom JotPressToConnectViewController and want the background color to be clear without losing the inner icon.) It is not possible to set this to a clear color.
  */
-@property (nonatomic) UIColor *innerPressToConnectIconColor;
+@property (nonatomic, strong) UIColor *innerPressToConnectIconColor;
 
 /**
  * A color used for table view cell backgrounds
  */
-@property (nonatomic) UIColor *tableViewCellBackgroundColor;
+@property (nonatomic, strong) UIColor *tableViewCellBackgroundColor;
 
 /**
  * A color used to highlight selected cells in a table view
  */
-@property (nonatomic) UIColor *selectedTableViewCellColor;
+@property (nonatomic, strong) UIColor *selectedTableViewCellColor;
 
 /**
  * A color used to tint the on state of a UISwitch. iOS Default if not set.
  */
-@property (nonatomic) UIColor *switchOnStateColor;
+@property (nonatomic, strong) UIColor *switchOnStateColor;
 
 /**
  * A color used for tableview seperators and other elements that should stand out on secondary colors
  */
-@property (nonatomic) UIColor *separatorColor;
+@property (nonatomic, strong) UIColor *separatorColor;
 
 /**
  * Used primarily on text labels within table view cells
  */
-@property (nonatomic) UIColor *textColor;
+@property (nonatomic, strong) UIColor *textColor;
 
 /**
  * Used primarily on detail text labels within table view cells
  */
-@property (nonatomic) UIColor *detailTextColor;
+@property (nonatomic, strong) UIColor *detailTextColor;
 
 /**
  * A color used primarily for table view headers
  */
-@property (nonatomic) UIColor *headerTextColor;
+@property (nonatomic, strong) UIColor *headerTextColor;
 
 /**
  * The font face to use on alongside the Press To Connect target.
  * Defaults to Helvetica Neue Regular.
  */
-@property (nonatomic) UIFont *pressToConnectFont;
+@property (nonatomic, strong) UIFont *pressToConnectFont;
 
 #pragma mark - Misc.
 /**

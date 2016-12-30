@@ -81,11 +81,8 @@
 		4D22738F1D2A6F65008AEE13 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4D2273901D2A6F65008AEE13 /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
 		4D2273991D2B597C008AEE13 /* ColorPaletteLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPaletteLibrary.swift; sourceTree = "<group>"; };
-		4D810F721D24CC1D00DBCCDA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		4D810F741D24CC4300DBCCDA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4D810F761D24CC5D00DBCCDA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4DC541CA1D61BBD2008631C8 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdonitSDK.bundle; sourceTree = "<group>"; };
-		4DC541CB1D61BBD2008631C8 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdonitSDK.framework; sourceTree = "<group>"; };
+		4DC541CA1D61BBD2008631C8 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../../AdonitSDK.bundle; sourceTree = "<group>"; };
+		4DC541CB1D61BBD2008631C8 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../../AdonitSDK.framework; sourceTree = "<group>"; };
 		7717F9471A1CD859001706AE /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		7747EC7C1A1BDC9700D18429 /* JotWorkshop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotWorkshop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7747EC801A1BDC9700D18429 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -227,9 +224,6 @@
 		7747EC731A1BDC9700D18429 = {
 			isa = PBXGroup;
 			children = (
-				4D810F761D24CC5D00DBCCDA /* CoreGraphics.framework */,
-				4D810F741D24CC4300DBCCDA /* Foundation.framework */,
-				4D810F721D24CC1D00DBCCDA /* UIKit.framework */,
 				7747EC7E1A1BDC9700D18429 /* JotTouchExample */,
 				7747EC981A1BDC9800D18429 /* JotTouchExampleTests */,
 				7747EC7D1A1BDC9700D18429 /* Products */,
@@ -569,16 +563,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JotTouchExampleTests",
 					"$(PROJECT_DIR)/JotTouchExample",
+					"$(PROJECT_DIR)/..",
 				);
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = JotTouchExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/adonit_JotSDK-cuislxxwqqpsxyftgsgapjyhvsfu/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -586,6 +578,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "JotTouchExample/JotWorkshop-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -599,21 +592,20 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JotTouchExampleTests",
 					"$(PROJECT_DIR)/JotTouchExample",
+					"$(PROJECT_DIR)/..",
 				);
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				INFOPLIST_FILE = JotTouchExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/adonit_JotSDK-cuislxxwqqpsxyftgsgapjyhvsfu/Build/Products/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JotTouchExample/JotWorkshop-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -621,10 +613,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -633,7 +621,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JotTouchExample.app/JotTouchExample";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JotWorkshop.app/JotWorkshop";
 			};
 			name = Debug;
 		};
@@ -641,15 +629,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = JotTouchExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JotTouchExample.app/JotTouchExample";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JotWorkshop.app/JotWorkshop";
 			};
 			name = Release;
 		};

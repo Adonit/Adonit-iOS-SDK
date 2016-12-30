@@ -464,7 +464,7 @@ typedef struct {
             
             [currentStroke undoPrediction];
 
-            AbstractBezierPathElement* last = currentStroke.segments.lastObject;
+            // AbstractBezierPathElement* last = currentStroke.segments.lastObject;
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
 

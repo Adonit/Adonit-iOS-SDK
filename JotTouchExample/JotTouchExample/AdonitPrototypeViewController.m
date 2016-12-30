@@ -9,6 +9,7 @@
 #import "AdonitColorView.h"
 #import "AdonitLineWidthView.h"
 #import <AdonitSDK/AdonitSDK.h>
+#import "AdonitPrototypeOverlayViewController.h"
 
 #pragma mark - Enums
 
@@ -392,11 +393,11 @@ typedef enum {
 }
 
 - (IBAction)frontTapOptionChanged:(UISegmentedControl *)sender {
-    self.doubleTapFrontAction = sender.selectedSegmentIndex;
+    self.doubleTapFrontAction = (DoubleTapFrontOption)sender.selectedSegmentIndex;
 }
 
 - (IBAction)backTapOptionChanged:(UISegmentedControl *)sender {
-    self.doubleTapBackAction = sender.selectedSegmentIndex;
+    self.doubleTapBackAction = (DoubleTapBackOption)sender.selectedSegmentIndex;
 }
 
 #pragma mark - Filtering UX

@@ -8,4 +8,12 @@
 import Foundation
 import UIKit
 
-UIApplicationMain(Process.argc, Process.unsafeArgv, NSStringFromClass(JotDrawingApplication), NSStringFromClass(AppDelegate))
+UIApplicationMain(
+    CommandLine.argc,
+    UnsafeMutableRawPointer(CommandLine.unsafeArgv)
+        .bindMemory(
+            to: UnsafeMutablePointer<Int8>.self,
+            capacity: Int(CommandLine.argc)),
+    NSStringFromClass(JotDrawingApplication.self),
+    NSStringFromClass(AppDelegate.self)
+)

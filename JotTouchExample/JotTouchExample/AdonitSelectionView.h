@@ -7,9 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-const CGFloat SelectionSizeHeight = 120.0;
-const CGFloat SelectionSizeWidth = 280.0;
-
 @interface AdonitSelectionView : UIView
 
 @property (nonatomic) NSInteger selectedViewIndex;

@@ -82,7 +82,7 @@ struct HSBA {
 		let q = b * (1 - f * s)
 		let t = b * (1 - (1 - f) * s)
 		
-		switch i % 6 {
+		switch i.truncatingRemainder(dividingBy: 6) {
 		case 0:
 			r2 = b; g2 = t; b2 = p
 		case 1:
@@ -120,15 +120,15 @@ extension UIColor {
 		
 		var val = hex
 		
-		if let range = hex.rangeOfString("#") {
-			val = hex.substringFromIndex(range.startIndex.advancedBy(1))
+		if let range = hex.range(of: "#") {
+			val = hex.substring(from: hex.characters.index(range.lowerBound, offsetBy: 1))
 			print("val: \(val)", terminator: "")
 		}
 		
-		let scanner = NSScanner(string: val)
+		let scanner = Scanner(string: val)
 		var hexValue: CUnsignedLongLong = 0
 		
-		if scanner.scanHexLongLong(&hexValue) {
+		if scanner.scanHexInt64(&hexValue) {
 			switch val.characters.count {
 			case 3:
 				r = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
