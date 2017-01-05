@@ -321,49 +321,6 @@
                 self.jotStatusIndicatorContainerView.altitudeAngleLabel.hidden = NO;
                 [self.jotStatusIndicatorContainerView.altitudeAngleEnable addTarget:self action:@selector(setAltitudeAngleEnable:) forControlEvents:UIControlEventValueChanged];
                 self.canvasView.altitudeEnable = YES;
-                // Setup shortcut buttons
-                [self removeAllShortcuts];
-                [self.jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
-                                                                   initWithDescriptiveText:@"Undo"
-                                                                   key:@"undo"
-                                                                   target:self selector:@selector(undoShortCut)
-                                                                   ]];
-
-                [self.jotManager addShortcutOptionButton2Default: [[JotShortcut alloc]
-                                                                   initWithDescriptiveText:@"Redo"
-                                                                   key:@"redo"
-                                                                   target:self selector:@selector(redoShortCut)
-                                                                   ]];
-
-                [self.jotManager addShortcutOption: [[JotShortcut alloc]
-                                                           initWithDescriptiveText:@"No Action"
-                                                           key:@"noaction"
-                                                           target:self selector:@selector(noActionShortCut)
-                                                           ]];
-
-                [self.jotManager addShortcutOptionButton1DoubleTapDefault: [[JotShortcut alloc]
-                                                                            initWithDescriptiveText:@"Zoom"
-                                                                            key:@"Zoom"
-                                                                            target:self selector:@selector(zoom)
-                                                                            ]];
-
-                [self.jotManager addShortcutOptionButton2DoubleTapDefault: [[JotShortcut alloc]
-                                                                            initWithDescriptiveText:@"Quick Undo/Redo"
-                                                                            key:@"quickundoredo"
-                                                                            target:self selector:@selector(quickUndoRedo)
-                                                                            ]];
-
-                [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
-                                                           initWithDescriptiveText:@"Tools"
-                                                           key:@"tools"
-                                                           target:self selector:@selector(toolsSelect)
-                                                           ]];
-                
-                [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
-                                                     initWithDescriptiveText:@"No Action"
-                                                     key:@"noaction"
-                                                     target:self selector:@selector(noActionShortCut)
-                                                     ]];
             } else {
                 self.jotStatusIndicatorContainerView.scrollValue.hidden = YES;
                 self.jotStatusIndicatorContainerView.scrollValueLabel.hidden = YES;
@@ -374,25 +331,6 @@
                 self.jotStatusIndicatorContainerView.altitudeAngleEnable.hidden = YES;
                 self.jotStatusIndicatorContainerView.altitudeAngleLabel.hidden = YES;
                 self.canvasView.altitudeEnable = NO;
-                // Setup shortcut buttons
-                [self removeAllShortcuts];
-                [self.jotManager addShortcutOptionButton1Default: [[JotShortcut alloc]
-                                                                   initWithDescriptiveText:@"Undo"
-                                                                   key:@"undo"
-                                                                   target:self selector:@selector(undoShortCut)
-                                                                   ]];
-
-                [self.jotManager addShortcutOptionButton2Default: [[JotShortcut alloc]
-                                                                   initWithDescriptiveText:@"Redo"
-                                                                   key:@"redo"
-                                                                   target:self selector:@selector(redoShortCut)
-                                                                   ]];
-
-                [self.jotManager addShortcutOption: [[JotShortcut alloc]
-                                                     initWithDescriptiveText:@"No Action"
-                                                     key:@"noaction"
-                                                     target:self selector:@selector(noActionShortCut)
-                                                     ]];
             }
             break;
         }
