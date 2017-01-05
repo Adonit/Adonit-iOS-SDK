@@ -1,4 +1,49 @@
+# build generated
+build/
+DerivedData/
 
-JotTouchExample/ObjectiveC.gcno
+# various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
 
-JotTouchExample/JotTouchExample.xcodeproj/project.xcworkspace/xcuserdata/ian.xcuserdatad/UserInterfaceState.xcuserstate
+# Others
+*.moved-aside
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# CocoaPods -> https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+Pods/
+
+# Carthage
+Carthage/Build
+
+# fastlane -> https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+### Objective-C Patch ###
+*.xcscmblueprint
+
+#others
+#JotTouchExample/ObjectiveC.gcno
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+.Trashes
+Thumbs.db
+ehthumbs.db
