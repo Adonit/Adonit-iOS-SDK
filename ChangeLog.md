@@ -1,21 +1,19 @@
-#AdonitSDK Change Log
+#Change Log for AdonitSDK (iOS)
 
 #v3.3
 
 **SDK**
 
+- optimize correction algorithms for better writing experience on iPad Pro (9.7/12.9), IP6/IP6+ and IP7/IP7+.
 - show SDK and Configuration versions in Adonit "Press-To-Connect" UI
 - fix issue that sometimes show opaque or invisible UI components
 - fix issue that shows wrong information when no shortcut button is set on first run
 - fix issue that resets shortcut button settings after a reconnection or force close
 - fix issue that resets stylus settings after an app update
-- optimized correction algorithm to provide faster writing experience on iPad Pro and iPhone devices
-- added interface for manually updating SDK configuration file
-- added support for IP7 and IP7+
 
 **Jot Workshop**
 - show device model name in UI
-- removed extra settings from UI (Gestures)
+- removed unused UI element (Gestures)
 
 #v3.2
 - Added support for Adonit Pixel-only features: double tap & scroll.
