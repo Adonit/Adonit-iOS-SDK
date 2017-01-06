@@ -4,7 +4,7 @@
 
 **SDK**
 
-- optimize correction algorithms for better writing experience on iPad Pro (9.7/12.9), IP6/IP6+ and IP7/IP7+.
+- optimize correction algorithms for better writing experience of the [Adonit Pixel](http://www.adonit.net/jot/pixel/) on iPad Pro (9.7/12.9), IP6/IP6+ and IP7/IP7+.
 - show SDK and Configuration versions in Adonit "Press-To-Connect" UI
 - fix issue that sometimes show opaque or invisible UI components
 - fix issue that shows wrong information when no shortcut button is set on first run
@@ -12,7 +12,7 @@
 - fix issue that resets stylus settings after an app update
 
 **Jot Workshop**
-- show device model name in UI
+- show host device model name in UI
 - removed unused UI element (Gestures)
 
 #v3.2
