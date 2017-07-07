@@ -33,4 +33,5 @@
 
 - (void)scrollToZoom:(CGFloat)zoomScale;
 - (void)setAltitudeEnable:(BOOL)enabled;
+- (void)setGestureEnable:(BOOL)enabled;
 @end

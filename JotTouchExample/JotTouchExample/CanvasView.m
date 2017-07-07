@@ -46,7 +46,7 @@ typedef struct {
 } vertexTexture_t;
 
 
-@interface CanvasView () {
+@interface CanvasView ()<UIGestureRecognizerDelegate> {
     glSnapStack_t snapStack;
 }
 
@@ -80,6 +80,10 @@ typedef struct {
 @property CGFloat lastWidthTiltPercentage;
 @property CGFloat lastColorTiltPercentage;
 @property BOOL isShading;
+@property BOOL gestureEnabled;
+@property CGFloat lastScale;
+@property CGPoint lastPoint;
+
 @end
 
 @implementation CanvasView
@@ -148,9 +152,17 @@ typedef struct {
     }
     
     [self createDefaultBrushTexture];
-    
+
     // Set the view's scale factor
     self.contentScaleFactor = [[UIScreen mainScreen] scale];
+
+    //  Add gesture recognizers for zoom, pan, and rotation
+    UIPinchGestureRecognizer *twoFingerPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(zoom:)];
+    UIRotationGestureRecognizer *twoFingerRotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
+    twoFingerRotation.delegate = self;
+
+    [self addGestureRecognizer:twoFingerPinch];
+    [self addGestureRecognizer:twoFingerRotation];
 }
 
 /**
@@ -400,12 +412,14 @@ typedef struct {
 - (void)jotSuggestsToDisableGestures
 {
     // disable any other gestures, like a pinch to zoom
+    [self disableGestures];
     [self.viewController handleJotSuggestsToDisableGestures];
 }
 
 - (void)jotSuggestsToEnableGestures
 {
     // enable any other gestures, like a pinch to zoom
+    [self enableGestures];
     [self.viewController handleJotSuggestsToEnableGestures];
 }
 
@@ -425,6 +439,7 @@ typedef struct {
  */
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"touchesBegan");
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         for (UITouch *mainTouch in touches) {
             
@@ -542,6 +557,7 @@ typedef struct {
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"touchesEnded");
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         
         while(snapStack.depth){
@@ -589,6 +605,7 @@ typedef struct {
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"touchesCancelled");
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         for (UITouch* touch in touches) {
             // If appropriate, add code necessary to save the state of the application.
@@ -1399,6 +1416,57 @@ typedef struct {
 	}
 }
 
+#pragma mark - Gesture Handling
+
+- (void)enableGestures
+{
+    for (UIGestureRecognizer *gesture in self.gestureRecognizers) {
+        gesture.enabled = YES;
+        gesture.cancelsTouchesInView = NO;
+    }
+}
+
+- (void)disableGestures
+{
+    for (UIGestureRecognizer *gesture in self.gestureRecognizers) {
+        gesture.enabled = NO;
+    }
+}
+
+- (void)zoom:(UIPinchGestureRecognizer *)gesture
+{
+    if ([gesture numberOfTouches] < 2)
+        return;
+
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        self.lastScale = 1.0;
+        self.lastPoint = [gesture locationInView:self];
+    }
+
+    // Scale
+    CGFloat currentScale = self.frame.size.width / self.bounds.size.width;
+    CGFloat newScale = 1.0 - (self.lastScale - gesture.scale);
+    if (currentScale * newScale < MINIMUM_ZOOM_SCALE || currentScale * newScale > MAXIMUM_ZOOM_SCALE) {
+        newScale = 1.0;
+    }
+
+    [self.layer setAffineTransform:
+     CGAffineTransformScale([self.layer affineTransform],
+                            newScale,
+                            newScale)];
+    self.lastScale = gesture.scale;
+
+    // Translate
+    CGPoint point = [gesture locationInView:self];
+    CGPoint pointDifferential = CGPointMake((point.x - self.lastPoint.x), (point.y - self.lastPoint.y));
+
+    [self.layer setAffineTransform:
+     CGAffineTransformTranslate([self.layer affineTransform],
+                                pointDifferential.x,
+                                pointDifferential.y)];
+    self.lastPoint = [gesture locationInView:self];
+}
+
 - (void)scrollToZoom:(CGFloat)zoomScale
 {
     //NSLog(@"Incoming zoom scale %f", zoomScale);
@@ -1418,8 +1486,43 @@ typedef struct {
     self.transform = CGAffineTransformScale(self.transform, zoomScale, zoomScale);
 }
 
+- (void)rotate:(UIRotationGestureRecognizer *)gesture
+{
+    gesture.view.transform = CGAffineTransformRotate(gesture.view.transform, gesture.rotation);
+    gesture.rotation = 0;
+
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (touch.adonitTouchIdentification == AdonitTouchIdentificationTypeStylus) {
+        // NSLog(@"stylus touch avoided in shouldReceiveTouch");
+        return  NO;
+    }
+
+    if ([touch respondsToSelector:@selector(majorRadius)]){
+        if (touch.majorRadius / touch.majorRadiusTolerance > 13.0) {
+            //NSLog(@"palm detected in shouldReceiveTouch");
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 - (void)setAltitudeAgnleEnable:(BOOL)enabled
 {
     _altitudeEnable = enabled;
 }
+
+- (void)setGestureEnable:(BOOL)enabled
+{
+    _gestureEnabled = enabled;
+}
+
 @end

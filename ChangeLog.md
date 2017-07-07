@@ -1,5 +1,19 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.3.1
+
+**SDK**
+- Update stylus parameters from online (through config.json)
+  number of button clicks, enable/disable correctors, stylus picture
+- Change UI text to show, jot -> adonit
+- Add button 3,4 support in 2A5A notification
+- Allow updating of stylus pictures from online (config.json) and web server
+- Update URL for “support” & “policy” pages from online (config.json)
+- Show “Connection UI panel” in non-fullscreen mode for iPhone devices
+
+**Jot Workshop**
+- Add gesture function back
+
 #v3.3
 
 **SDK**

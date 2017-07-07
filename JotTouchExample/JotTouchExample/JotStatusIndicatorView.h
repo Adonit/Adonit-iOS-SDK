@@ -17,6 +17,7 @@
 @property (nonatomic, weak) IBOutlet UILabel* bTapLabel;
 @property (nonatomic, weak) IBOutlet UILabel* scrollData;
 @property (nonatomic, weak) IBOutlet UISwitch* altitudeAngleEnable;
+@property (nonatomic, weak) IBOutlet UISwitch* gestureEnable;
 @property (nonatomic, weak) IBOutlet UILabel* altitudeAngleLabel;
 @property (nonatomic, weak) IBOutlet UILabel* platformLabel;
 - (void) setActivityMessage:(NSString *)activityMessage;

@@ -86,6 +86,7 @@
     self.platformLabel.text =  [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
     
     free(machine);
+    _gesturesEnabled = true;
 }
 
 #pragma mark - Adonit SDK Setup
@@ -110,8 +111,8 @@
     // Register for jotStylus notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:JotStylusManagerDidChangeConnectionStatus object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(friendlyNameChanged:) name:JotStylusManagerDidChangeStylusFriendlyName object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton1Tap) name:JotStylusButton1DoubleTap object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton2Tap) name:JotStylusButton2DoubleTap object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton1Tap) name:JotStylusButton1DoubleTap object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton2Tap) name:JotStylusButton2DoubleTap object:nil];
 
 }
 
@@ -310,6 +311,7 @@
 
             [self.jotStatusIndicatorContainerView setConnectedStylusModel: [NSString stringWithFormat:@"%@ Connected", self.lastConnectedStylusName]];
             [JotTouchStatusHUD showJotHUDInView:self.view isConnected:YES modelName:self.lastConnectedStylusName];
+            [self.jotStatusIndicatorContainerView.gestureEnable addTarget:self action:@selector(setGestureEnable:) forControlEvents:UIControlEventValueChanged];
             if ([self.jotManager stylusSupportsScrollSensor]) {
                 self.jotStatusIndicatorContainerView.scrollValue.hidden = NO;
                 self.jotStatusIndicatorContainerView.scrollValueLabel.hidden = NO;
@@ -635,10 +637,13 @@
 
 - (void)scrollValueUpdate:(CGFloat)value
 {
+    NSLog(@"gesturesEnabled == %d",_gesturesEnabled);
     [self.jotStatusIndicatorContainerView jotScrollUpdate:value];
     switch (state) {
         case 1:
-            [self adjustZoomScaleBy:value];
+            if (_gesturesEnabled) {
+                [self adjustZoomScaleBy:value];
+            }
             break;
         case 2:
             [self handleUndoRedoBy:value];
@@ -710,4 +715,11 @@
 {
     [self.canvasView setAltitudeEnable:[sender isOn]];
 }
+
+- (void)setGestureEnable:(id)sender
+{
+    [self.canvasView setGestureEnable:[sender isOn]];
+    _gesturesEnabled = [sender isOn];
+}
+
 @end
