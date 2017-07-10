@@ -3,15 +3,14 @@
 #v3.3.1
 
 **SDK**
-- Update stylus parameters from online (through config.json)
-  number of button clicks, enable/disable correctors, stylus picture
-- Change UI text to show, jot -> adonit
-- Allow updating of stylus pictures from online (config.json) and web server
-- Update URL for “support” & “policy” pages from online (config.json)
-- Show “Connection UI panel” in non-fullscreen mode for iPhone devices
+- Define stylus parameters from online (# of button clicks, enable/disable correctors, stylus name, etc.)
+- Allow updating of stylus pictures from online
+- Allow updating of URLs for “support” & “policy” pages from online
+- Change UI text to show "Adonit Stylus" instead of "Jot"
+- Show “Connection UI panel” in non-fullscreen mode on iPhone devices
 
 **Jot Workshop**
-- Add gesture function back
+- Reinstate gesture functionality
 
 #v3.3
 
