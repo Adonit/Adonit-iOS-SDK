@@ -94,8 +94,10 @@ typedef NS_ENUM(NSUInteger, JotConnectionStatus) {
     JotConnectionStatusPairing,
     /** A Jot is currently connected */
     JotConnectionStatusConnected,
-    /** No JOt is connected, but the most recently used Jot will be automatically connected to when available */
-    JotConnectionStatusDisconnected
+    /** No Jot is connected, but the most recently used Jot will be automatically connected to when available */
+    JotConnectionStatusDisconnected,
+    /** A Jot is power off */
+    JotConnectionStatusPowerOff
 };
 
 /** The maximum length for a friendly name */

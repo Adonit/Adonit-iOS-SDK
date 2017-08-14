@@ -47,6 +47,16 @@
  */
 - (void)jotStylusDiscoveryCancelled;
 
+/** Sent when the device bluetooth on
+ * @param stylus The stylus that is power on
+ */
+- (void)jotStylusBluetoothOn;
+
+/** Sent when the device bluetooth off
+ * @param stylus The stylus that is power off
+ */
+- (void)jotStylusBluetoothOff;
+
 @optional
 
 /** Sent when a stylus is about to be disconnected

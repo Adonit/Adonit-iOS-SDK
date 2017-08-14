@@ -1,5 +1,17 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.4
+
+**SDK**
+
+- introduce new palm rejection algorithm to support all iPad Pro models
+- detect iPad models to switch between palm rejection algorithms (legacy or new)
+- optimized stroke sensitivity (responsiveness) and offset correction for all iPad Pro models
+- added support for soon-to-release styluses: 2017.Q3+
+- allow updating of stylus pictures (in the connection ui) from a remote server
+- optimized ui controls for iPhone models (6/6+, 7/7+)
+- tested with iOS 11 beta
+
 #v3.3.1
 
 **SDK**

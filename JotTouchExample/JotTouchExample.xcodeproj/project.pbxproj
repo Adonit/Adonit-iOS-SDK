@@ -12,8 +12,6 @@
 		3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CCAF05D1A7A86A70023607E /* Launch Screen.xib */; };
 		3CDB12801AE6EBD30066B9C5 /* Brush.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDB127F1AE6EBD30066B9C5 /* Brush.m */; };
 		3CDB12811AE6EBD30066B9C5 /* Brush.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDB127F1AE6EBD30066B9C5 /* Brush.m */; };
-		4D1112601F0F26E0006B7D65 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D11125E1F0F26E0006B7D65 /* AdonitSDK.bundle */; };
-		4D1112611F0F26E0006B7D65 /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D11125F1F0F26E0006B7D65 /* AdonitSDK.framework */; };
 		4D2273851D2A6AA4008AEE13 /* AdonitPrototypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22737A1D2A6AA4008AEE13 /* AdonitPrototypeViewController.m */; };
 		4D2273861D2A6AA4008AEE13 /* AdonitPrototypeOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22737C1D2A6AA4008AEE13 /* AdonitPrototypeOverlayViewController.m */; };
 		4D2273871D2A6AA4008AEE13 /* AdonitLineWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D22737E1D2A6AA4008AEE13 /* AdonitLineWidthView.m */; };
@@ -24,6 +22,8 @@
 		4D2273911D2A6F65008AEE13 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22738F1D2A6F65008AEE13 /* Colors.swift */; };
 		4D2273921D2A6F65008AEE13 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2273901D2A6F65008AEE13 /* Numbers.swift */; };
 		4D22739A1D2B597C008AEE13 /* ColorPaletteLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2273991D2B597C008AEE13 /* ColorPaletteLibrary.swift */; };
+		4D3326D91F41B31D0066563D /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D3326D71F41B31D0066563D /* AdonitSDK.bundle */; };
+		4D3326DA1F41B31D0066563D /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D3326D81F41B31D0066563D /* AdonitSDK.framework */; };
 		7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7717F9471A1CD859001706AE /* MainStoryboard.storyboard */; };
 		7747EC821A1BDC9700D18429 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC811A1BDC9700D18429 /* main.m */; };
 		7747EC851A1BDC9700D18429 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC841A1BDC9700D18429 /* AppDelegate.m */; };
@@ -64,8 +64,6 @@
 		3CCAF05D1A7A86A70023607E /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		3CDB127E1AE6EBD30066B9C5 /* Brush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brush.h; sourceTree = "<group>"; };
 		3CDB127F1AE6EBD30066B9C5 /* Brush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brush.m; sourceTree = "<group>"; };
-		4D11125E1F0F26E0006B7D65 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AdonitSDK.bundle; sourceTree = "<group>"; };
-		4D11125F1F0F26E0006B7D65 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdonitSDK.framework; sourceTree = "<group>"; };
 		4D2273791D2A6AA4008AEE13 /* AdonitPrototypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdonitPrototypeViewController.h; sourceTree = "<group>"; };
 		4D22737A1D2A6AA4008AEE13 /* AdonitPrototypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdonitPrototypeViewController.m; sourceTree = "<group>"; };
 		4D22737B1D2A6AA4008AEE13 /* AdonitPrototypeOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdonitPrototypeOverlayViewController.h; sourceTree = "<group>"; };
@@ -83,6 +81,8 @@
 		4D22738F1D2A6F65008AEE13 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4D2273901D2A6F65008AEE13 /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
 		4D2273991D2B597C008AEE13 /* ColorPaletteLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPaletteLibrary.swift; sourceTree = "<group>"; };
+		4D3326D71F41B31D0066563D /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../../AdonitSDK.bundle; sourceTree = "<group>"; };
+		4D3326D81F41B31D0066563D /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../../AdonitSDK.framework; sourceTree = "<group>"; };
 		7717F9471A1CD859001706AE /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		7747EC7C1A1BDC9700D18429 /* JotWorkshop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotWorkshop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7747EC801A1BDC9700D18429 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D1112611F0F26E0006B7D65 /* AdonitSDK.framework in Frameworks */,
+				4D3326DA1F41B31D0066563D /* AdonitSDK.framework in Frameworks */,
 				7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */,
 				7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */,
 				7747ECD01A1BDF2900D18429 /* CoreMotion.framework in Frameworks */,
@@ -292,8 +292,8 @@
 		7747ECCE1A1BDF1100D18429 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4D11125E1F0F26E0006B7D65 /* AdonitSDK.bundle */,
-				4D11125F1F0F26E0006B7D65 /* AdonitSDK.framework */,
+				4D3326D71F41B31D0066563D /* AdonitSDK.bundle */,
+				4D3326D81F41B31D0066563D /* AdonitSDK.framework */,
 				7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */,
 				7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */,
 				7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */,
@@ -386,7 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */,
-				4D1112601F0F26E0006B7D65 /* AdonitSDK.bundle in Resources */,
+				4D3326D91F41B31D0066563D /* AdonitSDK.bundle in Resources */,
 				3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */,
 				7747EC8D1A1BDC9700D18429 /* Images.xcassets in Resources */,
 			);
