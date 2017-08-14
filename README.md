@@ -1,4 +1,4 @@
-#Adonit SDK for iOS v3.3
+#Adonit SDK for iOS v3.4
 
 ##Overview
 The Adonit iOS SDK is a free framework for iOS that provides you with the necessary tools to integrate a complete sketching experience in your apps when used with Adonit's line of [Bluetooth connected styluses](http://adonit.net/jot). It includes support for for the following features:
@@ -8,7 +8,6 @@ The Adonit iOS SDK is a free framework for iOS that provides you with the necess
 - Palm Rejection
 - Settings UI
 - Battery Level
-- Double Tap, Grip and Scroll ([Pixel](http://www.adonit.net/jot/pixel/) Only)
 
 ##How do I use it?
 Integrating with the Adonit iOS SDK is easy. Get up and running in no time by viewing our [wiki](https://github.com/Adonit/Adonit-iOS-SDK/wiki).
