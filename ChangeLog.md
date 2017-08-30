@@ -1,5 +1,10 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.4.1
+
+**SDK**
+- fine-tuned offset values for existing iPad Pro models
+
 #v3.4
 
 **SDK**
