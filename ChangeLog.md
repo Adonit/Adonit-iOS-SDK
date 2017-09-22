@@ -1,5 +1,10 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.4.2
+
+**SDK**
+- disable Pixel Pro connection on non-iPad Pro devices
+
 #v3.4.1
 
 **SDK**

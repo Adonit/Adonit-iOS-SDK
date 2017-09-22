@@ -12,6 +12,7 @@ extern NSUInteger const JOT_MIN_PRESSURE;
 extern NSUInteger const JOT_MAX_PRESSURE;
 
 extern NSString * const JotStylusManagerDidChangeConnectionStatus;
+extern NSString * const JotStylusManagerDidUpdateConnectionStatus;
 extern NSString * const JotStylusManagerDidChangeConnectionStatusStatusKey;
 
 extern NSString * const JotStylusManagerDidChangeEnabledStatus;
@@ -97,7 +98,11 @@ typedef NS_ENUM(NSUInteger, JotConnectionStatus) {
     /** No Jot is connected, but the most recently used Jot will be automatically connected to when available */
     JotConnectionStatusDisconnected,
     /** A Jot is power off */
-    JotConnectionStatusPowerOff
+    JotConnectionStatusPowerOff,
+    /** A Jot is not support for this platform */
+    JotConnectionStatusStylusNotSupportThePlatform,
+    /** A Jot is not support for this platform by swap stylus*/
+    JotConnectionStatusSwapStylusNotSupportThePlatform
 };
 
 /** The maximum length for a friendly name */
@@ -135,6 +140,8 @@ typedef NS_ENUM(NSInteger, JotTouchSDKErrorType) {
     JotTouchSDKErrorTypeResetFailure = 103,
     /** Used when an operation is requested while no stylus is connected */
     JotTouchSDKErrorTypeStylusNotConnected = 104,
+    /** Used when stylus try to connect with unsupported iPad */
+    JotTouchSDKErrorTypeStylusNotSupportedOnTablet = 105,
     /** Used when an invalid storage index is requested */
     JotTouchSDKErrorTypeStorageIndexOutOfBounds = 301,
     /** Used when an invalid storage location is requested */

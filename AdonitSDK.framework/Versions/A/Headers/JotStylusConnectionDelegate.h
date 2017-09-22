@@ -42,6 +42,14 @@
  */
 - (void)jotStylusUnsupported;
 
+/** Sent when the device does not support stylus
+ */
+- (void)jotStylusPlatformNotSupported;
+
+/** Sent when the device does not support stylus by swap stylus
+ */
+- (void)jotStylusPlatformNotSupportedBySwap;
+
 /**
  * Sent when a discovery attempt is cancelled
  */
