@@ -28,9 +28,9 @@
 @property (nonatomic, weak) IBOutlet UIButton *adonitLogo;
 @property (nonatomic, weak) IBOutlet UIView *interfaceContainerView;
 @property (nonatomic, weak) IBOutlet UIButton *resetCanvasButton;
-@property (weak, nonatomic) IBOutlet UISwitch *gesturesSwitch;
+
 @property (weak, nonatomic) IBOutlet UIView *connectionStatusView;
-@property (weak, nonatomic) IBOutlet UILabel *gestureLabel;
+
 @property (strong, nonatomic) IBOutlet UILabel *platformLabel;
 
 // JotStatusIndicators Properties & Methods
@@ -47,4 +47,5 @@
 - (void)updateProtoTypeBrushColor;
 - (void)updateProtoTypeBrushSize;
 - (void)cancelTap;
+- (IBAction)adonitLogoConnect:(id)sender;
 @end

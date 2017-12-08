@@ -84,6 +84,7 @@ class DrawingViewController: UIViewController, JotStrokeDelegate, ListensToJotSu
 	
     func jotStylusStrokeBegan(_ stylusStroke: JotStroke) {
         NSLog("jotStylusStrokeBegan");
+        
     }
 
     func jotStylusStrokeMoved(_ stylusStroke: JotStroke) {

@@ -10,6 +10,13 @@
 #import <AdonitSDK/AdonitSDK.h>
 #import "JotWorkshop-Swift.h"
 #import <sys/sysctl.h>
+#import "ConnectionStatusViewController.h"
+
+typedef NS_ENUM(NSUInteger, ConnectionMode) {
+    AdonitUI = 0,
+    JotModelUI = 1,
+    CustomizeUI = 2
+};
 
 @interface ViewController()<JotStylusScrollValueDelegate,PrototypeBrushAdjustments>
 
@@ -43,6 +50,8 @@
     int  state;
     CGFloat lastIncrement;
     CGFloat step;
+    NSInteger currentConnectionUI;
+    NSInteger lastConnectionUI;
 }
 
 #pragma mark - UIViewController
@@ -55,16 +64,7 @@
 
     self.canvasView.viewController = self;
 
-    [self setupJotSDK];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if (![userDefaults boolForKey:@"isFirstTimeLaunch"]) {
-        // Setup shortcut buttons
-        [self setupShortcut];
-    } else {
-        [self addShortcuts];
-    }
-
-    [self setupProtoType];
+    
     self.currentColor = [UIColor darkGrayColor];
     NSInteger penIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"currentBrushIndex"];
     [self setupPen:penIndex];
@@ -75,9 +75,9 @@
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(cancelTap)];
     [self.connectionStatusView addGestureRecognizer:singleFingerTap];
-    [self.connectionStatusView setUserInteractionEnabled:true];
-    [userDefaults setBool:YES forKey:@"isFirstTimeLaunch"];
-    [userDefaults synchronize];
+    
+//    [self.connectionStatusView setUserInteractionEnabled:true];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
@@ -87,33 +87,128 @@
     
     free(machine);
     _gesturesEnabled = true;
-}
-
-#pragma mark - Adonit SDK Setup
-- (void)setupJotSDK
-{
-    // Hookup Jot Settings UI
-    UIViewController<JotModelController> *connectionStatusViewController = [UIStoryboard instantiateJotViewControllerWithIdentifier:JotViewControllerUnifiedStatusButtonAndConnectionAndSettingsIdentifier];
-    connectionStatusViewController.view.frame = self.connectionStatusView.bounds;
-    
-    [self.connectionStatusView addSubview:connectionStatusViewController.view];
-    [self addChildViewController:connectionStatusViewController];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self                                                       selector:@selector(applicationEnteredForeground:)                                                          name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
     // Hook up the jotManager
     self.jotManager = [JotStylusManager sharedInstance];
     self.jotManager.unconnectedPressure = 256;
     self.jotManager.jotStrokeDelegate = self.canvasView;
     [self.jotManager setJotStylusScrollValueDelegate:self];
     self.jotManager.coalescedJotStrokesEnabled = YES;
-    [self.jotManager setReportDiagnosticData:YES];
+    //    [self.jotManager setReportDiagnosticData:YES];
     [self.jotManager enable];
-
+    
     // Register for jotStylus notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:JotStylusManagerDidChangeConnectionStatus object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(friendlyNameChanged:) name:JotStylusManagerDidChangeStylusFriendlyName object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton1Tap) name:JotStylusButton1DoubleTap object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton2Tap) name:JotStylusButton2DoubleTap object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRecommendString:) name:JotStylusNotificationRecommend object:nil];
+    
+    
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton1Tap) name:JotStylusButton1DoubleTap object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton2Tap) name:JotStylusButton2DoubleTap object:nil];
+    [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableConsoleLogging"];
+    [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheBTThings"];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setupJotSDK];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults boolForKey:@"isFirstTimeLaunch"]) {
+        // Setup shortcut buttons
+        [self setupShortcut];
+        [userDefaults setBool:YES forKey:@"isFirstTimeLaunch"];
+        [userDefaults synchronize];
+    } else {
+        [self addShortcuts];
+    }
+    [self setupProtoType];
+    lastConnectionUI = [userDefaults integerForKey:@"connection_type"];
+}
+
+- (void)applicationEnteredForeground:(NSNotification *)notification {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    currentConnectionUI = [userDefaults integerForKey:@"connection_type"];
+    if (lastConnectionUI != currentConnectionUI) {
+        [self setupJotSDK];
+        [self.jotManager disable];
+        [self.jotManager enable];
+        lastConnectionUI = currentConnectionUI;
+    }
+    
+    if (![userDefaults boolForKey:@"isFirstTimeLaunch"]) {
+        // Setup shortcut buttons
+        [self setupShortcut];
+    } else {
+        [self addShortcuts];
+    }
+
+    [self setupProtoType];
+    [self.canvasView setGestureEnable:[userDefaults boolForKey:@"gesture_enable"]];
+    [self.canvasView setAltitudeEnable:[userDefaults boolForKey:@"altitudeAngle_enable"]];
+//
+    
+}
+
+#pragma mark - Adonit SDK Setup
+- (void)setupJotSDK
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    // Hookup Jot Settings UI
+    switch ([userDefaults integerForKey:@"connection_type"]) {
+        case AdonitUI:
+        {
+            UIViewController<JotModelController> *connectionStatusViewController = [UIStoryboard instantiateJotViewControllerWithIdentifier:JotViewControllerUnifiedStatusButtonAndConnectionAndSettingsIdentifier];
+            connectionStatusViewController.view.frame = self.connectionStatusView.bounds;
+            NSArray *viewsToRemove = [self.connectionStatusView subviews];
+            for (UIView *v in viewsToRemove) {
+                [v removeFromSuperview];
+            }
+            [self.connectionStatusView addSubview:connectionStatusViewController.view];
+            [self willMoveToParentViewController:connectionStatusViewController];
+            [self addChildViewController:connectionStatusViewController];
+            if (lastConnectionUI != currentConnectionUI) {
+                [connectionStatusViewController dismissViewControllerAnimated:NO completion:nil];
+            }
+        }
+            break;
+        case JotModelUI: {
+            UIViewController *connectionStatusViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PressedConnectionViewController"];
+            
+            connectionStatusViewController.view.frame = self.connectionStatusView.bounds;
+            NSArray *viewsToRemove = [self.connectionStatusView subviews];
+            for (UIView *v in viewsToRemove) {
+                [v removeFromSuperview];
+            }
+            [self.connectionStatusView addSubview:connectionStatusViewController.view];
+            [self willMoveToParentViewController:connectionStatusViewController];
+            [self addChildViewController:connectionStatusViewController];
+            if (lastConnectionUI != currentConnectionUI) {
+                [connectionStatusViewController dismissViewControllerAnimated:NO completion:nil];
+            }
+        }
+            break;
+        case CustomizeUI:
+        {
+            UIViewController *connectionStatusViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConnectionStatusViewController"];
+            
+            connectionStatusViewController.view.frame = self.connectionStatusView.bounds;
+            NSArray *viewsToRemove = [self.connectionStatusView subviews];
+            for (UIView *v in viewsToRemove) {
+                [v removeFromSuperview];
+            }
+            [self.connectionStatusView addSubview:connectionStatusViewController.view];
+            [self willMoveToParentViewController:connectionStatusViewController];
+            [self addChildViewController:connectionStatusViewController];
+            if (lastConnectionUI != currentConnectionUI) {
+                [connectionStatusViewController dismissViewControllerAnimated:NO completion:nil];
+            }
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - prototype
@@ -311,18 +406,20 @@
 
             [self.jotStatusIndicatorContainerView setConnectedStylusModel: [NSString stringWithFormat:@"%@ Connected", self.lastConnectedStylusName]];
             [JotTouchStatusHUD showJotHUDInView:self.view isConnected:YES modelName:self.lastConnectedStylusName];
-            [self.jotStatusIndicatorContainerView.gestureEnable addTarget:self action:@selector(setGestureEnable:) forControlEvents:UIControlEventValueChanged];
+
+            if ([self.jotManager stylusSupportsAltitudeAngle]) {
+                self.canvasView.altitudeEnable = YES;
+            } else {
+                self.canvasView.altitudeEnable = NO;
+            }
+
             if ([self.jotManager stylusSupportsScrollSensor]) {
+                self.jotStatusIndicatorContainerView.scrollData.hidden = NO;
+                self.jotStatusIndicatorContainerView.stylusTapLabel.hidden = NO;
                 self.jotStatusIndicatorContainerView.scrollValue.hidden = NO;
                 self.jotStatusIndicatorContainerView.scrollValueLabel.hidden = NO;
                 self.jotStatusIndicatorContainerView.aTapLabel.hidden = NO;
                 self.jotStatusIndicatorContainerView.bTapLabel.hidden = NO;
-                self.jotStatusIndicatorContainerView.scrollData.hidden = NO;
-                self.jotStatusIndicatorContainerView.stylusTapLabel.hidden = NO;
-                self.jotStatusIndicatorContainerView.altitudeAngleEnable.hidden = NO;
-                self.jotStatusIndicatorContainerView.altitudeAngleLabel.hidden = NO;
-                [self.jotStatusIndicatorContainerView.altitudeAngleEnable addTarget:self action:@selector(setAltitudeAngleEnable:) forControlEvents:UIControlEventValueChanged];
-                self.canvasView.altitudeEnable = YES;
             } else {
                 self.jotStatusIndicatorContainerView.scrollValue.hidden = YES;
                 self.jotStatusIndicatorContainerView.scrollValueLabel.hidden = YES;
@@ -330,9 +427,6 @@
                 self.jotStatusIndicatorContainerView.bTapLabel.hidden = YES;
                 self.jotStatusIndicatorContainerView.scrollData.hidden = YES;
                 self.jotStatusIndicatorContainerView.stylusTapLabel.hidden = YES;
-                self.jotStatusIndicatorContainerView.altitudeAngleEnable.hidden = YES;
-                self.jotStatusIndicatorContainerView.altitudeAngleLabel.hidden = YES;
-                self.canvasView.altitudeEnable = NO;
             }
             break;
         }
@@ -342,6 +436,7 @@
             [self showJotStatusIndicators:NO WithAnimation:YES];
             if (self.lastConnectedStylusName.length > 0) {
                 [JotTouchStatusHUD showJotHUDInView:self.view isConnected:NO modelName:self.lastConnectedStylusName];
+                self.lastConnectedStylusName = nil;
             }
             break;
         }
@@ -456,16 +551,9 @@
     [self.canvasView clear];
 }
 
-- (IBAction)gestureSwitchValueChanged
-{
-    self.gesturesEnabled = self.gesturesSwitch.isOn;
-}
 
 - (IBAction)adonitLogoButtonPressed:(UIButton *)sender
-{
-    self.gesturesSwitch.hidden = !self.gesturesSwitch.hidden;
-    self.jotStatusIndicatorContainerView.hidden = !self.jotStatusIndicatorContainerView.hidden;
-    self.gestureLabel.hidden = !self.gestureLabel.hidden;
+{    self.jotStatusIndicatorContainerView.hidden = !self.jotStatusIndicatorContainerView.hidden;
 }
 
 /**
@@ -530,21 +618,24 @@
 - (void) zoom
 {
     // do something for zoom
-    state = 1;
-    zoomOn = !zoomOn;
-    if (zoomOn) {
-        [self.jotManager setRequireScrollData:true];
-        [JotTouchStatusHUD showJotHUDInView:self.view topLineMessage:@"Scroll enable" bottomeLineMessage:@"Zooming"];
-        quickUndoRedoOn = false;
-        toolsOn = false;
-        if (self.protoController.overLayController.currentScrollInteractionFocus == Scroll_Interaction_Focus_Tool_Switch) {
-            [self.protoController noneSelectShortCut];
+    if (self.gesturesEnabled) {
+        state = 1;
+        zoomOn = !zoomOn;
+        if (zoomOn) {
+            [self.jotManager setRequireScrollData:true];
+            [JotTouchStatusHUD showJotHUDInView:self.view topLineMessage:@"Scroll enable" bottomeLineMessage:@"Zooming"];
+            quickUndoRedoOn = false;
+            toolsOn = false;
+            if (self.protoController.overLayController.currentScrollInteractionFocus == Scroll_Interaction_Focus_Tool_Switch) {
+                [self.protoController noneSelectShortCut];
+            }
+        } else {
+            [self.jotManager setRequireScrollData:false];
+            state = 0;
+            [JotTouchStatusHUD showJotHUDInView:self.view topLineMessage:@"Scroll disable" bottomeLineMessage:@"Zooming"];
         }
-    } else {
-        [self.jotManager setRequireScrollData:false];
-        state = 0;
-        [JotTouchStatusHUD showJotHUDInView:self.view topLineMessage:@"Scroll disable" bottomeLineMessage:@"Zooming"];
     }
+    
 }
 
 - (void) quickUndoRedo
@@ -614,6 +705,9 @@
     [self.protoController noneSelectShortCut];
 }
 
+- (IBAction)adonitLogoConnect:(id)sender {
+}
+
 #pragma mark - Cleanup
 - (void) dealloc
 {
@@ -637,7 +731,6 @@
 
 - (void)scrollValueUpdate:(CGFloat)value
 {
-    NSLog(@"gesturesEnabled == %d",_gesturesEnabled);
     [self.jotStatusIndicatorContainerView jotScrollUpdate:value];
     switch (state) {
         case 1:
@@ -710,10 +803,10 @@
     }
 }
 
-
-- (void)setAltitudeAngleEnable:(id)sender
+- (void)showRecommendString:(NSNotification *)note
 {
-    [self.canvasView setAltitudeEnable:[sender isOn]];
+    NSString *recommend = note.userInfo[JotStylusNotificationRecommendKey];
+    [JotTouchStatusHUD showJotHUDInView:self.view topLineMessage:recommend bottomeLineMessage:@""];
 }
 
 - (void)setGestureEnable:(id)sender

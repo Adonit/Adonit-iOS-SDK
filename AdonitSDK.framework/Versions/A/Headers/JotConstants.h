@@ -27,6 +27,9 @@ extern NSString * const JotStylusTrackingPressureForConnectionNotification;
 extern NSString * const JotStylusTrackingPressureForConnectionFailedNotification;
 extern NSString * const JotStylusTrackingPressureForConnectionSuccessfulNotification;
 
+extern NSString * const JotStylusNotificationRecommend;
+extern NSString * const JotStylusNotificationRecommendKey;
+
 // Notification sent when the battery changes state to normal. Normal is 20-100%
 extern NSString * const JotStylusNotificationBatteryLevelNormal;
 

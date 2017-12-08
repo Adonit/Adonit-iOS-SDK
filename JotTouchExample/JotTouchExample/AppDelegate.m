@@ -24,7 +24,10 @@
         [bluetoothAlert show];
         self.bluetoothAlertView = bluetoothAlert;
     }];
-    
+    NSDictionary *userDefaultsDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [NSNumber numberWithInteger:0], @"connection_type", @"gesture_enable", [NSNumber numberWithBool:YES], @"altitudeAngle_enable", [NSNumber numberWithBool:YES],
+                                          nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
     return YES;
 }
 

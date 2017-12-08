@@ -1465,32 +1465,65 @@ typedef struct {
                                 pointDifferential.x,
                                 pointDifferential.y)];
     self.lastPoint = [gesture locationInView:self];
+    if (self.gestureEnabled) {
+        if ([gesture numberOfTouches] < 2)
+            return;
+        
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            self.lastScale = 1.0;
+            self.lastPoint = [gesture locationInView:self];
+        }
+        
+        // Scale
+        CGFloat currentScale = self.frame.size.width / self.bounds.size.width;
+        CGFloat newScale = 1.0 - (self.lastScale - gesture.scale);
+        if (currentScale * newScale < MINIMUM_ZOOM_SCALE || currentScale * newScale > MAXIMUM_ZOOM_SCALE) {
+            newScale = 1.0;
+        }
+        
+        [self.layer setAffineTransform:
+         CGAffineTransformScale([self.layer affineTransform],
+                                newScale,
+                                newScale)];
+        self.lastScale = gesture.scale;
+        
+        // Translate
+        CGPoint point = [gesture locationInView:self];
+        CGPoint pointDifferential = CGPointMake((point.x - self.lastPoint.x), (point.y - self.lastPoint.y));
+        
+        [self.layer setAffineTransform:
+         CGAffineTransformTranslate([self.layer affineTransform],
+                                    pointDifferential.x,
+                                    pointDifferential.y)];
+        self.lastPoint = [gesture locationInView:self];
+    }
 }
 
 - (void)scrollToZoom:(CGFloat)zoomScale
 {
     //NSLog(@"Incoming zoom scale %f", zoomScale);
-
+    
     CGFloat currentScale = self.frame.size.width / self.bounds.size.width;
     CGFloat newScale = currentScale * zoomScale;
-
+    
     if (newScale < MINIMUM_ZOOM_SCALE) {
         zoomScale = MINIMUM_ZOOM_SCALE / currentScale;
     }
     if (newScale > MAXIMUM_ZOOM_SCALE) {
         zoomScale = MAXIMUM_ZOOM_SCALE / currentScale;
     }
-
+    
     //NSLog(@"Setting with zoom scale %f", zoomScale);
-
+    
     self.transform = CGAffineTransformScale(self.transform, zoomScale, zoomScale);
 }
 
 - (void)rotate:(UIRotationGestureRecognizer *)gesture
 {
-    gesture.view.transform = CGAffineTransformRotate(gesture.view.transform, gesture.rotation);
-    gesture.rotation = 0;
-
+    if (self.gestureEnabled) {
+        gesture.view.transform = CGAffineTransformRotate(gesture.view.transform, gesture.rotation);
+        gesture.rotation = 0;
+    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -1511,7 +1544,6 @@ typedef struct {
             return NO;
         }
     }
-
     return YES;
 }
 

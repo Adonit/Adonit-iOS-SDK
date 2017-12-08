@@ -409,6 +409,12 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (readonly) NSString *SDKBuildVersion;
 
 /**
+ * The version of the configuration file
+ */
+@property (readonly) NSString *ConfigVersion;
+
+
+/**
  * Enabling this property allows information about your device and stylus to be reported to Adonit.
  * This information is used to create a better user experience for everyone. For more information, please
  * see our Terms and Conditions at http://www.adonit.net/termsandconditions/
@@ -427,6 +433,12 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
  * @return Any error that was encountered while launching help, otherwise nil
  */
 - (NSError *)launchHelpAndShowAlertOnError:(BOOL)showAlertOnError;
+
+/**
+ * Opens the appropriate privacy policy site
+ *
+ */
+- (void)launchPrivacyPolicyPage;
 
 /**
  * Provides accelerometer and other motion data for the stylus
