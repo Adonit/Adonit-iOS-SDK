@@ -1,5 +1,14 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.4.3
+
+**SDK**
+- Add recommend string notification when using pixel on ipad pro series.
+
+**Jot Workshop**
+- added example code for creating customized UIs (on connection/disconnection management)
+- added notification message to show unexpected connection events (e.g. connect pixel pro on non-pro ipads)
+
 #v3.4.2
 
 **SDK**
