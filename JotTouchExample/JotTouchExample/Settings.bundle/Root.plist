@@ -48,7 +48,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>AltitudeAngle enable</string>
+			<string>Tilt enable</string>
 			<key>Key</key>
 			<string>altitudeAngle_enable</string>
 			<key>DefaultValue</key>
