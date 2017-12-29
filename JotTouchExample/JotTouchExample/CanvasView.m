@@ -281,20 +281,17 @@ typedef struct {
     
     
     CGPoint min, max;
-    
     // compute the region of the texture that will be effected
     // by both the coalesced touches and the predicted touches
     {
         min = max = [((JotStroke*)stylusStroke.coalescedJotStrokes.firstObject) locationInView:self];
         for (JotStroke *coalescedStroke in stylusStroke.coalescedJotStrokes) {
             CGPoint location = [coalescedStroke locationInView:self];
-            
             if(location.x > max.x) max.x = location.x;
             if(location.x < min.x) min.x = location.x;
             if(location.y > max.y) max.y = location.y;
             if(location.y < min.y) min.y = location.y;
         }
-        
         for (JotStroke *predictedStroke in stylusStroke.predictedJotStrokes) {
             CGPoint location = [predictedStroke locationInView:self];
             CGFloat width = [self widthForPressure:predictedStroke.pressure tilt:predictedStroke.altitudeAngle];
@@ -304,7 +301,6 @@ typedef struct {
             if(location.y < min.y) min.y = location.y;
             brushWidthPredicted = brushWidthPredicted < width ? width : brushWidthPredicted;
         }
-        
         CGFloat width = brushWidthActual > brushWidthPredicted ? brushWidthActual : brushWidthPredicted;
         width *= 2;
         max = CGPointApplyAffineTransform(max, CGAffineTransformMakeTranslation(width, width));
@@ -323,8 +319,8 @@ typedef struct {
         // Add the predicted strokes to the path, and render
         for (JotStroke* predictedStroke in stylusStroke.predictedJotStrokes){
             UIColor *predictionColor = [self colorForPressure:predictedStroke.pressure tilt:predictedStroke.altitudeAngle];
-            
-            
+
+
             [self addLineToAndRenderStroke:currentStroke
                                    toPoint:[predictedStroke locationInView:self]
                                    toWidth:[self widthForPressure:predictedStroke.pressure tilt:predictedStroke.altitudeAngle]
@@ -332,9 +328,9 @@ typedef struct {
                                   withPath:nil
                               shouldRender:NO //predictedStroke.timestamp == lastPredictedStroke.timestamp
                           coalescedInteger:stylusStroke.predictedJotStrokes.count];
-            
+
             //NSLog(@"prediction Location: %@", NSStringFromCGPoint([predictedStroke locationInView:nil]));
-            
+
             if (predictedStroke.timestamp == lastPredictedStroke.timestamp) {
                 // helps render prediction closer to end of stroke.
                 [self addLineToAndRenderStroke:currentStroke
@@ -1114,7 +1110,10 @@ typedef struct {
     for (NSInteger index = segCount - renderElements - 1; index < segCount; index++) {
         [arrayOfElements addObject:currentStroke.segments[index]];
     }
-    
+    if (segCount == 2) {
+        [arrayOfElements addObject:currentStroke.segments[0]];
+        [arrayOfElements addObject:currentStroke.segments[1]];
+    }
     [self renderElements:arrayOfElements toScreen:shouldRender];
 }
 
@@ -1435,36 +1434,6 @@ typedef struct {
 
 - (void)zoom:(UIPinchGestureRecognizer *)gesture
 {
-    if ([gesture numberOfTouches] < 2)
-        return;
-
-    if (gesture.state == UIGestureRecognizerStateBegan) {
-        self.lastScale = 1.0;
-        self.lastPoint = [gesture locationInView:self];
-    }
-
-    // Scale
-    CGFloat currentScale = self.frame.size.width / self.bounds.size.width;
-    CGFloat newScale = 1.0 - (self.lastScale - gesture.scale);
-    if (currentScale * newScale < MINIMUM_ZOOM_SCALE || currentScale * newScale > MAXIMUM_ZOOM_SCALE) {
-        newScale = 1.0;
-    }
-
-    [self.layer setAffineTransform:
-     CGAffineTransformScale([self.layer affineTransform],
-                            newScale,
-                            newScale)];
-    self.lastScale = gesture.scale;
-
-    // Translate
-    CGPoint point = [gesture locationInView:self];
-    CGPoint pointDifferential = CGPointMake((point.x - self.lastPoint.x), (point.y - self.lastPoint.y));
-
-    [self.layer setAffineTransform:
-     CGAffineTransformTranslate([self.layer affineTransform],
-                                pointDifferential.x,
-                                pointDifferential.y)];
-    self.lastPoint = [gesture locationInView:self];
     if (self.gestureEnabled) {
         if ([gesture numberOfTouches] < 2)
             return;
@@ -1502,20 +1471,21 @@ typedef struct {
 - (void)scrollToZoom:(CGFloat)zoomScale
 {
     //NSLog(@"Incoming zoom scale %f", zoomScale);
-    
-    CGFloat currentScale = self.frame.size.width / self.bounds.size.width;
-    CGFloat newScale = currentScale * zoomScale;
-    
-    if (newScale < MINIMUM_ZOOM_SCALE) {
-        zoomScale = MINIMUM_ZOOM_SCALE / currentScale;
+    if (self.gestureEnabled) {
+        CGFloat currentScale = self.frame.size.width / self.bounds.size.width;
+        CGFloat newScale = currentScale * zoomScale;
+        
+        if (newScale < MINIMUM_ZOOM_SCALE) {
+            zoomScale = MINIMUM_ZOOM_SCALE / currentScale;
+        }
+        if (newScale > MAXIMUM_ZOOM_SCALE) {
+            zoomScale = MAXIMUM_ZOOM_SCALE / currentScale;
+        }
+        
+        //NSLog(@"Setting with zoom scale %f", zoomScale);
+        
+        self.transform = CGAffineTransformScale(self.transform, zoomScale, zoomScale);
     }
-    if (newScale > MAXIMUM_ZOOM_SCALE) {
-        zoomScale = MAXIMUM_ZOOM_SCALE / currentScale;
-    }
-    
-    //NSLog(@"Setting with zoom scale %f", zoomScale);
-    
-    self.transform = CGAffineTransformScale(self.transform, zoomScale, zoomScale);
 }
 
 - (void)rotate:(UIRotationGestureRecognizer *)gesture
