@@ -24,6 +24,9 @@
     for (UIView *v in viewsToRemove) {
         [v removeFromSuperview];
     }
+    connectionStatusViewController.view.backgroundColor = [UIColor jotPrimaryColor];
+    [connectionStatusViewController setSecondaryColor:[UIColor whiteColor]];
+    
     [self.pressToConnectView addSubview:connectionStatusViewController.view];
     [self addChildViewController:connectionStatusViewController];
     self.jotManager = [JotStylusManager sharedInstance];
@@ -32,7 +35,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(connectionChanged:) name:JotStylusManagerDidChangeConnectionStatus object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(friendlyNameChanged:) name:JotStylusManagerDidChangeStylusFriendlyName object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRecommendString:) name:JotStylusNotificationRecommend object:nil];
-    [self.pressToConnectView setBackgroundColor:[UIColor clearColor]];
     
     [self updateInstructionsForConnectionStatus:self.jotManager.connectionStatus];
 }
