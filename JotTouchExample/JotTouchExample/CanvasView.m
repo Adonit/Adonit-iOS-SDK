@@ -1517,7 +1517,7 @@ typedef struct {
     return YES;
 }
 
-- (void)setAltitudeAgnleEnable:(BOOL)enabled
+- (void)setAltitudeEnable:(BOOL)enabled
 {
     _altitudeEnable = enabled;
 }

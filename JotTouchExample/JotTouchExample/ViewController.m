@@ -410,7 +410,8 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
             [JotTouchStatusHUD showJotHUDInView:self.view isConnected:YES modelName:self.lastConnectedStylusName];
 
             if ([self.jotManager stylusSupportsAltitudeAngle]) {
-                self.canvasView.altitudeEnable = YES;
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [self.canvasView setAltitudeEnable:[userDefaults boolForKey:@"altitudeAngle_enable"]];
             } else {
                 self.canvasView.altitudeEnable = NO;
             }
@@ -555,7 +556,8 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
 
 
 - (IBAction)adonitLogoButtonPressed:(UIButton *)sender
-{    self.jotStatusIndicatorContainerView.hidden = !self.jotStatusIndicatorContainerView.hidden;
+{
+    self.jotStatusIndicatorContainerView.hidden = !self.jotStatusIndicatorContainerView.hidden;
 }
 
 /**
