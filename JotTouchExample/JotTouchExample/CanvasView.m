@@ -1527,4 +1527,9 @@ typedef struct {
     _gestureEnabled = enabled;
 }
 
+- (IBAction)settings
+{
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+}
+
 @end

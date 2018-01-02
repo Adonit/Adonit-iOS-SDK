@@ -25,7 +25,9 @@
         self.bluetoothAlertView = bluetoothAlert;
     }];
     NSDictionary *userDefaultsDefaults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [NSNumber numberWithInteger:0], @"connection_type", @"gesture_enable", [NSNumber numberWithBool:YES], @"altitudeAngle_enable", [NSNumber numberWithBool:YES],
+                                          [NSNumber numberWithInteger:0],@"connection_type",
+                                          [NSNumber numberWithBool:YES],@"gesture_enable",
+                                          [NSNumber numberWithBool:YES],@"altitudeAngle_enable",
                                           [NSNumber numberWithInteger:1], @"currentBrushIndex",
                                           nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];

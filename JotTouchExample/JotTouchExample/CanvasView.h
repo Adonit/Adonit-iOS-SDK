@@ -31,6 +31,9 @@
 // redo the last undo, if any
 - (IBAction) redo;
 
+// link directly to app's settings section
+- (IBAction) settings;
+
 - (void)scrollToZoom:(CGFloat)zoomScale;
 - (void)setAltitudeEnable:(BOOL)enabled;
 - (void)setGestureEnable:(BOOL)enabled;
