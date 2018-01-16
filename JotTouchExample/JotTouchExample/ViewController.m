@@ -127,6 +127,7 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
     lastConnectionUI = [userDefaults integerForKey:@"connection_type"];
     [self.canvasView setGestureEnable:[userDefaults boolForKey:@"gesture_enable"]];
     [self.canvasView setAltitudeEnable:[userDefaults boolForKey:@"altitudeAngle_enable"]];
+    [self.canvasView setRadiusViewEnable:[userDefaults boolForKey:@"radius_enable"]];
 }
 
 - (void)applicationEnteredForeground:(NSNotification *)notification {
@@ -149,7 +150,7 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
     [self setupProtoType];
     [self.canvasView setGestureEnable:[userDefaults boolForKey:@"gesture_enable"]];
     [self.canvasView setAltitudeEnable:[userDefaults boolForKey:@"altitudeAngle_enable"]];
-//
+    [self.canvasView setRadiusViewEnable:[userDefaults boolForKey:@"radius_enable"]];
     
 }
 

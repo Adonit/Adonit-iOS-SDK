@@ -17,6 +17,7 @@
 #import "ViewController.h"
 #import "UIEvent+iOS8.h"
 #import "JotWorkshop-Swift.h"
+#import "AdonitRadiusView.h"
 
 #define MINIMUM_ZOOM_SCALE 0.01f
 #define MAXIMUM_ZOOM_SCALE 10.0f
@@ -69,6 +70,8 @@ typedef struct {
 // this dictionary will hold all of the in progress
 // stroke objects
 @property  NSMutableDictionary* currentStrokes;
+@property NSMapTable *currentRadiusViews;
+@property (nonatomic) BOOL showRadiusViews;
 
 // these arrays will act as stacks for our undo state
 @property  NSMutableArray* stackOfStrokes;
@@ -136,7 +139,8 @@ typedef struct {
     _currentStrokes = [NSMutableDictionary dictionary];
     _stackOfStrokes = [NSMutableArray array];
     _stackOfUndoneStrokes = [NSMutableArray array];
-    
+    _currentRadiusViews = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
+
     //
     // the remainder is OpenGL initialization
     CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
@@ -198,8 +202,8 @@ typedef struct {
 - (void)layoutSublayersOfLayer:(CALayer *)layer
 {
     [super layoutSublayersOfLayer:layer];
-    [self recreateFrameBuffer];
-    [self renderAllStrokes];
+//    [self recreateFrameBuffer];
+//    [self renderAllStrokes];
 }
 
 #pragma mark - Begin Adonit SDK integration
@@ -216,6 +220,7 @@ typedef struct {
 - (void)jotStylusStrokeBegan:(JotStroke *)stylusStroke
 {
     self.viewController.protoController.stylusIsOnScreen = YES;
+    [self updateRadiusViewsForJotStylus:stylusStroke andPhase:UITouchPhaseBegan];
     [self checkForShadingWithTilt:stylusStroke.altitudeAngle];
     [self.viewController cancelTap];
     NSInteger coalesedCounter = 0;
@@ -246,6 +251,7 @@ typedef struct {
  */
 - (void)jotStylusStrokeMoved:(JotStroke *)stylusStroke
 {
+    [self updateRadiusViewsForJotStylus:stylusStroke andPhase:UITouchPhaseMoved];
     [self checkForShadingWithTilt:stylusStroke.altitudeAngle];
     while(snapStack.depth){
         [self popSnapShotFromStack:&snapStack];
@@ -353,6 +359,7 @@ typedef struct {
  */
 - (void)jotStylusStrokeEnded:(JotStroke *)stylusStroke
 {
+    [self updateRadiusViewsForJotStylus:stylusStroke andPhase:UITouchPhaseEnded];
     self.viewController.protoController.stylusIsOnScreen = NO;
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
@@ -436,13 +443,14 @@ typedef struct {
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesBegan");
+    [self updateRadiusViewsForTouches:touches];
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         for (UITouch *mainTouch in touches) {
-            
+
             NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
             UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
             SmoothStroke *currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
-            
+
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
 
@@ -460,6 +468,7 @@ typedef struct {
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    [self updateRadiusViewsForTouches:touches];
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         while(snapStack.depth){
             [self popSnapShotFromStack:&snapStack];
@@ -472,7 +481,7 @@ typedef struct {
             UITouch *lastPredictedTouch = [predictedTouches lastObject];
             SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
             CGFloat brushWidth = [self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2];
-            
+
             [currentStroke undoPrediction];
 
             // AbstractBezierPathElement* last = currentStroke.segments.lastObject;
@@ -554,22 +563,23 @@ typedef struct {
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded");
+    [self updateRadiusViewsForTouches:touches];
     if (![JotStylusManager sharedInstance].isStylusConnected) {
-        
+
         while(snapStack.depth){
             [self popSnapShotFromStack:&snapStack];
         }
         for (UITouch* mainTouch in touches) {
-            
+
             NSArray *coalescedTouches = [event coalescedTouchesIfAvailableForTouch:mainTouch];
             UITouch *lastCoalescedTouch = [coalescedTouches lastObject];
             SmoothStroke* currentStroke = [self getStrokeForHash:@(mainTouch.hash)];
-            
+
             [currentStroke undoPrediction];
-            
+
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
-                
+
                 if (currentStroke) {
                     // now line to the end of the stroke
                     [self addLineToAndRenderStroke:currentStroke
@@ -579,7 +589,7 @@ typedef struct {
                                           withPath:nil
                                       shouldRender:NO //coalescedTouch.timestamp == lastCoalescedTouch.timestamp
                                   coalescedInteger:coalescedTouches.count];
-                    
+
                     if (coalescedTouch.timestamp == lastCoalescedTouch.timestamp) {
                         [self addLineToAndRenderStroke:currentStroke
                                                toPoint:location
@@ -589,7 +599,7 @@ typedef struct {
                                           shouldRender:coalescedTouch.timestamp == lastCoalescedTouch.timestamp
                                       coalescedInteger:coalescedTouches.count + 1];
                     }
-                    
+
                     if (coalescedTouch.timestamp == lastCoalescedTouch.timestamp) {
                         [self cleanupEndedStroke:currentStroke forHash:@(mainTouch.hash)];
                     }
@@ -602,6 +612,7 @@ typedef struct {
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesCancelled");
+    [self updateRadiusViewsForTouches:touches];
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         for (UITouch* touch in touches) {
             // If appropriate, add code necessary to save the state of the application.
@@ -802,6 +813,7 @@ typedef struct {
     [self.stackOfUndoneStrokes removeAllObjects];
     [self.stackOfStrokes removeAllObjects];
     [self.currentStrokes removeAllObjects];
+    [self cleanupAllRadiusView];
 }
 
 #pragma mark - Rendering
@@ -1527,9 +1539,99 @@ typedef struct {
     _gestureEnabled = enabled;
 }
 
+- (void)setRadiusViewEnable:(BOOL)enabled
+{
+    _showRadiusViews = enabled;
+}
+
+
 - (IBAction)settings
 {
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+}
+
+
+#pragma mark - debug radius Views
+- (void)turnOnRadiusViews
+{
+    self.showRadiusViews = YES;
+}
+
+- (void)turnOffRadiusViews
+{
+    self.showRadiusViews = NO;
+}
+
+
+- (void)updateRadiusViewsForTouches:(NSSet *)touches
+{
+    if (self.showRadiusViews) {
+        for (UITouch *touch in touches) {
+            AdonitRadiusView *radiusView = [self getRadiusViewForHash:@(touch.hash)];
+            if (touch.phase != UITouchPhaseCancelled && touch.phase != UITouchPhaseEnded) {
+                [radiusView updateViewWithTouch:touch];
+            } else {
+                [radiusView updateViewWithTouch:touch];
+                //                [self cleanupRadiusViewForHash:@(touch.hash)];
+            }
+        }
+    }
+}
+
+- (AdonitRadiusView *)getRadiusViewForHash:(NSNumber *)hash
+{
+    AdonitRadiusView *radiusView = [self.currentRadiusViews objectForKey:hash];
+    if (!radiusView) {
+        radiusView = [[AdonitRadiusView alloc]initWithFrame:CGRectZero];
+        [self.currentRadiusViews setObject:radiusView forKey:hash];
+        [self addSubview:radiusView];
+    }
+    return radiusView;
+}
+
+- (void)cleanupRadiusViewForHash:(NSNumber *)hash
+{
+    
+    __block AdonitRadiusView *radiusView = [self getRadiusViewForHash:hash];
+    [self.currentRadiusViews removeObjectForKey:hash];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:2.5 animations:^{
+            radiusView.layer.opacity = 0.0;
+        } completion:^(BOOL finished) {
+            [radiusView removeFromSuperview];
+            radiusView = nil;
+        }];
+    });
+    
+}
+
+- (void)cleanupAllRadiusView {
+    for (AdonitRadiusView *radiusview in [self.currentRadiusViews objectEnumerator]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0 animations:^{
+                radiusview.layer.opacity = 0.0;
+            } completion:^(BOOL finished) {
+                [radiusview removeFromSuperview];
+            }];
+        });
+    }
+    
+    [self.currentRadiusViews removeAllObjects];
+}
+
+- (void)updateRadiusViewsForJotStylus:(JotStroke *)stylusStroke andPhase:(UITouchPhase)phase
+{
+    if (self.showRadiusViews) {
+        for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
+            AdonitRadiusView *radiusView = [self getRadiusViewForHash:@(coalescedJotStroke.hash)];
+            if (phase != UITouchPhaseCancelled && phase != UITouchPhaseEnded) {
+                [radiusView updateViewWithJotStroke:coalescedJotStroke];
+            } else {
+                [radiusView updateViewWithJotStroke:coalescedJotStroke];
+                //                [self cleanupRadiusViewForHash:@(coalescedJotStroke.hash)];
+            }
+        }
+    }
 }
 
 @end

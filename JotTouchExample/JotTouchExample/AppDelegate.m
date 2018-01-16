@@ -29,6 +29,7 @@
                                           [NSNumber numberWithBool:YES],@"gesture_enable",
                                           [NSNumber numberWithBool:YES],@"altitudeAngle_enable",
                                           [NSNumber numberWithInteger:1], @"currentBrushIndex",
+                                          [NSNumber numberWithBool:NO],@"radius_enable",
                                           nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDefaults];
     return YES;
