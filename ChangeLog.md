@@ -1,6 +1,6 @@
-#Change Log for AdonitSDK (iOS)
+# Change Log for AdonitSDK (iOS)
 
-#v3.4.3
+# v3.4.3
 
 **SDK**
 - Add recommend string notification when using pixel on ipad pro series.
@@ -9,17 +9,17 @@
 - added example code for creating customized UIs (on connection/disconnection management)
 - added notification message to show unexpected connection events (e.g. connect pixel pro on non-pro ipads)
 
-#v3.4.2
+# v3.4.2
 
 **SDK**
 - disable Pixel Pro connection on non-iPad Pro devices
 
-#v3.4.1
+# v3.4.1
 
 **SDK**
 - fine-tuned offset values for existing iPad Pro models
 
-#v3.4
+# v3.4
 
 **SDK**
 * added support for "Pixel Pro", a soon-to-be released stylus which is designed especially for iPad Pro models
@@ -31,7 +31,7 @@
 * optimized ui controls for iPhone models (6/6+, 7/7+)
 * tested for iOS 11 beta
 
-#v3.3.1
+# v3.3.1
 
 **SDK**
 - Define stylus parameters from online (# of button clicks, enable/disable correctors, stylus name, etc.)
@@ -43,7 +43,7 @@
 **Jot Workshop**
 - Reinstate gesture functionality
 
-#v3.3
+# v3.3
 
 **SDK**
 
@@ -58,17 +58,17 @@
 - show host device model name in UI
 - removed unused UI element (Gestures)
 
-#v3.2
+# v3.2
 - Added support for Adonit Pixel-only features: double tap & scroll.
 - Removed option to “Send Diagnostics to Adonit” found in connections UI.
 - Fixed broken link to the “Help” page found in connections UI.
 - Implemented a new mechanism to adjust stroke correction parameters from an online config file
 
-#v3.1.4
+# v3.1.4
 - Fix app crash issue when open JotPressToConnectView during bt turn off
 - Fix repetitively connect/disconnect different stylus crash issue
 
-#v3.1.3
+# v3.1.3
 - New 3x Assets for all images for better fidelity on iPhone 6 Plus and iPhone 6s Plus.
 - New pixel assets for shortcut buttons when an Adonit Pixel is connected.
 - By optimizing assets and some occasional programatic drawing, we’ve reduced the bundle size by 50% despite adding in pixel assets.
@@ -76,14 +76,14 @@
 - Improved coalescing of coalescedJotStrokes at the beginning of a stroke.
 - Removed Support for iOS 7.
 
-#v3.1.2
+# v3.1.2
 - Fixed issue that prevented online configuration file from persisting or appropriately updating.
 
-#v3.1.1
+# v3.1.1
 - Improved responsiveness of altitudeAngle on jotStroke with compatible styluses.
 - Updated default primaryColor of JotSettings UI to match Adonit Branding. (Can still be changed to match your apps palette.)
 
-#v3.1 
+# v3.1 
 - Support for upcoming Adonit Stylus
 - Predictive jotStrokes.
 - JotStroke pressure is now an adonit calibrated pressure curve that returns a float value beween 0.0 and 1.0
@@ -112,7 +112,7 @@
 # V3.0 
 - Fixed a crash around switching in and out of an app in iOS 9 with a connected Stylus.
 
-#V3.0 Beta 4 / Release Canidate
+# V3.0 Beta 4 / Release Canidate
 - Renamed JotTouchSDK to AdonitSDK
 - Added Coalesced JotStrokes for iOS 9.
 - Added Bitcode.
@@ -120,7 +120,7 @@
 - Fixed bug where asking to disconnect stylus multiple times could cause crash.
 - Done button automatically added to Settings UI during sizeclass change.
 
-#JotTouchSDK Change Log
+# JotTouchSDK Change Log
 # V3.0 Beta 3
 - Registering a view with the SDK will limit jotStroke event delivery to strokes that began in registered views.
 - More consistent naming. Shortcut buttons now labeled Button 1 & Button 2 in settings UI.
@@ -300,21 +300,21 @@ requiring apps to distribute new builds.
 - Removed -all_load linker flag requirement
 - Removed support and loading of Bluetooth 2.1 Jot Stylus to eliminate app store submission problems and iOS7 microphone access prompt
 
-##JotTouchSDK V1.0.4
+## JotTouchSDK V1.0.4
 - Fixes additional compatibly issues/warnings for non ARC apps
 - JotSettingsViewController no longer shows the shortcut buttons list item if no shortcuts have been registered.
 
-##JotTouchSDK V1.0.3
+## JotTouchSDK V1.0.3
 - Removed a leftover NSLog 
 
-##JotTouchSDK V1.0.2
+## JotTouchSDK V1.0.2
 - Added an unregisterView: method
 - Fixed a memory leak with the touch gestures
 
-##JotTouchSDK V1.0.1
+## JotTouchSDK V1.0.1
 - Fixes compatibly issues/warnings for non ARC apps.
 - Fixes compatibly issues with apps that do not use "shortVersion" entry in the application plist.
 - JotSettingsViewController disabled when run on iOS5.0, no longer crashing because of the missing NSLayoutConstraint
 
-##JotTouchSDK V1.0.0
+## JotTouchSDK V1.0.0
 - Initial release

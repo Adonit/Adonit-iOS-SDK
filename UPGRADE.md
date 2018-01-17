@@ -1,7 +1,7 @@
 # Adonit iOS SDK 3.2 Upgrade Notes
 ## Add Double Tap (Pixel-only feature)
 
-```
+```objective-c
 /**
 * Sets the default option state for a shortcut interface that will be used when first loaded.
 *
@@ -19,7 +19,7 @@
 
 ## Scroll (Pixel-only feature)
 
-```
+```objective-c
 /**
 * Turn this on to enable enable scroll function.
 */
@@ -34,14 +34,14 @@
 
 
 ## Adjust stroke correction
-```
+```objective-c
 [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithInteger:value] forKey:@"net.adonit.pointCorrectorValue"];
 ```
 # Adonit iOS SDK 3.1 Upgrade Notes
 
 ## New Pressure API
 Pressure has been given a more simple 0.0 to 1.0 float value range with an Adonit calibrated pressure curve for simplicity and convenience. The raw pressure can still be accessed for creating custom pressure curves if needed. 
-```
+```objective-c
 /*! A float between 0 and 1 indicating the pressure associated with the jotStroke, calculated from the raw pressure.
  */
 @property (nonatomic, readonly) CGFloat pressure;
@@ -54,7 +54,7 @@ Pressure has been given a more simple 0.0 to 1.0 float value range with an Adoni
 ## Altitude Angle with JotStrokes
 
 Check with the JotStylusManager to see if what allitude capabilities the connected stylus has with the `stylusSupportsAltitudeAngle` and `minimumAltitudeAngleSupported` properties.
-```
+```objective-c
 /**
  * Indicates whether the connected stylus supports a variable altitude angle.
  */
@@ -67,7 +67,7 @@ Check with the JotStylusManager to see if what allitude capabilities the connect
 ```
 Fetch the current `altitudeAngle` form a JotStroke object.
 
-```
+```objective-c
 /*! A value of 0 radians indicates that the stylus is parallel to the surface; when the stylus is perpendicular to the surface, altitudeAngle is Pi/2.
     Styluses that do not support altitude angle (Such as Jot Script and Jot Touch 4) will return a value of Pi/4.
  */
@@ -77,7 +77,7 @@ Fetch the current `altitudeAngle` form a JotStroke object.
 ## Predictive JotStrokes
 
 Enable and adjust predictive JotStrokes in the JotStylusManager using the `predictedJotStrokesEnabled` and `predictedJotStrokeLagMulitplier` properties.
-```
+```objective-c
 /**
 * Turn this on to enable predictedJotStrokes similar to predictedUITouches. Only available in iOS 9 and later. See JotStroke.h for more information.
 */
@@ -90,7 +90,7 @@ Enable and adjust predictive JotStrokes in the JotStylusManager using the `predi
 ```
 
 Retreive JotStrokes from the `predictedJotStrokes` property of a JotStroke object.
-```
+```objective-c
 
 /*! An array of auxiliary JotStrokes for stroke events that are predicted to occur for a given main JotStroke. These predictions may not exactly match the real behavior of the stroke as the stylus moves, so they should be interpreted as an estimate. To enable predictedJotStrokes turn on "predictedJotStrokesEnabled" on an instance of JotStylusManager.
 */
@@ -101,7 +101,7 @@ Retreive JotStrokes from the `predictedJotStrokes` property of a JotStroke objec
 
 We now offer a debug controller for diagnostic information on the connected stylus. While this is not intended to be used in a shipping app, it can help trouble shoot issues, and provide insight into how the hardware works.
 
-```
+```objective-c
 //A view controller that can be used to show the hardware status for debugging purposes
 extern NSString * const AdonitViewControllerDebugStatusIdentifier;
 ```
@@ -115,19 +115,19 @@ Step 2: **Hook up Stylus Events**
 
 The first integration point is to make sure events are being delivered to the new `AdonitTouchTypeIdentifier` engine, which is used to detect stylus as early in the event delivery flow as possible. The easiest way to do this is to subclass `JotDrawingApplication`, which includes built-in support for this event delivery. In your `main.m`, replace the normal call to `UIApplicationMain` with:
 
-```
+```objective-c
 #import <AdonitSDK/AdonitSDK.h>
 
 int main(int argc, char *argv[])
 {
-@autoreleasepool {
-return UIApplicationMain(argc, argv, NSStringFromClass([JotDrawingApplication class]), NSStringFromClass([AppDelegate class]));
-}
+  @autoreleasepool {
+    return UIApplicationMain(argc, argv, NSStringFromClass([JotDrawingApplication class]), NSStringFromClass([AppDelegate class]));
+  }
 }
 ```
 If you do not want to subclass `JotDrawingApplication`, you can implement your own event delivery in your own `UIApplication` subclass by overriding the `sendEvent` method. Below is the code used in `JotDrawingApplication`.
 
-```
+```objective-c
 #import "JotDrawingApplication.h"
 #import "AdonitTouchTypeIdentifier.h"
 #import "JotStylusManager.h"
@@ -142,17 +142,17 @@ If you do not want to subclass `JotDrawingApplication`, you can implement your o
 
 - (AdonitTouchTypeIdentifier *)touchTypeIdentifier
 {
-if (!_touchTypeIdentifier) {
-_touchTypeIdentifier = [JotStylusManager sharedInstance].touchTypeIdentifier;
-}
+  if (!_touchTypeIdentifier) {
+    _touchTypeIdentifier = [JotStylusManager sharedInstance].touchTypeIdentifier;
+  }
 
-return _touchTypeIdentifier;
+  return _touchTypeIdentifier;
 }
 
 - (void)sendEvent:(UIEvent *)event
 {
-[self.touchTypeIdentifier classifyAdonitDeviceIdentificationForEvent:event];
-[super sendEvent:event];
+  [self.touchTypeIdentifier classifyAdonitDeviceIdentificationForEvent:event];
+  [super sendEvent:event];
 }
 
 @end
