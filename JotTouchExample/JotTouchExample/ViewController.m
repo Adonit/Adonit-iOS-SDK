@@ -244,15 +244,15 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
                                                                 ]];
     
     [self.jotManager addShortcutOptionButton2DoubleTapDefault: [[JotShortcut alloc]
-                                                                initWithDescriptiveText:@"Quick Undo/Redo"
-                                                                key:@"quickundoredo"
-                                                                target:self selector:@selector(quickUndoRedo)
+                                                                initWithDescriptiveText:@"Tools"
+                                                                key:@"tools"
+                                                                target:self selector:@selector(toolsSelect)
                                                                 ]];
     
     [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
-                                               initWithDescriptiveText:@"Tools"
-                                               key:@"tools"
-                                               target:self selector:@selector(toolsSelect)
+                                               initWithDescriptiveText:@"Quick Undo/Redo"
+                                               key:@"quickundoredo"
+                                               target:self selector:@selector(quickUndoRedo)
                                                ]];
     
     [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
@@ -292,15 +292,15 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
                                                                 ]];
 
     [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
-                                                                initWithDescriptiveText:@"Quick Undo/Redo"
-                                                                key:@"quickundoredo"
-                                                                target:self selector:@selector(quickUndoRedo)
+                                                                initWithDescriptiveText:@"Tools"
+                                                                key:@"tools"
+                                                                target:self selector:@selector(toolsSelect)
                                                                 ]];
 
     [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]
-                                               initWithDescriptiveText:@"Tools"
-                                               key:@"tools"
-                                               target:self selector:@selector(toolsSelect)
+                                               initWithDescriptiveText:@"Quick Undo/Redo"
+                                               key:@"quickundoredo"
+                                               target:self selector:@selector(quickUndoRedo)
                                                ]];
 
     [self.jotManager addScrollShortcutOption: [[JotShortcut alloc]

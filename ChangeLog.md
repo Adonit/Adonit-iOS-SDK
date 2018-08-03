@@ -1,5 +1,10 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.5
+
+**SDK**
+- Fix duplicate symbols incompatible with beta 5 of Xcode 10.
+
 #v3.4.3
 
 **SDK**
