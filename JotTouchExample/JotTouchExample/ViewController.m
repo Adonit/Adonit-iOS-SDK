@@ -106,9 +106,9 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
     
     //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton1Tap) name:JotStylusButton1DoubleTap object:nil];
     //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jotButton2Tap) name:JotStylusButton2DoubleTap object:nil];
-    [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableConsoleLogging"];
-    [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheBTThings"];
-
+//    [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.enableConsoleLogging"];
+//    [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheBTThings"];
+//    [[JotStylusManager sharedInstance]  setOptionValue:[NSNumber numberWithBool:YES] forKey:@"net.adonit.logAllOfTheTouchThings"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -413,6 +413,7 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
             if ([self.jotManager stylusSupportsAltitudeAngle]) {
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                 [self.canvasView setAltitudeEnable:[userDefaults boolForKey:@"altitudeAngle_enable"]];
+                self.canvasView.altitudeEnable = NO;
             } else {
                 self.canvasView.altitudeEnable = NO;
             }

@@ -9,6 +9,7 @@
 
 @interface JotStatusIndicatorView : UIView
 
+@property (nonatomic,weak) IBOutlet UILabel* rawPressureLabel;
 @property (nonatomic,weak) IBOutlet UILabel* pressureLabel;
 @property (nonatomic,weak) IBOutlet UISlider *scrollValue;
 @property (nonatomic,weak) IBOutlet UILabel* stylusTapLabel;

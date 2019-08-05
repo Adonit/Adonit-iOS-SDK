@@ -121,15 +121,15 @@ extension UIColor {
 		var val = hex
 		
 		if let range = hex.range(of: "#") {
-			val = hex.substring(from: hex.characters.index(range.lowerBound, offsetBy: 1))
-			print("val: \(val)", terminator: "")
+//            val = hex.substring(from: hex.characters.index(range.lowerBound, offsetBy: 1))
+//            print("val: \(val)", terminator: "")
 		}
 		
 		let scanner = Scanner(string: val)
 		var hexValue: CUnsignedLongLong = 0
 		
 		if scanner.scanHexInt64(&hexValue) {
-			switch val.characters.count {
+			switch val.count {
 			case 3:
 				r = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
 				g = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0

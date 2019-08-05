@@ -22,8 +22,6 @@
 		4D2273911D2A6F65008AEE13 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D22738F1D2A6F65008AEE13 /* Colors.swift */; };
 		4D2273921D2A6F65008AEE13 /* Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2273901D2A6F65008AEE13 /* Numbers.swift */; };
 		4D22739A1D2B597C008AEE13 /* ColorPaletteLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2273991D2B597C008AEE13 /* ColorPaletteLibrary.swift */; };
-		4D6143A71FDA929000BB736F /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6143A51FDA929000BB736F /* AdonitSDK.framework */; };
-		4D6143A81FDA929000BB736F /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D6143A61FDA929000BB736F /* AdonitSDK.bundle */; };
 		4D75A99D1FFF321D00F5ED80 /* AdonitRadiusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D75A99C1FFF321D00F5ED80 /* AdonitRadiusView.m */; };
 		4D82FD8C1FCC103300BD9240 /* PressedConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D82FD8A1FCC103200BD9240 /* PressedConnectionViewController.m */; };
 		4D82FD8F1FCC129000BD9240 /* PressToConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D82FD8E1FCC129000BD9240 /* PressToConnectViewController.m */; };
@@ -34,6 +32,8 @@
 		4DB71A971FBD3385004F53E4 /* WritingStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB71A931FBD3383004F53E4 /* WritingStyleViewController.m */; };
 		4DB71A981FBD3385004F53E4 /* WritingStyleSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB71A951FBD3384004F53E4 /* WritingStyleSelectionView.m */; };
 		4DB71A9B1FBD5E7C004F53E4 /* ShortcutButtonsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB71A991FBD5E7B004F53E4 /* ShortcutButtonsTableViewController.m */; };
+		4DEA9388223A2BAB0082A4B7 /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEA9386223A2BAB0082A4B7 /* AdonitSDK.framework */; };
+		4DEA9389223A2BAB0082A4B7 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4DEA9387223A2BAB0082A4B7 /* AdonitSDK.bundle */; };
 		4DFA5DF71FCFAFAD00D0B949 /* JotModelConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFA5DF61FCFAFAD00D0B949 /* JotModelConnectViewController.m */; };
 		7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7717F9471A1CD859001706AE /* MainStoryboard.storyboard */; };
 		7747EC821A1BDC9700D18429 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7747EC811A1BDC9700D18429 /* main.m */; };
@@ -90,8 +90,6 @@
 		4D22738F1D2A6F65008AEE13 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4D2273901D2A6F65008AEE13 /* Numbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numbers.swift; sourceTree = "<group>"; };
 		4D2273991D2B597C008AEE13 /* ColorPaletteLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPaletteLibrary.swift; sourceTree = "<group>"; };
-		4D6143A51FDA929000BB736F /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../../AdonitSDK.framework; sourceTree = "<group>"; };
-		4D6143A61FDA929000BB736F /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../../AdonitSDK.bundle; sourceTree = "<group>"; };
 		4D75A99B1FFF321C00F5ED80 /* AdonitRadiusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdonitRadiusView.h; sourceTree = "<group>"; };
 		4D75A99C1FFF321D00F5ED80 /* AdonitRadiusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdonitRadiusView.m; sourceTree = "<group>"; };
 		4D82FD8A1FCC103200BD9240 /* PressedConnectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PressedConnectionViewController.m; sourceTree = "<group>"; };
@@ -112,6 +110,8 @@
 		4DB71A9A1FBD5E7C004F53E4 /* ShortcutButtonsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutButtonsTableViewController.h; sourceTree = "<group>"; };
 		4DC541CA1D61BBD2008631C8 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../../AdonitSDK.bundle; sourceTree = "<group>"; };
 		4DC541CB1D61BBD2008631C8 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../../AdonitSDK.framework; sourceTree = "<group>"; };
+		4DEA9386223A2BAB0082A4B7 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../AdonitSDK.framework; sourceTree = "<group>"; };
+		4DEA9387223A2BAB0082A4B7 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../AdonitSDK.bundle; sourceTree = "<group>"; };
 		4DFA5DF51FCFAFAC00D0B949 /* JotModelConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JotModelConnectViewController.h; sourceTree = "<group>"; };
 		4DFA5DF61FCFAFAD00D0B949 /* JotModelConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JotModelConnectViewController.m; sourceTree = "<group>"; };
 		7717F9471A1CD859001706AE /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -157,9 +157,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D6143A71FDA929000BB736F /* AdonitSDK.framework in Frameworks */,
 				7747ECD41A1BDF4F00D18429 /* SystemConfiguration.framework in Frameworks */,
 				7747ECD21A1BDF3B00D18429 /* CoreBluetooth.framework in Frameworks */,
+				4DEA9388223A2BAB0082A4B7 /* AdonitSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +278,15 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		4DEA937C223A28B00082A4B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4DEA9387223A2BAB0082A4B7 /* AdonitSDK.bundle */,
+				4DEA9386223A2BAB0082A4B7 /* AdonitSDK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7747EC731A1BDC9700D18429 = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +294,7 @@
 				7747EC981A1BDC9800D18429 /* JotTouchExampleTests */,
 				7747EC7D1A1BDC9700D18429 /* Products */,
 				4D6143A41FDA91D900BB736F /* Recovered References */,
+				4DEA937C223A28B00082A4B7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -350,8 +360,6 @@
 		7747ECCE1A1BDF1100D18429 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4D6143A61FDA929000BB736F /* AdonitSDK.bundle */,
-				4D6143A51FDA929000BB736F /* AdonitSDK.framework */,
 				7747ECD11A1BDF3B00D18429 /* CoreBluetooth.framework */,
 				7747ECCF1A1BDF2900D18429 /* CoreMotion.framework */,
 				7747ECD31A1BDF4F00D18429 /* SystemConfiguration.framework */,
@@ -406,7 +414,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Adonit, USA";
 				TargetAttributes = {
 					7747EC7B1A1BDC9700D18429 = {
@@ -421,7 +429,7 @@
 			};
 			buildConfigurationList = 7747EC771A1BDC9700D18429 /* Build configuration list for PBXProject "JotTouchExample" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -443,8 +451,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEA9389223A2BAB0082A4B7 /* AdonitSDK.bundle in Resources */,
 				7717F9481A1CD859001706AE /* MainStoryboard.storyboard in Resources */,
-				4D6143A81FDA929000BB736F /* AdonitSDK.bundle in Resources */,
 				4DB71A921FB5AFEE004F53E4 /* Images.xcassets in Resources */,
 				4D8951A51FB53E7F000F30E3 /* Settings.bundle in Resources */,
 				3CCAF05E1A7A86A70023607E /* Launch Screen.xib in Resources */,
@@ -545,17 +553,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -564,6 +583,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -581,6 +601,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -589,17 +610,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -607,6 +639,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -616,7 +649,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -644,13 +679,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.adonit.JotWorkshop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JotTouchExample/JotWorkshop-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -674,12 +709,12 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "net.adonit.$(PRODUCT_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = net.adonit.JotWorkshop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "JotTouchExample/JotWorkshop-Bridging-Header.h";
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(SWIFT_MODULE_NAME)-Swift.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

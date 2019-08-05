@@ -27,7 +27,7 @@ class ColorPaletteLibrary: NSObject {
 			tellListeners()
 		}
 	}
-	var currentColorIndex = 0 {
+	@objc var currentColorIndex = 0 {
 		didSet {
 			assert(currentColorIndex < ColorPaletteLibrary.colorsPerPalette && currentColorIndex >= 0, "Current Color Index out of range!")
             UserDefaults.standard.set(currentColorIndex, forKey: "currentColorIndex")

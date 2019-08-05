@@ -10,15 +10,15 @@
 import Foundation
 
 class BrushLibrary: NSObject {
-    let pen:Brush
-	let pencil:Brush
-	let eraser:Brush
+    @objc let pen:Brush
+	@objc let pencil:Brush
+	@objc let eraser:Brush
 	
-	let eraserIndex:Int
-	var eraserSelected = false
+	@objc let eraserIndex:Int
+	@objc var eraserSelected = false
 	
-	fileprivate(set) var brushes = [Brush]()
-	var currentBrushIndex = 0 {
+	@objc fileprivate(set) var brushes = [Brush]()
+	@objc var currentBrushIndex = 0 {
 		willSet {
 			previousBrushIndex = currentBrushIndex
 		}
@@ -39,18 +39,18 @@ class BrushLibrary: NSObject {
         
         brushes += [pencil, pen, eraser]
 		
-		eraserIndex = brushes.index(of: eraser)!
+        eraserIndex = brushes.firstIndex(of: eraser)!
         
         currentBrushIndex = UserDefaults.standard.integer(forKey: "currentBrushIndex")
     }
 	
-	var currentBrush:Brush {
+	@objc var currentBrush:Brush {
 		return brushes[currentBrushIndex]
 	}
 	
 	func revertFromEraser() {
-		if currentBrushIndex == brushes.index(of: eraser) {
-			if previousBrushIndex != brushes.index(of: eraser) {
+        if currentBrushIndex == brushes.firstIndex(of: eraser) {
+            if previousBrushIndex != brushes.firstIndex(of: eraser) {
 				currentBrushIndex = previousBrushIndex
 			} else {
 				currentBrushIndex = 0

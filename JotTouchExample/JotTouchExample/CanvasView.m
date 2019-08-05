@@ -230,10 +230,12 @@ typedef struct {
     [self configureWithStartingTiltPercentageFromTilt:stylusStroke.altitudeAngle];
     
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
+        
         coalesedCounter++;
         CGFloat pressure = coalescedJotStroke.pressure;
         CGPoint location = [coalescedJotStroke locationInView:self];
-        CGFloat offset = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
+        //NSLog(@"jotStylusStrokeBegan  point %@",NSStringFromCGPoint(location));
+        CGFloat offset = 0;//[self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
         
         [self addLineToAndRenderStroke:currentStroke
                                toPoint:CGPointMake(location.x + offset, location.y + offset)
@@ -243,7 +245,8 @@ typedef struct {
                           shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
                       coalescedInteger:coalesedCounter];
     }
-    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%f", stylusStroke.pressure]];
+    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%.10f", stylusStroke.pressure]];
+    [self.viewController.jotStatusIndicatorContainerView.rawPressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.rawPressure]];
 }
 
 /**
@@ -256,7 +259,7 @@ typedef struct {
     while(snapStack.depth){
         [self popSnapShotFromStack:&snapStack];
     }
-    
+    //NSLog(@"stylusStroke.pressure = %f  stylusStroke.rawPressure = %@",stylusStroke.pressure,@(stylusStroke.rawPressure));
     JotStroke *lastPredictedStroke = [stylusStroke.predictedJotStrokes lastObject];
     JotStroke *lastCoalescedStroke = [stylusStroke.coalescedJotStrokes lastObject];
     SmoothStroke *currentStroke = [self getStrokeForHash:@(stylusStroke.hash)];
@@ -271,9 +274,10 @@ typedef struct {
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
         
         CGPoint location = [coalescedJotStroke locationInView:self];
+        //NSLog(@"jotStylusStrokeMoved  point %@",NSStringFromCGPoint(location));
         CGFloat pressure = coalescedJotStroke.pressure;
         CGFloat width = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle];
-        CGFloat offset = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
+        CGFloat offset = 0;//[self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
         
         brushWidthActual = brushWidthActual < width ? width : brushWidthActual;
         [self addLineToAndRenderStroke:currentStroke
@@ -351,7 +355,8 @@ typedef struct {
         }
     }
     //Set JotTouchStatusIndicator labels
-    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%f", stylusStroke.pressure]];
+    [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:[NSString stringWithFormat:@"%.10f", stylusStroke.pressure]];
+    [self.viewController.jotStatusIndicatorContainerView.rawPressureLabel setText:[NSString stringWithFormat:@"%lu", (unsigned long)stylusStroke.rawPressure]];
 }
 
 /**
@@ -376,7 +381,7 @@ typedef struct {
         CGFloat stylusPressure = coalescedJotStroke.pressure / 2.0; // Setting end of each stroke to zero pressure can cause a more organic stroke roll off with fast strokes.
         [self addLineToAndRenderStroke:currentStroke
                                toPoint:location
-                               toWidth:[self widthForPressure:stylusPressure tilt:coalescedJotStroke.altitudeAngle]
+                               toWidth:3//[self widthForPressure:stylusPressure tilt:coalescedJotStroke.altitudeAngle]
                                toColor:[self colorForPressure:stylusPressure tilt:coalescedJotStroke.altitudeAngle]
                               withPath:nil
                           shouldRender:NO //coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
@@ -386,7 +391,7 @@ typedef struct {
             CGFloat endingPressure = 0.0; // Setting end of each stroke to zero pressure can cause a more organic stroke roll off with fast strokes.
             [self addLineToAndRenderStroke:currentStroke
                                    toPoint:location
-                                   toWidth:[self widthForPressure:endingPressure tilt:coalescedJotStroke.altitudeAngle]
+                                   toWidth:3//[self widthForPressure:endingPressure tilt:coalescedJotStroke.altitudeAngle]
                                    toColor:[self colorForPressure:endingPressure tilt:coalescedJotStroke.altitudeAngle]
                                   withPath:nil
                               shouldRender:coalescedJotStroke.timestamp == lastCoalescedStroke.timestamp
@@ -398,6 +403,7 @@ typedef struct {
     
     //Set JotTouchStatusIndicator labels back to default
     [self.viewController.jotStatusIndicatorContainerView.pressureLabel setText:@"none"];
+    [self.viewController.jotStatusIndicatorContainerView.rawPressureLabel setText:@"none"];
 }
 
 /**
@@ -438,11 +444,11 @@ typedef struct {
  * for other brands of stylus
  *
  * for this example app, we'll simply draw every touch only if
+ 
  * the jot sdk is not enabled.
  */
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesBegan");
     [self updateRadiusViewsForTouches:touches];
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         for (UITouch *mainTouch in touches) {
@@ -487,7 +493,6 @@ typedef struct {
             // AbstractBezierPathElement* last = currentStroke.segments.lastObject;
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
-
                 if (currentStroke) {
                     [self addLineToAndRenderStroke:currentStroke
                                            toPoint:location
@@ -562,7 +567,6 @@ typedef struct {
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesEnded");
     [self updateRadiusViewsForTouches:touches];
     if (![JotStylusManager sharedInstance].isStylusConnected) {
 
@@ -579,7 +583,6 @@ typedef struct {
 
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
-
                 if (currentStroke) {
                     // now line to the end of the stroke
                     [self addLineToAndRenderStroke:currentStroke
@@ -611,7 +614,6 @@ typedef struct {
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesCancelled");
     [self updateRadiusViewsForTouches:touches];
     if (![JotStylusManager sharedInstance].isStylusConnected) {
         for (UITouch* touch in touches) {
@@ -736,7 +738,7 @@ typedef struct {
     } else {
         color = self.currentColor;
     }
-    return [color colorWithAlphaComponent:segmentAlpha];
+    return [color colorWithAlphaComponent:1];
 }
 
 - (CGFloat)percentageOfTiltEffectToAppyFromCurrentTilt:(CGFloat)tilt
@@ -1005,7 +1007,6 @@ typedef struct {
             }
             prevElement = element;
         }
-        
         [self unprepOpenGLState:RENDER_DRAWING];
         
         // Display the buffer
