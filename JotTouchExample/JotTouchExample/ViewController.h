@@ -32,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIView *connectionStatusView;
 
 @property (strong, nonatomic) IBOutlet UILabel *platformLabel;
+@property (weak, nonatomic) IBOutlet UILabel *angleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *radianLabel;
 
 // JotStatusIndicators Properties & Methods
 @property (nonatomic, weak) IBOutlet JotStatusIndicatorView* jotStatusIndicatorContainerView;

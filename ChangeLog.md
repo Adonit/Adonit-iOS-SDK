@@ -1,5 +1,18 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.7
+
+**SDK**
+- Implement azimuthAngleInView, azimuthUnitVectorInView, altitudeAngle for note plus.
+- Fix disable offset can't get altitudeAngle.
+
+#v3.6
+
+**SDK**
+- Fixed issue that online configuration file from persisting updating.
+- Add note plus support.
+- Add iPad mini5, iPad Air 3, iPad Pro (11-inch), iPad 2018 configuration.
+
 #v3.5
 
 **SDK**
@@ -88,7 +101,7 @@
 - Improved responsiveness of altitudeAngle on jotStroke with compatible styluses.
 - Updated default primaryColor of JotSettings UI to match Adonit Branding. (Can still be changed to match your apps palette.)
 
-#v3.1 
+#v3.1
 - Support for upcoming Adonit Stylus
 - Predictive jotStrokes.
 - JotStroke pressure is now an adonit calibrated pressure curve that returns a float value beween 0.0 and 1.0
@@ -114,7 +127,7 @@
 # V3.0.1
 - Fixed an issue that could cause a crash in the iOS Simulator.
 
-# V3.0 
+# V3.0
 - Fixed a crash around switching in and out of an app in iOS 9 with a connected Stylus.
 
 #V3.0 Beta 4 / Release Canidate
@@ -205,7 +218,7 @@
 # V2.5 Public Release
 - see UPDATE.md for a rundown of API changes in this release
 - fixed numerous bugs when running on legacy iOS 6 devices
-- added ability for SDK to update configuration settings. 
+- added ability for SDK to update configuration settings.
 this will allow us to support future iOS devices without
 requiring apps to distribute new builds.
 - updated example app to support new API changes
@@ -310,7 +323,7 @@ requiring apps to distribute new builds.
 - JotSettingsViewController no longer shows the shortcut buttons list item if no shortcuts have been registered.
 
 ##JotTouchSDK V1.0.3
-- Removed a leftover NSLog 
+- Removed a leftover NSLog
 
 ##JotTouchSDK V1.0.2
 - Added an unregisterView: method

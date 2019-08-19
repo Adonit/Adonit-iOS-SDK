@@ -1,4 +1,45 @@
-# Adonit iOS SDK 3.2 Upgrade Notes
+# Adonit iOS SDK 3.7 Upgrade Notes
+
+## Azimuth Angle and Azimuth Unit Vector with JotStrokes
+```
+/*! A value of 0 radians points along the positive x axis; when the stylus tip is pointing towards the bottom of the view, azimuthAngle is Pi/2.
+Styluses that do not support azimuth angle (Such as Jot Script and Jot Touch 4) will return a value of Pi/4.
+*
+* @param view The view that contains the stylus’s touch. Pass nil to get the azimuth angle that is relative to the touch’s window
+* @return The azimuth angle of the stylus, in radians.
+*/
+- (CGFloat)azimuthAngleInView:(UIView *)view;
+
+/*! Returns a unit vector that points in the direction of the azimuth of the stylus.
+Styluses that do not support azimuth angle (Such as Jot Script, Jot Touch 4, Pixel and Pixel Pro) will return a value of 0.
+*
+* @param view The view that contains the stylus’s touch. Pass nil to get the unit vector for the azimuth that is relative to the touch’s window.
+* @return The unit vector that points in the direction of the azimuth of the stylus.
+*/
+- (CGVector)azimuthUnitVectorInView:(UIView *)view;
+
+```
+
+
+## Add Button 3,4 support for future
+
+```
+/**
+* Sets the default option state for the first shortcut that will used when initially loading the interface.
+*
+* @param shortcut The default option of the third stylus button shortcut to be added to the settings interface
+*/
+- (void)addShortcutOptionButton3Default:(JotShortcut *)shortcut;
+
+/**
+* Sets the default option state for the four shortcut that will used when initially loading the interface.
+*
+* @param shortcut The default option of the second stylus button shortcut to be added to the settings interface
+*/
+- (void)addShortcutOptionButton4Default:(JotShortcut *)shortcut;
+```
+
+
 ## Add Double Tap (Pixel-only feature)
 
 ```
@@ -40,7 +81,7 @@
 # Adonit iOS SDK 3.1 Upgrade Notes
 
 ## New Pressure API
-Pressure has been given a more simple 0.0 to 1.0 float value range with an Adonit calibrated pressure curve for simplicity and convenience. The raw pressure can still be accessed for creating custom pressure curves if needed. 
+Pressure has been given a more simple 0.0 to 1.0 float value range with an Adonit calibrated pressure curve for simplicity and convenience. The raw pressure can still be accessed for creating custom pressure curves if needed.
 ```
 /*! A float between 0 and 1 indicating the pressure associated with the jotStroke, calculated from the raw pressure.
  */
@@ -108,8 +149,8 @@ extern NSString * const AdonitViewControllerDebugStatusIdentifier;
 
 # Adonit iOS SDK 3.0 Upgrade Notes
 
-Step 1: **Sending Events**  
-Step 2: **Hook up Stylus Events**  
+Step 1: **Sending Events**
+Step 2: **Hook up Stylus Events**
 
 ## Sending Events
 
@@ -120,9 +161,9 @@ The first integration point is to make sure events are being delivered to the ne
 
 int main(int argc, char *argv[])
 {
-@autoreleasepool {
-return UIApplicationMain(argc, argv, NSStringFromClass([JotDrawingApplication class]), NSStringFromClass([AppDelegate class]));
-}
+	@autoreleasepool {
+		return UIApplicationMain(argc, argv, NSStringFromClass([JotDrawingApplication class]), NSStringFromClass([AppDelegate class]));
+	}
 }
 ```
 If you do not want to subclass `JotDrawingApplication`, you can implement your own event delivery in your own `UIApplication` subclass by overriding the `sendEvent` method. Below is the code used in `JotDrawingApplication`.
@@ -142,17 +183,17 @@ If you do not want to subclass `JotDrawingApplication`, you can implement your o
 
 - (AdonitTouchTypeIdentifier *)touchTypeIdentifier
 {
-if (!_touchTypeIdentifier) {
-_touchTypeIdentifier = [JotStylusManager sharedInstance].touchTypeIdentifier;
-}
+	if (!_touchTypeIdentifier) {
+		_touchTypeIdentifier = [JotStylusManager sharedInstance].touchTypeIdentifier;
+	}
 
-return _touchTypeIdentifier;
+	return _touchTypeIdentifier;
 }
 
 - (void)sendEvent:(UIEvent *)event
 {
-[self.touchTypeIdentifier classifyAdonitDeviceIdentificationForEvent:event];
-[super sendEvent:event];
+	[self.touchTypeIdentifier classifyAdonitDeviceIdentificationForEvent:event];
+	[super sendEvent:event];
 }
 
 @end
@@ -165,23 +206,23 @@ The critical code is to make sure you call `classifyAdonitDeviceIdentificationFo
 
 Most of the stylus integration from this point on is similar to 2.7 of our SDK, but we have changed some names to more closely reflect the purpose and function of our SDK.
 
-`JotPalmRejectionDelegate` ->                                 `jotStrokeDelegate`  
-`[JotStylusManager sharedInstance].palmRejectorDelegate` ->   `[JotStylusManager sharedInstance].jotStrokeDelegate`  
-`JotTouch` object ->                                          `JotStroke` object  
+`JotPalmRejectionDelegate` ->                                 `jotStrokeDelegate`
+`[JotStylusManager sharedInstance].palmRejectorDelegate` ->   `[JotStylusManager sharedInstance].jotStrokeDelegate`
+`JotTouch` object ->                                          `JotStroke` object
 
 Similar to the renaming to `JotStroke` Objects and a `JotStrokeDelegate`, the delegate events with stylus information have also been renamed.
 
-`jotStylusTouchBegan:` ->                                     `jotStylusStrokeBegan:`  
-`jotStylusTouchMoved:` ->                                     `jotStylusStrokeMoved:`  
-`jotStylusTouchEnded:` ->                                     `jotStylusStrokeEnded:`  
-`jotStylusTouchCancelled:` ->                                 `jotStylusStrokeCancelled:`  
+`jotStylusTouchBegan:` ->                                     `jotStylusStrokeBegan:`
+`jotStylusTouchMoved:` ->                                     `jotStylusStrokeMoved:`
+`jotStylusTouchEnded:` ->                                     `jotStylusStrokeEnded:`
+`jotStylusTouchCancelled:` ->                                 `jotStylusStrokeCancelled:`
 
 Also note, that these stylus events now directly provide the stroke object, instead of embedding them within an `NSSet` object.
 
-`- (void)jotStylusStrokeBegan:(nonnull JotStroke *)stylusStroke;`  
-`- (void)jotStylusStrokeMoved:(nonnull JotStroke *)stylusStroke;`  
-`- (void)jotStylusStrokeEnded:(nonnull JotStroke *)stylusStroke;`  
-`- (void)jotStylusStrokeCancelled:(nonnull JotStroke *)stylusStroke;`  
+`- (void)jotStylusStrokeBegan:(nonnull JotStroke *)stylusStroke;`
+`- (void)jotStylusStrokeMoved:(nonnull JotStroke *)stylusStroke;`
+`- (void)jotStylusStrokeEnded:(nonnull JotStroke *)stylusStroke;`
+`- (void)jotStylusStrokeCancelled:(nonnull JotStroke *)stylusStroke;`
 
 # JotTouchSDK 2.7 Upgrade Notes
 

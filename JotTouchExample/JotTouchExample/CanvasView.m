@@ -234,7 +234,8 @@ typedef struct {
         coalesedCounter++;
         CGFloat pressure = coalescedJotStroke.pressure;
         CGPoint location = [coalescedJotStroke locationInView:self];
-        //NSLog(@"jotStylusStrokeBegan  point %@",NSStringFromCGPoint(location));
+        self.viewController.radianLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle]];
+        self.viewController.angleLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle] * 180 / M_PI];
         CGFloat offset = 0;//[self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
         
         [self addLineToAndRenderStroke:currentStroke
@@ -274,7 +275,9 @@ typedef struct {
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
         
         CGPoint location = [coalescedJotStroke locationInView:self];
-        //NSLog(@"jotStylusStrokeMoved  point %@",NSStringFromCGPoint(location));
+        NSLog(@"azimuthAngleInView = %f , azimuthUnitVectorInView = %@ , altitudeAngle = %f",[coalescedJotStroke azimuthAngleInView:self] ,NSStringFromCGVector([coalescedJotStroke azimuthUnitVectorInView:self]), [coalescedJotStroke altitudeAngle] );
+        self.viewController.radianLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle]];
+        self.viewController.angleLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle] * 180 / M_PI];
         CGFloat pressure = coalescedJotStroke.pressure;
         CGFloat width = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle];
         CGFloat offset = 0;//[self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
@@ -377,7 +380,8 @@ typedef struct {
     
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
         CGPoint location = [coalescedJotStroke locationInView:self];
-        
+        self.viewController.radianLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle]];
+        self.viewController.angleLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle] * 180 / M_PI];
         CGFloat stylusPressure = coalescedJotStroke.pressure / 2.0; // Setting end of each stroke to zero pressure can cause a more organic stroke roll off with fast strokes.
         [self addLineToAndRenderStroke:currentStroke
                                toPoint:location
@@ -493,6 +497,9 @@ typedef struct {
             // AbstractBezierPathElement* last = currentStroke.segments.lastObject;
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
+                NSLog(@"azimuthAngleInView = %f , azimuthUnitVectorInView = %@ , altitudeAngle = %f",[coalescedTouch azimuthAngleInView:self] ,NSStringFromCGVector([coalescedTouch azimuthUnitVectorInView:self]), [coalescedTouch altitudeAngle] );
+                self.viewController.radianLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedTouch altitudeAngle]];
+                self.viewController.angleLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedTouch altitudeAngle] * 180 / M_PI];
                 if (currentStroke) {
                     [self addLineToAndRenderStroke:currentStroke
                                            toPoint:location
