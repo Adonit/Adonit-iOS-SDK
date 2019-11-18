@@ -204,6 +204,11 @@ extern NSString * const JotStylusManagerDiscoveryAttemptedButBluetoothOffNotific
 @property (readonly) BOOL stylusSupportsScrollSensor;
 
 /**
+ * Indicates whether the connected stylus supports a variable azimuth angle.
+ */
+@property (readonly) BOOL stylusSupportsAzimuthAngle;
+
+/**
  * A positive integer specifying the amount of battery remaining
  */
 @property (readonly) NSUInteger batteryLevel;

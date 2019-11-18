@@ -1,4 +1,4 @@
-# Adonit iOS SDK 3.7 Upgrade Notes
+# Adonit iOS SDK 3.7.3 Upgrade Notes
 
 ## Azimuth Angle and Azimuth Unit Vector with JotStrokes
 ```

@@ -1,5 +1,10 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.7.3
+
+**SDK**
+- Improved stability when connected with external display with iOS 13.
+
 #v3.7
 
 **SDK**

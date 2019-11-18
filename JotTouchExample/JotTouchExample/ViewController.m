@@ -433,6 +433,22 @@ typedef NS_ENUM(NSUInteger, ConnectionMode) {
                 self.jotStatusIndicatorContainerView.scrollData.hidden = YES;
                 self.jotStatusIndicatorContainerView.stylusTapLabel.hidden = YES;
             }
+            
+            if ([self.jotManager stylusSupportsAzimuthAngle]) {
+                [JotTouchStatusHUD showJotHUDInView:self.view isConnected:YES modelName:@"stylusSupportsAzimuthAngle"];
+            } else {
+                [JotTouchStatusHUD showJotHUDInView:self.view isConnected:YES modelName:@"stylus not SupportsAzimuthAngle"];
+            }
+//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//            if (![userDefaults boolForKey:@"isFirstTimeLaunch"]) {
+//                // Setup shortcut buttons
+//                [self setupShortcut];
+//                [userDefaults setBool:YES forKey:@"isFirstTimeLaunch"];
+//                [userDefaults synchronize];
+//            } else {
+//                [self addShortcuts];
+//            }
+            [self removeAllShortcuts];
             break;
         }
         case JotConnectionStatusDisconnected:

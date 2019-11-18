@@ -209,7 +209,7 @@ typedef struct {
 #pragma mark - Begin Adonit SDK integration
 - (void)configureDrawViewForAdonitSDK
 {
-    [[JotStylusManager sharedInstance] registerView:self];
+//    [[JotStylusManager sharedInstance] registerView:self];
 }
 
 #pragma mark - JotStrokeDelegate
@@ -275,13 +275,13 @@ typedef struct {
     for (JotStroke *coalescedJotStroke in stylusStroke.coalescedJotStrokes) {
         
         CGPoint location = [coalescedJotStroke locationInView:self];
-        NSLog(@"azimuthAngleInView = %f , azimuthUnitVectorInView = %@ , altitudeAngle = %f",[coalescedJotStroke azimuthAngleInView:self] ,NSStringFromCGVector([coalescedJotStroke azimuthUnitVectorInView:self]), [coalescedJotStroke altitudeAngle] );
+//        NSLog(@"azimuthAngleInView = %f , azimuthUnitVectorInView = %@ , altitudeAngle = %f",[coalescedJotStroke azimuthAngleInView:self] ,NSStringFromCGVector([coalescedJotStroke azimuthUnitVectorInView:self]), [coalescedJotStroke altitudeAngle] );
         self.viewController.radianLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle]];
         self.viewController.angleLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedJotStroke altitudeAngle] * 180 / M_PI];
+        
         CGFloat pressure = coalescedJotStroke.pressure;
         CGFloat width = [self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle];
         CGFloat offset = 0;//[self widthForPressure:pressure tilt:coalescedJotStroke.altitudeAngle] / 10;
-        
         brushWidthActual = brushWidthActual < width ? width : brushWidthActual;
         [self addLineToAndRenderStroke:currentStroke
                                toPoint:CGPointMake(location.x + offset, location.y + offset)
@@ -424,6 +424,7 @@ typedef struct {
 
 - (void)jotSuggestsToDisableGestures
 {
+    NSLog(@"jotSuggestsToDisableGestures");
     // disable any other gestures, like a pinch to zoom
     [self disableGestures];
     [self.viewController handleJotSuggestsToDisableGestures];
@@ -431,6 +432,7 @@ typedef struct {
 
 - (void)jotSuggestsToEnableGestures
 {
+    NSLog(@"jotSuggestsToEnableGestures");
     // enable any other gestures, like a pinch to zoom
     [self enableGestures];
     [self.viewController handleJotSuggestsToEnableGestures];
@@ -463,7 +465,6 @@ typedef struct {
 
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
-
                 [self addLineToAndRenderStroke:[self getStrokeForHash:@(currentStroke.hash)]
                                        toPoint:location
                                        toWidth:[self widthForPressure:(CGFloat)[JotStylusManager sharedInstance].unconnectedPressure / (CGFloat)JOT_MAX_PRESSURE tilt:M_PI_2]
@@ -497,7 +498,7 @@ typedef struct {
             // AbstractBezierPathElement* last = currentStroke.segments.lastObject;
             for (UITouch *coalescedTouch in coalescedTouches) {
                 CGPoint location = [coalescedTouch locationInView:self];
-                NSLog(@"azimuthAngleInView = %f , azimuthUnitVectorInView = %@ , altitudeAngle = %f",[coalescedTouch azimuthAngleInView:self] ,NSStringFromCGVector([coalescedTouch azimuthUnitVectorInView:self]), [coalescedTouch altitudeAngle] );
+//                NSLog(@"azimuthAngleInView = %f , azimuthUnitVectorInView = %@ , altitudeAngle = %f",[coalescedTouch azimuthAngleInView:self] ,NSStringFromCGVector([coalescedTouch azimuthUnitVectorInView:self]), [coalescedTouch altitudeAngle] );
                 self.viewController.radianLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedTouch altitudeAngle]];
                 self.viewController.angleLabel.text = [NSString stringWithFormat:@"%.5f",[coalescedTouch altitudeAngle] * 180 / M_PI];
                 if (currentStroke) {
@@ -1421,7 +1422,7 @@ typedef struct {
  */
 - (void)dealloc
 {
-    [[JotStylusManager sharedInstance] unregisterView:self];
+//    [[JotStylusManager sharedInstance] unregisterView:self];
 
     [self destroyFramebuffer];
 
