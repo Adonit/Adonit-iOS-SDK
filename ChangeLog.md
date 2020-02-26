@@ -1,5 +1,11 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.7.5
+
+**SDK**
+- Fix crash issue that when app resumes to foreground
+
+
 #v3.7.3
 
 **SDK**
