@@ -7,7 +7,7 @@
 //
 
 #import "AdonitRadiusView.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 
 @interface AdonitRadiusView()
 @property UILabel *radiusSizeLabel;

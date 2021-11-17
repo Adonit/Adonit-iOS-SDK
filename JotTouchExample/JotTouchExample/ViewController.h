@@ -6,7 +6,7 @@
 //
 
 @import UIKit;
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 #import "CanvasView.h"
 #import "StylusSettingsButton.h"
 #import "JotTouchStatusHUD.h"

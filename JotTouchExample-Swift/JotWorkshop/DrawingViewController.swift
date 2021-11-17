@@ -53,7 +53,7 @@ class DrawingViewController: UIViewController, JotStrokeDelegate, ListensToJotSu
 	func clearCanvas() {
 	}
 		
-	func jotStylusConnectionChanged(_ note: Notification) {
+    @objc func jotStylusConnectionChanged(_ note: Notification) {
 		guard let item = note.userInfo?[JotStylusManagerDidChangeConnectionStatusStatusKey] as? NSNumber,
 			let _ = JotConnectionStatus(rawValue: item.uintValue) else {
 			print("Problem parsing jot connection notification!")
@@ -61,10 +61,10 @@ class DrawingViewController: UIViewController, JotStrokeDelegate, ListensToJotSu
 		}
 	}
 	
-	func undo() {
+    @objc func undo() {
 	}
 	
-	func redo() {
+    @objc func redo() {
 	}
 	
 	

@@ -5,7 +5,7 @@
 //
 
 #import "PressedConnectionViewController.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 #import "JotTouchStatusHUD.h"
 
 @interface PressedConnectionViewController () <UIPopoverPresentationControllerDelegate>

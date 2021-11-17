@@ -1,6 +1,6 @@
 
 #import <UIKit/UIKit.h>
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 
 @interface StylusDetailTableViewController : UITableViewController <UITextFieldDelegate>
 

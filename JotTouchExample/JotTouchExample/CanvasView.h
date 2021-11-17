@@ -9,7 +9,7 @@
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 #import "Brush.h"
 
 @class ColorPaletteLibrary,BrushLibrary, SegmentSmoother, ViewController;

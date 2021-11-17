@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 
 @interface AppDelegate ()
 

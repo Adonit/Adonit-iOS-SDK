@@ -1,5 +1,10 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.8
+
+**SDK**
+- Add xcframeworks to support the arm64 simulator slice
+
 #v3.7.5
 
 **SDK**

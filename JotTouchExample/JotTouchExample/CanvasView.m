@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 Adonit. All rights reserved.
 //
 
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
 #import "SmoothStroke.h"

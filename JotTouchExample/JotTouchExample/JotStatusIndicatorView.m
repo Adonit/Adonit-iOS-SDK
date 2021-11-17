@@ -6,7 +6,7 @@
 //
 
 #import "JotStatusIndicatorView.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 
 @interface JotStatusIndicatorView ()
 

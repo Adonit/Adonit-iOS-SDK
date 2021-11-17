@@ -5,7 +5,7 @@
 //
 
 #import "ShortcutButtonsTableViewController.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 
 @interface ShortcutButtonsTableViewController ()
 @property JotShortcut *currentShortcut;

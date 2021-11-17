@@ -68,7 +68,7 @@ class DrawingToolbarViewController: UIViewController, UIGestureRecognizerDelegat
 		statusViewController?.view.frame = jotSettingsView.bounds;
 		jotSettingsView.backgroundColor = UIColor.clear
 		jotSettingsView.addSubview((statusViewController?.view)!);
-		addChildViewController(statusViewController!);
+        addChild(statusViewController!);
 		
 		
 		JotStylusManager.sharedInstance().register(self.view)

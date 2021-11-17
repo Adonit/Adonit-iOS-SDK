@@ -5,7 +5,7 @@
 //
 
 #import "ConnectionStatusViewController.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 #import "JotTouchStatusHUD.h"
 
 @interface ConnectionStatusViewController () <UIPopoverPresentationControllerDelegate>

@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D049D73273E359E009EE379 /* AdonitSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D049D72273E359E009EE379 /* AdonitSDK.xcframework */; };
 		4D5D3AE01D51A08B00859878 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */; };
-		4D5D3AE11D51A08B00859878 /* AdonitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */; };
 		4D5D3AE21D51A0E900859878 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B2ADB211ADDBE77000A3214 /* Main.storyboard */; };
 		4D5D3AE31D51A0E900859878 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B2ADB261ADDBE77000A3214 /* LaunchScreen.xib */; };
 		9B2ADB1E1ADDBE77000A3214 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2ADB1D1ADDBE77000A3214 /* AppDelegate.swift */; };
@@ -19,8 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D049D72273E359E009EE379 /* AdonitSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AdonitSDK.xcframework; path = ../AdonitSDK.xcframework; sourceTree = "<group>"; };
 		4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../AdonitSDK.bundle; sourceTree = "<group>"; };
-		4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdonitSDK.framework; path = ../AdonitSDK.framework; sourceTree = "<group>"; };
 		9B2ADB181ADDBE77000A3214 /* JotTouchSwiftExampleNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotTouchSwiftExampleNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2ADB1C1ADDBE77000A3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B2ADB1D1ADDBE77000A3214 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D5D3AE11D51A08B00859878 /* AdonitSDK.framework in Frameworks */,
+				4D049D73273E359E009EE379 /* AdonitSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,8 +50,8 @@
 		55D363951E15C11800994618 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D049D72273E359E009EE379 /* AdonitSDK.xcframework */,
 				4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */,
-				4D5D3ADF1D51A08B00859878 /* AdonitSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -189,6 +189,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -357,6 +358,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VSB6AFM682;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
@@ -366,15 +368,19 @@
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = JotWorkshop/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = net.adonit.jotworkshopnew;
 				PRODUCT_NAME = JotTouchSwiftExampleNew;
 				PROVISIONING_PROFILE = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = JotWorkshop/Libraries.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -388,6 +394,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VSB6AFM682;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
@@ -395,15 +402,19 @@
 					"${PROJECT_DIR}/..",
 				);
 				INFOPLIST_FILE = JotWorkshop/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = net.adonit.jotworkshopnew;
 				PRODUCT_NAME = JotTouchSwiftExampleNew;
 				PROVISIONING_PROFILE = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = JotWorkshop/Libraries.h;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;

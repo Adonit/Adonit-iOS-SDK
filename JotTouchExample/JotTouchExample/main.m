@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #import "AppDelegate.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 
 int main(int argc, char *argv[])
 {

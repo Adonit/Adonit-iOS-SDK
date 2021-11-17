@@ -1,3 +1,11 @@
+# Adonit iOS SDK 3.8 Upgrade Notes
+
+## Distributed binaries as xcframeworks in order to support the arm64 simulator slice.
+
+```
+If you’ve already imported AdonitSDK.Framework, please change your header from #import <AdonitSDK/AdonitSDK.h> to #import "AdonitSDK.h"
+```
+
 # Adonit iOS SDK 3.7.5 Upgrade Notes
 
 ## Azimuth Angle and Azimuth Unit Vector with JotStrokes

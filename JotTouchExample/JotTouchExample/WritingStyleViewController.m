@@ -6,7 +6,7 @@
 
 #import "WritingStyleViewController.h"
 #import "WritingStyleSelectionView.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 
 @interface WritingStyleViewController ()
 @property (weak) WritingStyleSelectionView *selectedView;

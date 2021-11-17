@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <AdonitSDK/AdonitSDK.h>
+#import "AdonitSDK.h"
 #import "JotWorkshop-Swift.h"
 #import <sys/sysctl.h>
 #import "ConnectionStatusViewController.h"
