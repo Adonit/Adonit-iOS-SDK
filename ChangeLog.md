@@ -1,5 +1,10 @@
 #Change Log for AdonitSDK (iOS)
 
+#v3.9
+
+**SDK**
+- Support for upcoming Adonit Note⁺ 2.
+
 #v3.8
 
 **SDK**
