@@ -55,11 +55,11 @@
 
 /*! An array of coalescedJotStrokes similar to the concept of coalesced UITouches. If you do not enable coalescedJotStrokes, this will return an array populated by this jotStroke instead. To enable coalescedJotStrokes turn on "coalescedJotStrokesEnabled" on an instance of JotStylusManager. Note: Coalesced strokes are snapshots, and each instance is a separate object. For tracking a persistent stroke across events, use the non-coalesced parent jotStroke instead of strokes from this array. 
  */
-@property (nonatomic, readonly) NSArray *coalescedJotStrokes;
+@property (nonatomic, readonly) NSArray<JotStroke*> *coalescedJotStrokes;
 
 /*! An array of auxiliary JotStrokes for stroke events that are predicted to occur for a given main JotStroke. These predictions may not exactly match the real behavior of the stroke as the stylus moves, so they should be interpreted as an estimate. To enable predictedJotStrokes turn on "predictedJotStrokesEnabled" on an instance of JotStylusManager.
   */
-@property (nonatomic, readonly) NSArray *predictedJotStrokes;
+@property (nonatomic, readonly) NSArray<JotStroke*> *predictedJotStrokes;
 
 /*! A value of 0 radians points along the positive x axis; when the stylus tip is pointing towards the bottom of the view, azimuthAngle is Pi/2.
  Styluses that do not support azimuth angle (Such as Jot Script and Jot Touch 4) will return a value of Pi/4.

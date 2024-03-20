@@ -28,89 +28,89 @@
 		<data>
 		aKcg63xCm/YMzzeo2D7haDVKI4w=
 		</data>
-		<key>DebugOptionsTableViewCell.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/DebugStatusViewController.nib</key>
 		<data>
-		ny/A1HA2CoIy8/qxhL9aBvEAXzo=
+		YQbfIOxnotYz7VTcjB1IW5X7HsY=
 		</data>
-		<key>JotSettings.storyboardc/DebugStatusViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/FPM-bZ-AqB-view-Xvj-0Q-ooG.nib</key>
 		<data>
-		ID6vNmberGevJ+zGOUExdfRELXg=
+		ACcICv2IX7GG79Jht02a3/6QTU8=
 		</data>
-		<key>JotSettings.storyboardc/FPM-bZ-AqB-view-Xvj-0Q-ooG.nib</key>
-		<data>
-		LSV6Of4yDnR3EysxsgONTkfsNXg=
-		</data>
-		<key>JotSettings.storyboardc/Info.plist</key>
+		<key>Base.lproj/JotSettings.storyboardc/Info.plist</key>
 		<data>
 		hC/5GOJzUiSRlnEY8/yNrotjoxA=
 		</data>
-		<key>JotSettings.storyboardc/JotBatteryViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotBatteryViewController.nib</key>
 		<data>
-		4J4xTdbr/pcZRsRIzUXVrlbgFNY=
+		mqmf5tR9ili0jH5xuSAqzvh/hDw=
 		</data>
-		<key>JotSettings.storyboardc/JotConnectedViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotConnectedViewController.nib</key>
 		<data>
-		PQpLCn098WiaFSnSce8mdhAdqWQ=
+		Al3j6ZQg0QVMgDSDyiRGD9gHvXQ=
 		</data>
-		<key>JotSettings.storyboardc/JotConnectionStatusViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotConnectionStatusViewController.nib</key>
 		<data>
-		F72p94iJDTGeEm2RBhvNIlJe4KY=
+		j5FKwWrwhipxCoo9dw79DbpCpgA=
 		</data>
-		<key>JotSettings.storyboardc/JotDisconnectedViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotDisconnectedViewController.nib</key>
 		<data>
-		UhEvdNWkyeNB8Yo7jThJeQQJ6xg=
+		AJczVGETbg7+7ZnnjsoBq2bw610=
 		</data>
-		<key>JotSettings.storyboardc/JotPressToConnectViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotPressToConnectViewController.nib</key>
 		<data>
-		6btzDjhgm55hz+tKuVovPU2lZrM=
+		hsCuVsD7FEu1zmxDJuL6fP1Wx0A=
 		</data>
-		<key>JotSettings.storyboardc/JotShortButtonsTableViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotShortButtonsTableViewController.nib</key>
 		<data>
-		H9n4ltC57mYkWpD+N8Ogmql0yWM=
+		Rwf/akZiMthOD0VwVlOpO3HmU1E=
 		</data>
-		<key>JotSettings.storyboardc/JotStylusDetailTableViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotStylusDetailTableViewController.nib</key>
 		<data>
-		omy48eokGsUERC+KgFbc5+B+rVk=
+		sz50ZixCsgT9JRqc6iOH1k8Xqq8=
 		</data>
-		<key>JotSettings.storyboardc/JotWritingStyleViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotWritingStyleViewController.nib</key>
 		<data>
-		WzqZTr/JPCCOWmwkFPikBzzoagc=
+		WjkHMSsYetFCS7NMMqCjgSEe5x8=
 		</data>
-		<key>JotSettings.storyboardc/Kai-kc-1UU-view-mH9-9p-q6X.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/Kai-kc-1UU-view-mH9-9p-q6X.nib</key>
 		<data>
-		tUFjcl2gr/j9Gzb8aO7JIbzm6IM=
+		/6nVTNmlIPAr5PghwhLQUYk+tzE=
 		</data>
-		<key>JotSettings.storyboardc/UINavigationController-WQh-qr-84m.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/UINavigationController-WQh-qr-84m.nib</key>
 		<data>
-		YEkp4Up19KP0cYGh1JznmCjh1u0=
+		E89NHz0zC0bMYM3/0DKtKUqSNis=
 		</data>
-		<key>JotSettings.storyboardc/YyA-YT-yNg-view-daT-lA-OZj.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/YyA-YT-yNg-view-daT-lA-OZj.nib</key>
 		<data>
-		yQ51dylA21/5X2M3faoEXJJnTJM=
+		0JCMqHxHUxxphUWn/XAwZLcg5rI=
 		</data>
-		<key>JotSettings.storyboardc/dtB-tO-xBf-view-2bn-E7-7yp.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/dtB-tO-xBf-view-2bn-E7-7yp.nib</key>
 		<data>
-		/DsN0p5Y1shc5H0su+CzzzIe7Mw=
+		SxBhxwqoSnvJgh+oUmVLnC3Z4gs=
 		</data>
-		<key>JotSettings.storyboardc/mrx-Gs-5KW-view-vOb-Vy-utL.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/mrx-Gs-5KW-view-vOb-Vy-utL.nib</key>
 		<data>
-		ItnFJOMtagvaI0E8T9O6Lu9RbEU=
+		vPt1yPG3tT73GyKgkL3H+bRwjRo=
 		</data>
-		<key>JotSettings.storyboardc/oxC-0N-u0H-view-NZH-Vd-sUJ.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/oxC-0N-u0H-view-NZH-Vd-sUJ.nib</key>
 		<data>
-		j5yh1lt8lGSKv3C9qg4EsB0OdPw=
+		Y1LzUX6b5y3rbRVBuxZ8XQyap1Q=
 		</data>
-		<key>JotSettings.storyboardc/p4f-Rj-cqB-view-iYF-un-vxo.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/p4f-Rj-cqB-view-iYF-un-vxo.nib</key>
 		<data>
-		bxCP+VqnMz3ZlJg+ZJ6/j94bGgQ=
+		lt7CVt/irsLbfrC4QzN5S4I+e/g=
 		</data>
-		<key>JotSettings.storyboardc/s6B-Kb-hQX-view-S2f-BN-84O.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/s6B-Kb-hQX-view-S2f-BN-84O.nib</key>
 		<data>
-		gX2/IsIweghTHJmM5MsdXkBxp3Q=
+		ihDkR9ASUzdCIUTJaKApVLHBL+w=
 		</data>
-		<key>JotSettings.storyboardc/zQv-SI-wo7-view-zzO-wF-Psq.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/zQv-SI-wo7-view-zzO-wF-Psq.nib</key>
 		<data>
-		l7uZectvvjZfms6/S2Y7B2aGXLA=
+		x1OIQ7EkxQXEeix80ksIGTm4rqM=
+		</data>
+		<key>DebugOptionsTableViewCell.nib</key>
+		<data>
+		8WS1UqlROpXmdEoWI1qJtHYiFFk=
 		</data>
 		<key>Jot_Touch_1.0.png</key>
 		<data>
@@ -183,6 +183,10 @@
 		<key>LeftC-Vertical@3x.png</key>
 		<data>
 		eCekH/AbzkV1fAzd0jtkEaGrQ5Y=
+		</data>
+		<key>PrivacyInfo.xcprivacy</key>
+		<data>
+		uH/039mRaTQbW46wSl7TJCckp8g=
 		</data>
 		<key>RightA-Horizontal.png</key>
 		<data>
@@ -325,40 +329,29 @@
 			neBtQcq6Q8xKWGSTcNPL/jt64OQwwhZ+3BXdrTwBo+0=
 			</data>
 		</dict>
-		<key>DebugOptionsTableViewCell.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/DebugStatusViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ny/A1HA2CoIy8/qxhL9aBvEAXzo=
+			YQbfIOxnotYz7VTcjB1IW5X7HsY=
 			</data>
 			<key>hash2</key>
 			<data>
-			md93TzilWu4HPifq30tdFWne+XBc6C510CVM87Rm/a8=
+			gKM0K4xLD8qZWoTEjUyR7+2cHzANv3tBkQfXL03TfME=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/DebugStatusViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/FPM-bZ-AqB-view-Xvj-0Q-ooG.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ID6vNmberGevJ+zGOUExdfRELXg=
+			ACcICv2IX7GG79Jht02a3/6QTU8=
 			</data>
 			<key>hash2</key>
 			<data>
-			QufLar2cxJXYl7y4m7ZE6KzfVAM+pSaOyfU5qVqyH4k=
+			Sh9sTYREmwjnS60npxmDOKhttcn8cKPIepCDbqaZmJY=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/FPM-bZ-AqB-view-Xvj-0Q-ooG.nib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			LSV6Of4yDnR3EysxsgONTkfsNXg=
-			</data>
-			<key>hash2</key>
-			<data>
-			f30K/HxHdQ9mYQmwcCcO9N6kdaeHhss3QLtLg3QwqCw=
-			</data>
-		</dict>
-		<key>JotSettings.storyboardc/Info.plist</key>
+		<key>Base.lproj/JotSettings.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
@@ -369,191 +362,202 @@
 			eEFgYOTEMT3EqhgoZy9nqN34kGoaXeKJ6zurP5oeIvk=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotBatteryViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotBatteryViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4J4xTdbr/pcZRsRIzUXVrlbgFNY=
+			mqmf5tR9ili0jH5xuSAqzvh/hDw=
 			</data>
 			<key>hash2</key>
 			<data>
-			GLGqdgZ30nwZnFHx8cIY4brEP2NmvRBHtnWoiP3Q4/E=
+			FW1FVPm+Zq6J+O5hL5LkRFZIfo8rrKc3rLXm4wtO+x0=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotConnectedViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotConnectedViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			PQpLCn098WiaFSnSce8mdhAdqWQ=
+			Al3j6ZQg0QVMgDSDyiRGD9gHvXQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			B5izxNOJsQwoP8+iH3kEB0lIY+m38+3fsqoz25t7I/8=
+			KaNtcQ5Hkr45IihTjQOIeMCQ2FSIehA52Xf+ufenU2A=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotConnectionStatusViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotConnectionStatusViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			F72p94iJDTGeEm2RBhvNIlJe4KY=
+			j5FKwWrwhipxCoo9dw79DbpCpgA=
 			</data>
 			<key>hash2</key>
 			<data>
-			3LY5GZVrfOmEy1bsIasVozyvCjqTc2cHCLIAlRAS1GQ=
+			MADymYEeBwlDHB62PAqYsenbJt0m3AngdOf1EPGTsRo=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotDisconnectedViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotDisconnectedViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			UhEvdNWkyeNB8Yo7jThJeQQJ6xg=
+			AJczVGETbg7+7ZnnjsoBq2bw610=
 			</data>
 			<key>hash2</key>
 			<data>
-			wzSdcWtAJDlswWB9JeQ2zuHDQKVB2Wcdn58Hj6Lur7E=
+			/Ad6WAdxskqtuSlxzrXqH8LFHbagkcRJuFCnblvUpIc=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotPressToConnectViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotPressToConnectViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			6btzDjhgm55hz+tKuVovPU2lZrM=
+			hsCuVsD7FEu1zmxDJuL6fP1Wx0A=
 			</data>
 			<key>hash2</key>
 			<data>
-			yq6rewvNhxKzkNxeoaizHSGh8Y1Z5utEyulzqc7mU+c=
+			4S9iyxqK88CyXihrARW7sYJ61l+xVxzqc2553ktoceM=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotShortButtonsTableViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotShortButtonsTableViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			H9n4ltC57mYkWpD+N8Ogmql0yWM=
+			Rwf/akZiMthOD0VwVlOpO3HmU1E=
 			</data>
 			<key>hash2</key>
 			<data>
-			4r7P03I1iQvA4ZbuOKXs48GakVfzwn+cTWB3di5b9g8=
+			Cf6tCzPmJt9PvAjBUVVTMygKSVEgOSdWm1rspGnDIAI=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotStylusDetailTableViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotStylusDetailTableViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			omy48eokGsUERC+KgFbc5+B+rVk=
+			sz50ZixCsgT9JRqc6iOH1k8Xqq8=
 			</data>
 			<key>hash2</key>
 			<data>
-			d9ZByAC0qeDw7vvPI3LrM7Kjqjjl6WuL1kVY/1gvGO0=
+			rtj05d5ri6KDIqB5tjw1EwgHoRqap7FSjqfU51GBe9c=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/JotWritingStyleViewController.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/JotWritingStyleViewController.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WzqZTr/JPCCOWmwkFPikBzzoagc=
+			WjkHMSsYetFCS7NMMqCjgSEe5x8=
 			</data>
 			<key>hash2</key>
 			<data>
-			dBzOje8xbUIwnkAva9RtRSiHQfWcODEAXL6+Oqh5Ffk=
+			fx+aaVIjNUQdkJIdhmBOf7xPuDmZsSIvbPXk5saXE+k=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/Kai-kc-1UU-view-mH9-9p-q6X.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/Kai-kc-1UU-view-mH9-9p-q6X.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tUFjcl2gr/j9Gzb8aO7JIbzm6IM=
+			/6nVTNmlIPAr5PghwhLQUYk+tzE=
 			</data>
 			<key>hash2</key>
 			<data>
-			EqrPdpqIKwJA98lrXRmpjcm/XgwNhaWmcW6zjlklntY=
+			s5qjzWqWwyWz9B0TlEr6W2sXjp88Z8STI53MxWP6sp0=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/UINavigationController-WQh-qr-84m.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/UINavigationController-WQh-qr-84m.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			YEkp4Up19KP0cYGh1JznmCjh1u0=
+			E89NHz0zC0bMYM3/0DKtKUqSNis=
 			</data>
 			<key>hash2</key>
 			<data>
-			bhfFqj6YoBpvPrMfmkLWAyzErn18hzvhwLDAzEWpJ+s=
+			gWm/e51/yvqL9l1KslW+uGMjO9r9vEwQ7G86uXv2M84=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/YyA-YT-yNg-view-daT-lA-OZj.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/YyA-YT-yNg-view-daT-lA-OZj.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			yQ51dylA21/5X2M3faoEXJJnTJM=
+			0JCMqHxHUxxphUWn/XAwZLcg5rI=
 			</data>
 			<key>hash2</key>
 			<data>
-			5BKAMu/7GUf85CRc/YdsqglHXnmVtF8MzmDhLmgtYg0=
+			+N2hqmneoYWFbOsvmlJJngGdZvCsd37aaXeqZ6i1Jag=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/dtB-tO-xBf-view-2bn-E7-7yp.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/dtB-tO-xBf-view-2bn-E7-7yp.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/DsN0p5Y1shc5H0su+CzzzIe7Mw=
+			SxBhxwqoSnvJgh+oUmVLnC3Z4gs=
 			</data>
 			<key>hash2</key>
 			<data>
-			b+Bx2gxs6QfK7A05IHDDlCUKiLrKU7tiBWEL919ZS5A=
+			9gQHmx4QH8ASMNDHUNUkM70CWj4XbbmCrORxeFBFhvI=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/mrx-Gs-5KW-view-vOb-Vy-utL.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/mrx-Gs-5KW-view-vOb-Vy-utL.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ItnFJOMtagvaI0E8T9O6Lu9RbEU=
+			vPt1yPG3tT73GyKgkL3H+bRwjRo=
 			</data>
 			<key>hash2</key>
 			<data>
-			cNhVWGLP18HEo1Cm1KCKL8nA84LcabVCQ29n9z6FCuo=
+			tgJM4UfI+KJO9vCVt//Bp7WO74lnnNH/EHHtrBFEyPI=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/oxC-0N-u0H-view-NZH-Vd-sUJ.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/oxC-0N-u0H-view-NZH-Vd-sUJ.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			j5yh1lt8lGSKv3C9qg4EsB0OdPw=
+			Y1LzUX6b5y3rbRVBuxZ8XQyap1Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			ae94+kIr9x/nlAPJMLmNUE8wxYHQeJDm9T0qNQB+GU8=
+			nrv/T8ZXY2WHl55tR68a3kgokJHBS0HlEM8p8oOxkl0=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/p4f-Rj-cqB-view-iYF-un-vxo.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/p4f-Rj-cqB-view-iYF-un-vxo.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bxCP+VqnMz3ZlJg+ZJ6/j94bGgQ=
+			lt7CVt/irsLbfrC4QzN5S4I+e/g=
 			</data>
 			<key>hash2</key>
 			<data>
-			UqL7ScEGqGe+yDhd80xMfv7obB6C1Xvvv/fyWFO82o8=
+			Tg5ZvxO3lw0MiC7vZQUINA6UGJklyHmY/QOUUZqY0do=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/s6B-Kb-hQX-view-S2f-BN-84O.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/s6B-Kb-hQX-view-S2f-BN-84O.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			gX2/IsIweghTHJmM5MsdXkBxp3Q=
+			ihDkR9ASUzdCIUTJaKApVLHBL+w=
 			</data>
 			<key>hash2</key>
 			<data>
-			NTSTduSczPx8og8ALXGYOzW34YWNrsMAjo4WVBIxGPM=
+			kgRU2/vXYYuAR8KZn3f6I/l++dnr5Pfrqw5ZUcFtN1o=
 			</data>
 		</dict>
-		<key>JotSettings.storyboardc/zQv-SI-wo7-view-zzO-wF-Psq.nib</key>
+		<key>Base.lproj/JotSettings.storyboardc/zQv-SI-wo7-view-zzO-wF-Psq.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			l7uZectvvjZfms6/S2Y7B2aGXLA=
+			x1OIQ7EkxQXEeix80ksIGTm4rqM=
 			</data>
 			<key>hash2</key>
 			<data>
-			2lCIXXZgLHMzUxXe1FlcnvaeXKa5j3eBWFAclsexi0Q=
+			tAwZB7WFU6OkLQsW0F3KuW3ACjeOh239GWh8qQRfh0U=
+			</data>
+		</dict>
+		<key>DebugOptionsTableViewCell.nib</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8WS1UqlROpXmdEoWI1qJtHYiFFk=
+			</data>
+			<key>hash2</key>
+			<data>
+			lu2NrLn5iwZPJoSCX5Yg5W7yZxHJk1ZlsuLhuX/fFwA=
 			</data>
 		</dict>
 		<key>Jot_Touch_1.0.png</key>
@@ -752,6 +756,17 @@
 			<key>hash2</key>
 			<data>
 			YvIzHav3b2XeLVjkQHOpsqS2xGuvzonxFIDTs0M0MSo=
+			</data>
+		</dict>
+		<key>PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uH/039mRaTQbW46wSl7TJCckp8g=
+			</data>
+			<key>hash2</key>
+			<data>
+			zi2wLOq9N0y14yF7/Q5nlERQk5ciRhzptNsmwOMcuOc=
 			</data>
 		</dict>
 		<key>RightA-Horizontal.png</key>

@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4D049D73273E359E009EE379 /* AdonitSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D049D72273E359E009EE379 /* AdonitSDK.xcframework */; };
+		4D1A5A692BAA9D2300F4A045 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4D1A5A682BAA9D2300F4A045 /* PrivacyInfo.xcprivacy */; };
 		4D5D3AE01D51A08B00859878 /* AdonitSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */; };
 		4D5D3AE21D51A0E900859878 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B2ADB211ADDBE77000A3214 /* Main.storyboard */; };
 		4D5D3AE31D51A0E900859878 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B2ADB261ADDBE77000A3214 /* LaunchScreen.xib */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		4D049D72273E359E009EE379 /* AdonitSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AdonitSDK.xcframework; path = ../AdonitSDK.xcframework; sourceTree = "<group>"; };
+		4D1A5A682BAA9D2300F4A045 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4D5D3ADE1D51A08B00859878 /* AdonitSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AdonitSDK.bundle; path = ../AdonitSDK.bundle; sourceTree = "<group>"; };
 		9B2ADB181ADDBE77000A3214 /* JotTouchSwiftExampleNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JotTouchSwiftExampleNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B2ADB1C1ADDBE77000A3214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				9B3980F41AF01B33003790A9 /* main.swift */,
 				9B2ADB1D1ADDBE77000A3214 /* AppDelegate.swift */,
 				9B2ADB1C1ADDBE77000A3214 /* Info.plist */,
+				4D1A5A682BAA9D2300F4A045 /* PrivacyInfo.xcprivacy */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				4D5D3AE21D51A0E900859878 /* Main.storyboard in Resources */,
 				4D5D3AE31D51A0E900859878 /* LaunchScreen.xib in Resources */,
 				4D5D3AE01D51A08B00859878 /* AdonitSDK.bundle in Resources */,
+				4D1A5A692BAA9D2300F4A045 /* PrivacyInfo.xcprivacy in Resources */,
 				9B2ADB251ADDBE77000A3214 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

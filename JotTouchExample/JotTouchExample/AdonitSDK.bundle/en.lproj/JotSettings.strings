@@ -1,0 +1,168 @@
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Button A Shortcut"; ObjectID = "30f-cF-u1U"; */
+"30f-cF-u1U.accessibilityLabel" = "Button A Shortcut";
+
+/* Class = "UILabel"; text = "Configuration  Version"; ObjectID = "4PN-zj-wMk"; */
+"4PN-zj-wMk.text" = "Configuration  Version";
+
+/* Class = "UITableViewSection"; headerTitle = "Double tap shortcuts"; ObjectID = "6ik-1a-VRi"; */
+"6ik-1a-VRi.headerTitle" = "Double tap shortcuts";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Button B Shortcut"; ObjectID = "A5E-XV-1RB"; */
+"A5E-XV-1RB.accessibilityLabel" = "Button B Shortcut";
+
+/* Class = "UIImageView"; accessibilityLabel = "Writing Style Right Vertical"; ObjectID = "Blr-2k-y7l"; */
+"Blr-2k-y7l.accessibilityLabel" = "Writing Style Right Vertical";
+
+/* Class = "UILabel"; text = "Firmware Version"; ObjectID = "Btc-hf-Rgw"; */
+"Btc-hf-Rgw.text" = "Firmware Version";
+
+/* Class = "UINavigationItem"; title = "Stylus"; ObjectID = "Bzo-Ad-SiD"; */
+"Bzo-Ad-SiD.title" = "Stylus";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Enable Diagnostics"; ObjectID = "C0A-hH-GFX"; */
+"C0A-hH-GFX.accessibilityLabel" = "Enable Diagnostics";
+
+/* Class = "UIButton"; accessibilityLabel = "Connection Help Button"; ObjectID = "C7l-TV-Tz1"; */
+"C7l-TV-Tz1.accessibilityLabel" = "Connection Help Button";
+
+/* Class = "UIButton"; normalTitle = "Connection Help"; ObjectID = "C7l-TV-Tz1"; */
+"C7l-TV-Tz1.normalTitle" = "Connection Help";
+
+/* Class = "UILabel"; text = "Button 1"; ObjectID = "EBu-KS-sfn"; */
+"EBu-KS-sfn.text" = "Button 1";
+
+/* Class = "UIViewController"; title = "Writing Style"; ObjectID = "FPM-bZ-AqB"; */
+"FPM-bZ-AqB.title" = "Writing Style";
+
+/* Class = "UILabel"; text = "Battery Level"; ObjectID = "GC4-Q4-JUp"; */
+"GC4-Q4-JUp.text" = "Battery Level";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "InX-u4-tUh"; */
+"InX-u4-tUh.text" = "Name";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Wiriting Style"; ObjectID = "JqN-hV-2G5"; */
+"JqN-hV-2G5.accessibilityLabel" = "Wiriting Style";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "KLe-J3-wVi"; */
+"KLe-J3-wVi.text" = "Detail";
+
+/* Class = "UITableViewController"; title = "Shortcut Buttons"; ObjectID = "Kai-kc-1UU"; */
+"Kai-kc-1UU.title" = "Shortcut Buttons";
+
+/* Class = "UIImageView"; accessibilityLabel = "Writing Style Left Vertical"; ObjectID = "MKp-oX-uK4"; */
+"MKp-oX-uK4.accessibilityLabel" = "Writing Style Left Vertical";
+
+/* Class = "UINavigationItem"; title = "Connected"; ObjectID = "PHR-Ks-24N"; */
+"PHR-Ks-24N.title" = "Connected";
+
+/* Class = "UILabel"; text = "Button 1"; ObjectID = "QIy-UN-u1S"; */
+"QIy-UN-u1S.text" = "Button 1";
+
+/* Class = "UIImageView"; accessibilityLabel = "Writing Style Left Horizontal"; ObjectID = "SGr-Na-o9V"; */
+"SGr-Na-o9V.accessibilityLabel" = "Writing Style Left Horizontal";
+
+/* Class = "UILabel"; text = "No Stylus Connected"; ObjectID = "TbP-T9-ktO"; */
+"TbP-T9-ktO.text" = "No Stylus Connected";
+
+/* Class = "UILabel"; text = "Writing Style"; ObjectID = "TjO-bk-5E8"; */
+"TjO-bk-5E8.text" = "Writing Style";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Vo3-OQ-PnU"; */
+"Vo3-OQ-PnU.text" = "Title";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Enable Diagnostics"; ObjectID = "Wj6-zU-rSU"; */
+"Wj6-zU-rSU.accessibilityLabel" = "Enable Diagnostics";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "XAd-uk-9MY"; */
+"XAd-uk-9MY.text" = "Detail";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Button A Shortcut"; ObjectID = "XAe-hx-guM"; */
+"XAe-hx-guM.accessibilityLabel" = "Button A Shortcut";
+
+/* Class = "UIImageView"; accessibilityLabel = "Writing Style Left Average"; ObjectID = "ZYE-4o-Fz6"; */
+"ZYE-4o-Fz6.accessibilityLabel" = "Writing Style Left Average";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Button B Shortcut"; ObjectID = "Zp5-Aa-Bwq"; */
+"Zp5-Aa-Bwq.accessibilityLabel" = "Button B Shortcut";
+
+/* Class = "UILabel"; text = "Hardware Version"; ObjectID = "aXg-h8-s3d"; */
+"aXg-h8-s3d.text" = "Hardware Version";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "ail-f3-jNP"; */
+"ail-f3-jNP.text" = "Detail";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "bmv-If-G5I"; */
+"bmv-If-G5I.text" = "Detail";
+
+/* Class = "UILabel"; text = "Button 2"; ObjectID = "cK5-HY-fb0"; */
+"cK5-HY-fb0.text" = "Button 2";
+
+/* Class = "UILabel"; text = "Disconnect"; ObjectID = "cMA-Gl-0DV"; */
+"cMA-Gl-0DV.text" = "Disconnect";
+
+/* Class = "UILabel"; text = "Button 2"; ObjectID = "d2W-hg-4VQ"; */
+"d2W-hg-4VQ.text" = "Button 2";
+
+/* Class = "UILabel"; text = "Hold Jot's Tip Here"; ObjectID = "dJc-NF-bFq"; */
+"dJc-NF-bFq.text" = "Hold Jot's Tip Here";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "f3m-mV-vdC"; */
+"f3m-mV-vdC.text" = "Detail";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Enable Diagnostics"; ObjectID = "fu0-QR-ifs"; */
+"fu0-QR-ifs.accessibilityLabel" = "Enable Diagnostics";
+
+/* Class = "UILabel"; text = "Help"; ObjectID = "hSb-KK-hXX"; */
+"hSb-KK-hXX.text" = "Help";
+
+/* Class = "UINavigationItem"; title = "Connect Adonit Stylus"; ObjectID = "j8C-dj-mle"; */
+"j8C-dj-mle.title" = "Connect Adonit Stylus";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "jKg-O0-tSS"; */
+"jKg-O0-tSS.text" = "Detail";
+
+/* Class = "UILabel"; text = "Button 4"; ObjectID = "l02-9s-nf8"; */
+"l02-9s-nf8.text" = "Button 4";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "l39-JS-wQB"; */
+"l39-JS-wQB.text" = "Detail";
+
+/* Class = "UILabel"; text = "Privacy Policy"; ObjectID = "l8e-fB-FM7"; */
+"l8e-fB-FM7.text" = "Privacy Policy";
+
+/* Class = "UITableViewController"; title = "Connected"; ObjectID = "mrx-Gs-5KW"; */
+"mrx-Gs-5KW.title" = "Connected";
+
+/* Class = "UIImageView"; accessibilityLabel = "Writing Style Right Horizontal"; ObjectID = "pqi-RP-xqb"; */
+"pqi-RP-xqb.accessibilityLabel" = "Writing Style Right Horizontal";
+
+/* Class = "UITableViewSection"; headerTitle = "Accuracy & Comfort"; ObjectID = "qHr-mD-j6R"; */
+"qHr-mD-j6R.headerTitle" = "Accuracy & Comfort";
+
+/* Class = "UITableViewSection"; headerTitle = "Usage Info"; ObjectID = "qxb-pq-NmX"; */
+"qxb-pq-NmX.headerTitle" = "Usage Info";
+
+/* Class = "UITableViewSection"; headerTitle = "Stylus & Shortcuts"; ObjectID = "rVk-bg-Wi2"; */
+"rVk-bg-Wi2.headerTitle" = "Stylus & Shortcuts";
+
+/* Class = "UILabel"; text = "SDK Version"; ObjectID = "ruG-Nc-GyB"; */
+"ruG-Nc-GyB.text" = "SDK Version";
+
+/* Class = "UIImageView"; accessibilityLabel = "Writing Style Right Average"; ObjectID = "sxd-7Z-vG5"; */
+"sxd-7Z-vG5.accessibilityLabel" = "Writing Style Right Average";
+
+/* Class = "UILabel"; text = "Button 3"; ObjectID = "uae-dQ-8ey"; */
+"uae-dQ-8ey.text" = "Button 3";
+
+/* Class = "UILabel"; text = "Model Name"; ObjectID = "vnc-Ux-QL2"; */
+"vnc-Ux-QL2.text" = "Model Name";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Button A Shortcut"; ObjectID = "xuw-xe-dWo"; */
+"xuw-xe-dWo.accessibilityLabel" = "Button A Shortcut";
+
+/* Class = "UITableViewCell"; accessibilityLabel = "Button B Shortcut"; ObjectID = "yHx-Ac-7bU"; */
+"yHx-Ac-7bU.accessibilityLabel" = "Button B Shortcut";
+
+/* Class = "UILabel"; text = "Serial Number"; ObjectID = "ydX-Rr-wos"; */
+"ydX-Rr-wos.text" = "Serial Number";

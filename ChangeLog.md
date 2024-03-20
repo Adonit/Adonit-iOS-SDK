@@ -1,4 +1,9 @@
 #Change Log for AdonitSDK (iOS)
+#v3.9.2
+
+**SDK**
+- Add privacy manifest.
+
 
 #v3.9
 
